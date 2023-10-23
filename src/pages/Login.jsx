@@ -5,9 +5,9 @@ const Login = () => {
         <>
             <div className='flex md:flex-row  justify-center items-center mx-auto h-screen bg-gray-200'>
                 {/* IMAGE */}
-                <div className=''>
+                <div className='md:m-0 -ml-96 '>
                     <img
-                        className='rounded-xl'
+                        className='rounded-xl md:opacity-100 opacity-0'
                         style={{height:'575px'}}
                         src={login} alt="login" />
                 </div>
