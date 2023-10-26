@@ -4,11 +4,18 @@ const CrearAlumno = () => {
     return (
         <>
             <div className='bg-sky-800  text-white'>
-                <div className="flex justify-center items-center bg-sky-900">
-                    <span className="material-symbols-outlined text-3xl mr-4">
-                        person_add
-                    </span>
+                <div className="flex justify-around items-center bg-sky-900">
+                    
                     <h1 className='md:text-3xl my-10 uppercase '>Crear un alumno nuevo</h1>
+
+                    <NavLink to="/tkdsystem/api/alumnos">
+                        
+                        <h1 className='flex items-center text-white md:text-2xl text-center m-10 bg-red-400 p-3 rounded-xl uppercase'>
+                        <span className="material-symbols-outlined mr-2">
+                            cancel
+                        </span>
+                            Cancelar</h1>
+                    </NavLink>
 
                 </div>
                 <div className='flex justify-center '>
@@ -103,15 +110,7 @@ const CrearAlumno = () => {
                             </select>
                         </div>
                         
-                        <button
-                            className='bg-red-400 w-full  py-3  text-white mb-5 uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-800 transition-colors'
-                        >
-                            <span className="material-symbols-outlined align-middle mr-2">
-                                save
-                            </span>
-                            Cancelar
-
-                        </button>
+                        
                         <button
                             className='bg-sky-700 w-full  py-3  text-white mb-5 uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-800 transition-colors'
                         >
