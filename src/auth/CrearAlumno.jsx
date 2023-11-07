@@ -1,25 +1,21 @@
 import { NavLink } from "react-router-dom";
+import Header from "../components/Header";
+import Barra from "../components/Barra";
 
 const CrearAlumno = () => {
     return (
-        <>
-            <div className='bg-sky-800  text-white'>
-                <div className="flex justify-around items-center bg-sky-900">
+        <>  
+            <Header/>
+            <div className="flex">
+            
+            <Barra/>
+            <div className=' overflow-y-auto h-screen bg-slate-200 md:w-4/5'>
+                <div className="flex justify-around items-center">
                     
-                    <h1 className='md:text-3xl my-10 uppercase '>Crear un alumno nuevo</h1>
-
-                    <NavLink to="/tkdsystem/api/alumnos">
-                        
-                        <h1 className='flex items-center text-white md:text-2xl text-center m-10 bg-red-400 p-3 rounded-xl uppercase'>
-                        <span className="material-symbols-outlined mr-2">
-                            cancel
-                        </span>
-                            Cancelar</h1>
-                    </NavLink>
-
+                    <h1 className='md:text-3xl mt-10  uppercase'>Crear un alumno nuevo</h1>
                 </div>
                 <div className='flex justify-center '>
-                    <form className='md:my-10 m-5 bg-slate-300 shadow rounded-lg p-10  md:grid  md:grid-cols-3 md:gap-x-8'>
+                    <form className='md:my-10 m-5  shadow rounded-lg p-10  md:grid  md:grid-cols-3 md:gap-x-8 '>
                         <div className='my-5'>
                             <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='cedulaAlumno'>Cedula</label>
                             <input
@@ -123,6 +119,7 @@ const CrearAlumno = () => {
                         
                     </form>
                 </div>
+            </div>
             </div>
         </>
     )

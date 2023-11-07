@@ -1,13 +1,10 @@
 import { useState } from 'react'
-import login from '../assets/login1.jpg'
 import Alerta from '../components/Alerta';
 import { Link } from 'react-router-dom';
 
-
-const Login = () => {
+const OlvidePassword = () => {
     
     const [correo, setCorreo] = useState('');
-    const [password, setPassword] = useState('')
     const [alerta, setAlerta] = useState({})
 
     const handleSubmit = async e => {
@@ -38,19 +35,11 @@ const Login = () => {
     return (
         <>
             <div className='flex md:flex-row  justify-center items-center mx-auto h-screen bg-gray-200'>
-                {/* IMAGE */}
-                <div className='md:m-0 -ml-96 '>
-                    <img
-                        className='rounded-xl md:opacity-100 opacity-0'
-                        style={{height:'575px'}}
-                        src={login} alt="login" />
-                </div>
-
-                {/* LOGIN  */}
+                
                 <div
-                    style={{height:'575px'}} 
+                    
                     className='rounded-xl bg-white'>
-                <h1 className='text-sky-600 font-black text-3xl uppercase px-10 mt-10'>Ingreso al sistema </h1>
+                <h1 className='text-sky-600 font-black text-3xl uppercase px-10 mt-10'>Recupera tu acceso al sistema </h1>
                 {msg && <Alerta alerta={alerta}/>}
                     <form 
                         onSubmit={handleSubmit}
@@ -59,27 +48,17 @@ const Login = () => {
                             <label className='uppercase text-gray-600 block text-xl font-bold' htmlFor='correo'>Email</label>
                             <input
                                 type='email'
-                                id='corre'
+                                id='correo'
                                 placeholder='Correo de Registro'
                                 className='w-full mt-3 p-3 border rounded-xl bg-gray-50'
                                 value={correo}
                                 onChange={e => setCorreo(e.target.value)}
                             />
                         </div>
-                        <div className='my-5'>
-                            <label className='uppercase text-gray-600 block text-xl font-bold' htmlFor='password'>Contraseña</label>
-                            <input
-                                type='password'
-                                id='password'
-                                placeholder='Password de Registro'
-                                className='w-full mt-3 p-3 border rounded-xl bg-gray-50'
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                            />
-                        </div>
+                       
                         <input
                             type='submit'
-                            value='Iniciar Sesión'
+                            value='Enviar Instrucciones'
                             className='bg-sky-700 w-full py-3 text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-800 transition-colors'
                         />
                         
@@ -87,15 +66,15 @@ const Login = () => {
                     <nav>
                         <Link 
                             className='block text-center text-slate-500 uppercase text-sm'
-                            to='olvide-password'
+                            to='/tkdsystem/'
                         >
-                        Olvide Mi Constraseña
+                        Ya tengo cuenta
                         </Link>
                     </nav>
                 </div>
             </div>
         </>
-    )
+  )
 }
 
-export default Login
+export default OlvidePassword
