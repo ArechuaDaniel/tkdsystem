@@ -8,6 +8,7 @@ import OlvidePassword from "./pages/OlvidePassword"
 import NuevoPassword from "./pages/NuevoPassword"
 import ConfirmarCuenta from "./pages/ConfirmarCuenta"
 import AuthLayout from "./layouts/AuthLayout"
+import RutaProtegida from "./layouts/RutaProtegida"
 
 // console.log(import.meta.env.VITE_BACKEND_URL);
 function App() {
@@ -24,11 +25,13 @@ function App() {
             <Route path='olvide-password/:token' element={<NuevoPassword />} />
             <Route path='confirmar/:id' element={<ConfirmarCuenta />} />
           </Route>
-          {/* ÁREA PRIVADA */}
 
-          {/* <Route path='tkdsystem/api' element={<Side />} />
-          <Route path='tkdsystem/api/alumnos' element={<MostrarAlumnos />} />
-          <Route path='tkdsystem/api/crearAlumno' element={<CrearAlumno />} /> */}
+          {/* ÁREA PRIVADA */}
+          <Route path="tkdsystem/api/" element={<RutaProtegida/>}>
+            <Route index element={<Side />} />
+            <Route path='alumnos' element={<MostrarAlumnos />} />
+            <Route path='crearAlumno' element={<CrearAlumno />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
