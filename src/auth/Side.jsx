@@ -7,13 +7,17 @@ import asistencia from '../assets/asistencia.jpg';
 import categorias from '../assets/categorias.jpg';
 import Header from "../components/Header";
 import Barra from "../components/Barra";
+import MostrarAlumnos from "./MostrarAlumnos";
 const Side = () => {
     //const sliderCarrousel = require.context('../assets', true);
     return (
         <>
             
-                <Header/>
-                <Barra/>
+            <Header />
+            <div className="flex">
+
+                <Barra />
+                </div>
                 
         </>
     )

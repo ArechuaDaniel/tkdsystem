@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import Alerta from '../components/Alerta';
 import clienteAxios from '../config/clienteAxios';
+import { Link, Navigate } from 'react-router-dom';
 
 
 const Registrar = () => {
@@ -19,6 +20,8 @@ const Registrar = () => {
     const [repetirPassword, setRepetirPassword] = useState('')
     const [idClub, setIdClub] = useState('')
     const [alerta, setAlerta] = useState({})
+
+    //const navigate = Navigate();
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -54,6 +57,7 @@ const Registrar = () => {
             msg: data.msg,
             error: false
           })
+          //navigate('/tkdsystem/')
             // setUsuario('')
             // setPassword('')
         } catch (error) {
@@ -70,13 +74,14 @@ const Registrar = () => {
     return (
         <>
 
-            <div className='rounded-xl bg-gray-200'>
+            <div className='rounded-xl bg-white shadow-2xl'>
                 <h1 className='text-sky-600 font-black text-3xl uppercase px-10 mt-10'>Registrate al sistema </h1>
 
                 {msg && <Alerta alerta={alerta} />}
                 <form
                     onSubmit={handleSubmit}
-                    className='bg-gray-200 shadow rounded-lg p-10 md:grid md:grid-cols-3 md:gap-x-7'>
+                    className=' shadow rounded-lg md:p-2 p-10 '>
+                    <div className='md:grid md:grid-cols-3 md:gap-x-7'>
                     <div className='my-5'>
                         <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='cedulaInstructor'>Cédula*</label>
                         <input
@@ -208,13 +213,23 @@ const Registrar = () => {
                             onChange={e => setRepetirPassword(e.target.value)}
                         />
                     </div>
+                    
+                
                     <input
                         type='submit'
                         value='Crear Cuenta'
-                        className='bg-sky-700 w-full py-3 text-white mb-5 uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-800 transition-colors'
-                    />
-                   
+                        className='bg-sky-700 w-full  p-3 text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-800 grid col-span-1 col-end-4'
+                        />
+                        </div>
                 </form>
+                <nav className='mb-5'>
+                        <Link
+                            className='block text-center text-sky-700 uppercase text-sm'
+                            to='/tkdsystem/'
+                        >
+                            Ya tengo cuenta
+                        </Link>
+                    </nav>
             </div>
 
         </>

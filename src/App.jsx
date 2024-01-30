@@ -9,6 +9,10 @@ import NuevoPassword from "./pages/NuevoPassword"
 import ConfirmarCuenta from "./pages/ConfirmarCuenta"
 import AuthLayout from "./layouts/AuthLayout"
 import RutaProtegida from "./layouts/RutaProtegida"
+import Horario from "./auth/Horario"
+import Asistencia from "./auth/Asistencia"
+import NuevoHorario from "./auth/NuevoHorario"
+import RegistrarAsistencia from "./auth/RegistrarAsistencia"
 
 // console.log(import.meta.env.VITE_BACKEND_URL);
 function App() {
@@ -30,7 +34,11 @@ function App() {
           <Route path="tkdsystem/api/" element={<RutaProtegida/>}>
             <Route index element={<Side />} />
             <Route path='alumnos' element={<MostrarAlumnos />} />
-            <Route path='crearAlumno' element={<CrearAlumno />} />
+            <Route path='crear-alumno' element={<CrearAlumno />} />
+            <Route path='horarios' element={<Horario />} />
+            <Route path='nuevo-horario' element={<NuevoHorario />} />
+            <Route path='asistencia' element={<Asistencia />} />
+            <Route path='registrar-asistencia' element={<RegistrarAsistencia />} />
           </Route>
         </Routes>
       </BrowserRouter>

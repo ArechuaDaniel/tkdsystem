@@ -37,11 +37,11 @@ const OlvidePassword = () => {
     const { msg } = alerta;
     return (
         <>
-            <div className='flex md:flex-row  justify-center items-center mx-auto  bg-gray-200 md:h-screen h-full'>
+            <div className='flex md:flex-row  justify-center items-center mx-auto  md:h-screen h-full'>
 
                 <div
 
-                    className='rounded-xl bg-white'>
+                    className='rounded-xl bg-white shadow-2xl'>
                     <h1 className='text-sky-600 font-black text-3xl uppercase px-10 mt-10'>Recupera tu acceso al sistema </h1>
                     {msg && <Alerta alerta={alerta} />}
 
