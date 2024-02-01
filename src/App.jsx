@@ -13,6 +13,7 @@ import Horario from "./auth/Horario"
 import Asistencia from "./auth/Asistencia"
 import NuevoHorario from "./auth/NuevoHorario"
 import RegistrarAsistencia from "./auth/RegistrarAsistencia"
+import EditarAlumno from "./auth/EditarAlumno"
 
 // console.log(import.meta.env.VITE_BACKEND_URL);
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route index element={<Side />} />
             <Route path='alumnos' element={<MostrarAlumnos />} />
             <Route path='crear-alumno' element={<CrearAlumno />} />
+            <Route path='editar-alumno/:cedulaAlumno' element={<EditarAlumno />} />
             <Route path='horarios' element={<Horario />} />
             <Route path='nuevo-horario' element={<NuevoHorario />} />
             <Route path='asistencia' element={<Asistencia />} />

@@ -126,7 +126,7 @@ const Login = () => {
                     </form>
                     <nav>
                         <Link
-                            className='block text-center text-slate-500 uppercase text-sm'
+                            className='block text-center text-slate-500 uppercase text-sm mb-2'
                             to='olvide-password'
                         >
                             Olvide Mi Constraseña

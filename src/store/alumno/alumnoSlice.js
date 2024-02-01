@@ -5,6 +5,7 @@ export const alumnoSlice = createSlice({
     initialState: {
             isSaving : false,
             alumnos: [],
+            newAlumno: [],
             // cedulaAlumno : null,
             // primerApellido: null,
             // segundoApellido : null,
@@ -24,7 +25,6 @@ export const alumnoSlice = createSlice({
             // state.cedulaAlumno= payload.cedulaAlumno;
             // state.primerApellido= payload.primerApellido;
             // state.primerNombre= payload.primerNombre;
-
             // state.cedulaAlumno= payload.cedulaAlumno;
             // state.primerApellido= payload.primerApellido;
             // state.segundoApellido = payload.segundoApellido;
@@ -36,7 +36,10 @@ export const alumnoSlice = createSlice({
             // state.telefono= payload.telefono;
             // state.ocupacion= payload.ocupacion;
         },
+        addAlumno: (state, {payload}) => {
+            state.alumnos.push(payload)
+        }
     }
 });
 // Action creators are generated for each case reducer function
-export const { setAlumnos } = alumnoSlice.actions;
+export const { setAlumnos, addAlumno } = alumnoSlice.actions;

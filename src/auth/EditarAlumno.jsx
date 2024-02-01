@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Barra from "../components/Barra";
 
@@ -9,7 +9,7 @@ import { useState } from "react";
 import { addAlumno } from "../store/alumno/alumnoSlice";
 import axios from "axios";
 
-const CrearAlumno = () => {
+const EditarAlumno = () => {
 
     const [cedulaAlumno, setCedulaAlumno] = useState('')
     const [primerApellido, setPrimerApellido] = useState('')
@@ -24,22 +24,11 @@ const CrearAlumno = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    // const [crearAlumno, setCrearAlumno] = useState({
-    //             cedulaAlumno: '',
-    //             primerApellido: '',
-    //             segundoApellido: '',
-    //             primerNombre: '',
-    //             segundoNombre: '',
-    //             fechaNacimiento: '',
-    //             direccion: '',
-    //             fechaIngreso:'',
-    //             telefono: '',
-    //             ocupacion: '',
-    // })
+    
     const alumno = useSelector(state => state.alumno)
+    const params = useParams()
 
-    //console.log(cedulaAlumno);
-    //console.log(alumno);
+    console.log(params.cedulaAlumno);
 
     const regresarAlumno = (e) => {
         e.preventDefault()
@@ -52,31 +41,31 @@ const CrearAlumno = () => {
             confirmButtonText: "Regresar",
             cancelButtonColor: "#d33",
             cancelButtonText: "Cancelar!",
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire({
-                title: "Ha regresado a Alumnos!",
-                //text: "Your file has been deleted.",
-                icon: "success"
-              });
+                Swal.fire({
+                    title: "Ha regresado a Alumnos!",
+                    //text: "Your file has been deleted.",
+                    icon: "success"
+                });
 
-              navigate('/tkdsystem/api/alumnos')
+                navigate('/tkdsystem/api/alumnos')
             }
-          });
-        
+        });
+
     }
 
-    const handleSubmit =async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if ([cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono, ocupacion].includes('')){ 
-        // if ([crearAlumno.cedulaAlumno,crearAlumno.primerApellido,crearAlumno.segundoApellido,crearAlumno.primerNombre,crearAlumno.segundoNombre,crearAlumno.fechaNacimiento,crearAlumno.direccion,crearAlumno.fechaIngreso,crearAlumno.telefono, crearAlumno.ocupacion].includes('')) {
+        if ([cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion].includes('')) {
+            // if ([crearAlumno.cedulaAlumno,crearAlumno.primerApellido,crearAlumno.segundoApellido,crearAlumno.primerNombre,crearAlumno.segundoNombre,crearAlumno.fechaNacimiento,crearAlumno.direccion,crearAlumno.fechaIngreso,crearAlumno.telefono, crearAlumno.ocupacion].includes('')) {
             Swal.fire({
                 title: "Todos los campos son obligatorios",
                 //text: "That thing is still around?",
                 icon: "warning"
-              });
-        }   
-        dispatch(addAlumno({id:cedulaAlumno,cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono,ocupacion}))
+            });
+        }
+        dispatch(addAlumno({ id: cedulaAlumno, cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion }))
         const token = localStorage.getItem('token')
         if (!token) {
             return
@@ -90,7 +79,7 @@ const CrearAlumno = () => {
         try {
 
 
-            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos`, {cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono,ocupacion}, config)
+            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos`, { cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion }, config)
             dispatch(startNewAlumno())
             Swal.fire({
                 position: "top-end",
@@ -98,12 +87,12 @@ const CrearAlumno = () => {
                 title: "El alumno se ha registrado con exito",
                 showConfirmButton: false,
                 timer: 1500
-              });
-              navigate('/tkdsystem/api/alumnos')  
+            });
+            navigate('/tkdsystem/api/alumnos')
 
-    } catch (error) {
-        console.log(error);
-    }
+        } catch (error) {
+            console.log(error);
+        }
     }
     return (
         <>
@@ -114,14 +103,14 @@ const CrearAlumno = () => {
                 <div className=' md:overflow-y-auto h-screen  md:w-4/5'>
                     <div className="flex justify-around items-center">
 
-                        <h1 className='md:text-3xl text-2xl mt-10  uppercase'>Registrar un alumno nuevo</h1>
+                        <h1 className='md:text-3xl text-2xl mt-10  uppercase'>Editar Alumno</h1>
                     </div>
 
                     {/* FORMULARIO */}
                     <div className='flex justify-center '>
-                        <form 
-                        onSubmit={handleSubmit}
-                        className='md:my-5 m-5  shadow-2xl rounded-lg p-10   '>
+                        <form
+                            onSubmit={handleSubmit}
+                            className='md:my-5 m-5  shadow-2xl rounded-lg p-10   '>
                             <div className="md:grid  md:grid-cols-3 md:gap-x-8">
                                 <div className='my-5'>
                                     <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='cedulaAlumno'>Cedula</label>
@@ -226,7 +215,7 @@ const CrearAlumno = () => {
                                         value={ocupacion}
                                         onChange={(e) => setOcupacion(e.target.value)}
                                     >
-                                    
+
                                         <option value="audi" >--Seleccione--</option>
                                         <option value="Estudiante">Estudiante</option>
                                         <option value="Trabaja">Trabaja</option>
@@ -238,7 +227,7 @@ const CrearAlumno = () => {
                             </div>
 
                             <div className="flex md:flex-row flex-col-reverse  justify-end">
-                            <button
+                                <button
                                     className='bg-red-400 md:w-1/4  text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-red-500 transition-colors p-3 md:mr-10 md:mt-0 mt-6'
                                     onClick={regresarAlumno}
                                 >
@@ -267,4 +256,5 @@ const CrearAlumno = () => {
     )
 }
 
-export default CrearAlumno
+
+export default EditarAlumno

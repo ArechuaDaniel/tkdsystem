@@ -3,14 +3,15 @@ import Barra from "../components/Barra";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startLoadingAlumnos } from "../store/alumno/thunk";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import EditarAlumno from "./EditarAlumno";
 
 
 const MostrarAlumnos = () => {
 
     
     const alumno = useSelector(state => state.alumno);
-    
+    console.log(alumno.alumnos);
     return (
         <>
             <Header />
@@ -67,8 +68,8 @@ const MostrarAlumnos = () => {
                                 <tr>
                                     <th className=' w-48 text-left p-3'>Nº IDENTIFICACION</th>
                                     <th className=' w-48 text-left p-3' >ALUMNO</th>
-                                    <th className=' w-48 text-left p-3'>ESTADO</th>
-                                    <th className=' w-48 text-left p-3'>ACCIÓN</th>
+                                    <th className=' w-32 text-left p-3'>ESTADO</th>
+                                    <th className=' w-32 text-left p-3'>ACCIÓN</th>
 
                                 </tr>
                             </thead>
@@ -76,10 +77,13 @@ const MostrarAlumnos = () => {
                                 {
                                     alumno.alumnos.map(alm => (
                                         <tr key={alm.cedulaAlumno} className="bg-gray-200 rounded-xl text-black p-2 m-2">
-                                            <td className=' w-48 text-left p-3'>{alm.cedulaAlumno} </td>
-                                            <td className=' w-48 text-left p-3'>{alm.primerNombre + ' ' + alm.primerApellido}</td>
-                                            <td className=' w-48 text-left p-3'>ACTIVO</td>
-                                            <td className=' w-48 text-left p-3'>EDITAR</td>
+                                            <td className=' text-left p-3'>{alm.cedulaAlumno} </td>
+                                            <td className=' text-left p-3 uppercase'>{alm.primerApellido + ' ' + alm.primerNombre}</td>
+                                            <td className='  text-left p-3'>ACTIVO</td>
+                                            <td className='  text-center p-3'><Link to={`/tkdsystem/api/editar-alumno/:${alumno.alumnos.cedulaAlumno}`}
+                                            className="bg-sky-600 p-3 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-center"><span className="material-symbols-outlined align-middle mr-2">
+                                            edit
+                                            </span></Link></td>
                                         </tr>
                                     ))
                                 }
