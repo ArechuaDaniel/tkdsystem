@@ -5,7 +5,7 @@ import Spinner from "../components/Spinner"
 import { useEffect} from "react"
 import { startLogin } from "../store/auth/thunks"
 import axios from "axios"
-import { startLoadingAlumnos } from "../store/alumno/thunk"
+import { startLoadingAlumnos} from "../store/alumno/thunk"
 
 
 const RutaProtegida = () => {
@@ -30,7 +30,10 @@ const RutaProtegida = () => {
         //console.log(data);
 
         //dispatch(auth.status)
+        
+        
         dispatch(startLoadingAlumnos())
+        //dispatch(startLoadingHorarios())
 
 
       } catch (error) {

@@ -5,6 +5,8 @@ export const alumnoSlice = createSlice({
     initialState: {
             isSaving : false,
             alumnos: [],
+            horarios: [],
+            editAlumno:[],
             newAlumno: [],
             // cedulaAlumno : null,
             // primerApellido: null,
@@ -38,8 +40,15 @@ export const alumnoSlice = createSlice({
         },
         addAlumno: (state, {payload}) => {
             state.alumnos.push(payload)
-        }
+        },
+        updateAlumno: (state, {payload}) => {
+            state.editAlumno.push(payload)
+        },
+        setHorarios: (state, action) => {
+            
+            state.horarios = action.payload
+        },
     }
 });
 // Action creators are generated for each case reducer function
-export const { setAlumnos, addAlumno } = alumnoSlice.actions;
+export const { setAlumnos, addAlumno,setHorarios,updateAlumno } = alumnoSlice.actions;

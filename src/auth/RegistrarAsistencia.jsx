@@ -76,24 +76,25 @@ const RegistrarAsistencia = () => {
                                 </select>
                             </div>
 
-                            <div className="flex md:flex-row flex-col-reverse  justify-end">
+                            <div className="flex md:flex-row-reverse flex-col  justify-evenly">
+                                
                                 <button
-                                    className='bg-red-400   text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-red-500 transition-colors p-3 md:mr-10 md:mt-0 mt-6'
+                                    className='bg-sky-600  text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-700 transition-colors p-3 '
+                                >
+                                    <span className="material-symbols-outlined align-middle mr-2">
+                                        save
+                                    </span>
+                                    Guardar
+
+                                </button>
+                                <button
+                                    className='bg-red-400   text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-red-500 transition-colors p-3  md:mt-0 mt-6'
                                     onClick={regresar}
                                 >
                                     <span className="material-symbols-outlined align-middle mr-2">
                                         cancel
                                     </span>
                                     Regresar
-
-                                </button>
-                                <button
-                                    className='bg-sky-600  text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-700 transition-colors p-3'
-                                >
-                                    <span className="material-symbols-outlined align-middle mr-2">
-                                        save
-                                    </span>
-                                    Guardar
 
                                 </button>
                             </div>

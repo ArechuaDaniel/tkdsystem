@@ -1,5 +1,5 @@
 import axios from "axios";
-import { addAlumno, setAlumnos } from "./alumnoSlice";
+import { addAlumno, setAlumnos, updateAlumno } from "./alumnoSlice";
 import { useSelector } from "react-redux";
 
 export const startNewAlumno = () => {
@@ -77,6 +77,45 @@ export const startLoadingAlumnos = () => {
 
             })
             dispatch(setAlumnos(alumnos))
+            //console.log(alumnos);
+            //return alumnos;
+
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+
+export const startUpdateAlumno = () => {
+
+    return async (dispatch, getState) => {
+
+        
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+
+        try {
+            const { cedulaAlumno } = getState().alumno;
+            const { data } = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos`,cedulaAlumno, config)
+            console.log(data);
+            console.log(cedulaAlumno);
+            const editAlumno = [];
+            data.forEach(dato => {
+                editAlumno.push({ id: dato.cedulaAlumno, ...dato });
+
+            })
+            dispatch(updateAlumno(editAlumno))
             //console.log(alumnos);
             //return alumnos;
 

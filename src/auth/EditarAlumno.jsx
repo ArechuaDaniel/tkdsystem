@@ -4,10 +4,11 @@ import Barra from "../components/Barra";
 
 import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from "react-redux";
-import { startNewAlumno } from "../store/alumno/thunk";
+import { startNewAlumno, startUpdateAlumno } from "../store/alumno/thunk";
 import { useState } from "react";
 import { addAlumno } from "../store/alumno/alumnoSlice";
 import axios from "axios";
+import { useEffect } from "react";
 
 const EditarAlumno = () => {
 
@@ -21,14 +22,29 @@ const EditarAlumno = () => {
     const [fechaIngreso, setFechaIngreso] = useState('')
     const [telefono, setTelefono] = useState('')
     const [ocupacion, setOcupacion] = useState('')
+    const [estado, setEstado] = useState('')
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     
-    const alumno = useSelector(state => state.alumno)
+    const {alumnos} = useSelector(state => state.alumno);
     const params = useParams()
-
     console.log(params.cedulaAlumno);
+
+    console.log(alumnos.primerApellido);
+    
+    //console.log(alumnos[0].cedulaAlumno);
+
+    //console.log(params);
+
+    dispatch(startUpdateAlumno(params.cedulaAlumno))
+
+    useEffect(() => {
+      if (params.cedulaAlumno) {
+        setPrimerApellido(primerApellido)
+      }
+    }, [params ])
+    
 
     const regresarAlumno = (e) => {
         e.preventDefault()
@@ -57,7 +73,7 @@ const EditarAlumno = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if ([cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion].includes('')) {
+        if ([cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion, estado].includes('')) {
             // if ([crearAlumno.cedulaAlumno,crearAlumno.primerApellido,crearAlumno.segundoApellido,crearAlumno.primerNombre,crearAlumno.segundoNombre,crearAlumno.fechaNacimiento,crearAlumno.direccion,crearAlumno.fechaIngreso,crearAlumno.telefono, crearAlumno.ocupacion].includes('')) {
             Swal.fire({
                 title: "Todos los campos son obligatorios",
@@ -65,7 +81,7 @@ const EditarAlumno = () => {
                 icon: "warning"
             });
         }
-        dispatch(addAlumno({ id: cedulaAlumno, cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion }))
+        dispatch(addAlumno({ id: cedulaAlumno, cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion, estado }))
         const token = localStorage.getItem('token')
         if (!token) {
             return
@@ -79,12 +95,12 @@ const EditarAlumno = () => {
         try {
 
 
-            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos`, { cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion }, config)
+            const { data } = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos/${alumnos}`, { cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion }, config)
             dispatch(startNewAlumno())
             Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "El alumno se ha registrado con exito",
+                title: "El alumno se ha actualizado con exito",
                 showConfirmButton: false,
                 timer: 1500
             });
@@ -220,6 +236,19 @@ const EditarAlumno = () => {
                                         <option value="Estudiante">Estudiante</option>
                                         <option value="Trabaja">Trabaja</option>
                                         <option value="Otros">Otros</option>
+
+                                    </select>
+                                </div>
+                                <div className='my-5'>
+                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='estado'>Estado</label>
+                                    <select id="estado" className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black '
+                                        value={estado}
+                                        onChange={(e) => setEstado(e.target.value)}
+                                    >
+                                    
+                                        <option value="est" >--Seleccione--</option>
+                                        <option value="Activo">Activo</option>
+                                        <option value="Inactivo">Inactivo</option>
 
                                     </select>
                                 </div>

@@ -63,7 +63,7 @@ const Barra = () => {
 
 
 
-            <div className={`md:w-1/5 h-screen md:bg-gray-200 overflow-y-auto rounded-r-2xl shadow-2xl`}>
+            <div className={`md:w-1/5 h-screen md:bg-gray-200 md:overflow-y-auto rounded-r-2xl shadow-2xl`}>
                 <div className=" text-4xl text-white absolute top-6 right-10 cursor-pointer md:hidden"
                     onClick={() => setOpen(!open)}
                 >
@@ -72,7 +72,7 @@ const Barra = () => {
                 </div>
 
 
-                <ul className={`md:w-96 bg-slate-300 transition-all duration-150 ease-in absolute md:static  ${open ? "top-300" : "top-[-9090px]"}`}>
+                <ul className={`md:w-96 bg-gray-200 transition-all duration-150 ease-in absolute md:static  ${open ? "top-300" : "top-[-9090px]"}`}>
                     {
                         Links.map((Link) => (
                             <NavLink key={Link.name}

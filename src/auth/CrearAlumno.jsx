@@ -21,6 +21,7 @@ const CrearAlumno = () => {
     const [fechaIngreso, setFechaIngreso] = useState('')
     const [telefono, setTelefono] = useState('')
     const [ocupacion, setOcupacion] = useState('')
+    const [estado, setEstado] = useState('')
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const CrearAlumno = () => {
     //             ocupacion: '',
     // })
     const alumno = useSelector(state => state.alumno)
-
+    //console.log(alumno.cedulaAlumno);
     //console.log(cedulaAlumno);
     //console.log(alumno);
 
@@ -68,7 +69,7 @@ const CrearAlumno = () => {
 
     const handleSubmit =async (e) => {
         e.preventDefault();
-        if ([cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono, ocupacion].includes('')){ 
+        if ([cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono, ocupacion,estado].includes('')){ 
         // if ([crearAlumno.cedulaAlumno,crearAlumno.primerApellido,crearAlumno.segundoApellido,crearAlumno.primerNombre,crearAlumno.segundoNombre,crearAlumno.fechaNacimiento,crearAlumno.direccion,crearAlumno.fechaIngreso,crearAlumno.telefono, crearAlumno.ocupacion].includes('')) {
             Swal.fire({
                 title: "Todos los campos son obligatorios",
@@ -76,7 +77,7 @@ const CrearAlumno = () => {
                 icon: "warning"
               });
         }   
-        dispatch(addAlumno({id:cedulaAlumno,cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono,ocupacion}))
+        dispatch(addAlumno({id:cedulaAlumno,cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono,ocupacion,estado}))
         const token = localStorage.getItem('token')
         if (!token) {
             return
@@ -90,8 +91,9 @@ const CrearAlumno = () => {
         try {
 
 
-            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos`, {cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono,ocupacion}, config)
+            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos`, {cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono,ocupacion,estado}, config)
             dispatch(startNewAlumno())
+            console.log(data);
             Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -111,7 +113,7 @@ const CrearAlumno = () => {
             <div className="flex">
 
                 <Barra />
-                <div className=' md:overflow-y-auto h-screen  md:w-4/5'>
+                <div className=' md:overflow-y-auto h-screen  md:w-4/5 w-full'>
                     <div className="flex justify-around items-center">
 
                         <h1 className='md:text-3xl text-2xl mt-10  uppercase'>Registrar un alumno nuevo</h1>
@@ -121,7 +123,7 @@ const CrearAlumno = () => {
                     <div className='flex justify-center '>
                         <form 
                         onSubmit={handleSubmit}
-                        className='md:my-5 m-5  shadow-2xl rounded-lg p-10   '>
+                        className='md:my-5 m-5  shadow-2xl rounded-lg p-10  uppercase '>
                             <div className="md:grid  md:grid-cols-3 md:gap-x-8">
                                 <div className='my-5'>
                                     <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='cedulaAlumno'>Cedula</label>
@@ -140,7 +142,7 @@ const CrearAlumno = () => {
                                         type='text'
                                         id='primerApellido'
                                         placeholder='Ingrese Apellido Paterno'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
+                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black uppercase'
                                         value={primerApellido}
                                         onChange={(e) => setPrimerApellido(e.target.value)}
                                     />
@@ -151,7 +153,7 @@ const CrearAlumno = () => {
                                         type='text'
                                         id='segundoApellido'
                                         placeholder='Ingrese Apellido Materno'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
+                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black uppercase'
                                         value={segundoApellido}
                                         onChange={(e) => setSegundoApellido(e.target.value)}
                                     />
@@ -162,7 +164,7 @@ const CrearAlumno = () => {
                                         type='text'
                                         id='primerNombre'
                                         placeholder='Ingrese Primer Nombre'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
+                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black uppercase'
                                         value={primerNombre}
                                         onChange={(e) => setPrimerNombre(e.target.value)}
                                     />
@@ -173,7 +175,7 @@ const CrearAlumno = () => {
                                         type='text'
                                         id='segundoNombre'
                                         placeholder='Ingrese Segundo Nombre'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
+                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black uppercase'
                                         value={segundoNombre}
                                         onChange={(e) => setSegundoNombre(e.target.value)}
                                     />
@@ -194,7 +196,7 @@ const CrearAlumno = () => {
                                         type='text'
                                         id='direccion'
                                         placeholder='Ingrese Dirección'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
+                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black uppercase'
                                         value={direccion}
                                         onChange={(e) => setDireccion(e.target.value)}
                                     />
@@ -227,18 +229,42 @@ const CrearAlumno = () => {
                                         onChange={(e) => setOcupacion(e.target.value)}
                                     >
                                     
-                                        <option value="audi" >--Seleccione--</option>
+                                        <option value="ocu" >--Seleccione--</option>
                                         <option value="Estudiante">Estudiante</option>
                                         <option value="Trabaja">Trabaja</option>
                                         <option value="Otros">Otros</option>
 
                                     </select>
                                 </div>
+                                <div className='my-5'>
+                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='estado'>Estado</label>
+                                    <select id="estado" className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black '
+                                        value={estado}
+                                        onChange={(e) => setEstado(e.target.value)}
+                                    >
+                                    
+                                        <option value="est" >--Seleccione--</option>
+                                        <option value="Activo">Activo</option>
+                                        <option value="Inactivo">Inactivo</option>
+
+                                    </select>
+                                </div>
 
                             </div>
 
-                            <div className="flex md:flex-row flex-col-reverse  justify-end">
-                            <button
+                            <div className="flex md:flex-row-reverse flex-col justify-start">
+                            
+                                <button
+                                    onClick={handleSubmit}
+                                    className='bg-sky-600 md:w-1/4  text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-700 transition-colors p-3'
+                                >
+                                    <span className="material-symbols-outlined align-middle mr-2">
+                                        save
+                                    </span>
+                                    Guardar Alumno
+
+                                </button>
+                                <button
                                     className='bg-red-400 md:w-1/4  text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-red-500 transition-colors p-3 md:mr-10 md:mt-0 mt-6'
                                     onClick={regresarAlumno}
                                 >
@@ -246,15 +272,6 @@ const CrearAlumno = () => {
                                         cancel
                                     </span>
                                     Regresar
-
-                                </button>
-                                <button
-                                    className='bg-sky-600 md:w-1/4  text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-700 transition-colors p-3'
-                                >
-                                    <span className="material-symbols-outlined align-middle mr-2">
-                                        save
-                                    </span>
-                                    Guardar Alumno
 
                                 </button>
                             </div>
