@@ -68,7 +68,7 @@ const Login = () => {
 
     return (
         <>
-            <div className='flex md:flex-row  justify-center items-center mx-auto  h-screen  shadow-2xl'>
+            <div className='flex md:flex-row  justify-center items-center mx-auto  h-screen  '>
                 {/* IMAGE */}
                 <div className='md:m-0 -ml-96 '>
                     <img

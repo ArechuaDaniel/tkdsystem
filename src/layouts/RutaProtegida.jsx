@@ -1,11 +1,10 @@
 import { Outlet, Navigate, useNavigate } from "react-router-dom"
 import Side from "../auth/Side"
 import { useDispatch, useSelector } from "react-redux"
-import Spinner from "../components/Spinner"
 import { useEffect} from "react"
 import { startLogin } from "../store/auth/thunks"
 import axios from "axios"
-import { startLoadingAlumnos} from "../store/alumno/thunk"
+import { startLoadingAlumnos, startLoadingAsistencias, startLoadingHorarios} from "../store/alumno/thunk"
 
 
 const RutaProtegida = () => {
@@ -32,8 +31,11 @@ const RutaProtegida = () => {
         //dispatch(auth.status)
         
         
-        dispatch(startLoadingAlumnos())
+        //dispatch(startLoadingAlumnos())
+       // dispatch(startLoadingHorarios())
+        
         //dispatch(startLoadingHorarios())
+        
 
 
       } catch (error) {

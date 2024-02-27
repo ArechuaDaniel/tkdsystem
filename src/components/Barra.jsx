@@ -6,14 +6,14 @@ import { logout } from '../store/auth/authSlice';
 import Swal from 'sweetalert2'
 const Barra = () => {
     const Links = [
-        { name: "Alumnos", link: "/tkdsystem/api/alumnos" },
+        { name: "Alumnos", link: "/tkdsystem/api/alumnos"},
         //{ name: "Registrar Alumnos", link: "/tkdsystem/api/crear-alumno" },
         { name: "Horarios", link: "/tkdsystem/api/horarios" },
-        { name: "Asistencia", link: "/tkdsystem/api/asistencia" },
+        { name: "Asistencia", link: "/tkdsystem/api/asistencias" },
         { name: "Categorías", link: "/tkdsystem/api/alumnos" },
         
         { name: "Campeonatos", link: "/tkdsystem/api/alumnos" },
-        { name: "Asensos", link: "/tkdsystem/api/alumnos" },
+        { name: "Asensos", link: "/tkdsystem/api/asenso" },
 
        
 
@@ -63,7 +63,7 @@ const Barra = () => {
 
 
 
-            <div className={`md:w-1/5 h-screen md:bg-gray-200 md:overflow-y-auto rounded-r-2xl shadow-2xl`}>
+            <div className={`md:w-1/5 h-screen md:bg-gray-200 md:overflow-y-auto | shadow-2xl`}>
                 <div className=" text-4xl text-white absolute top-6 right-10 cursor-pointer md:hidden"
                     onClick={() => setOpen(!open)}
                 >

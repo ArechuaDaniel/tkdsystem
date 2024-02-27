@@ -5,9 +5,10 @@ import Barra from "../components/Barra";
 import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from "react-redux";
 import { startNewAlumno } from "../store/alumno/thunk";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addAlumno } from "../store/alumno/alumnoSlice";
 import axios from "axios";
+import { formatearFecha } from "../helpers/formatearFecha";
 
 const CrearAlumno = () => {
 
@@ -25,6 +26,8 @@ const CrearAlumno = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const fechaActual = new Date()
     // const [crearAlumno, setCrearAlumno] = useState({
     //             cedulaAlumno: '',
     //             primerApellido: '',
@@ -41,6 +44,12 @@ const CrearAlumno = () => {
     //console.log(alumno.cedulaAlumno);
     //console.log(cedulaAlumno);
     //console.log(alumno);
+
+    useEffect(() => {
+      
+        setFechaIngreso(formatearFecha(fechaActual))
+    
+    }, [])
 
     const regresarAlumno = (e) => {
         e.preventDefault()
@@ -142,7 +151,7 @@ const CrearAlumno = () => {
                                         type='text'
                                         id='primerApellido'
                                         placeholder='Ingrese Apellido Paterno'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black uppercase'
+                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black capitalize'
                                         value={primerApellido}
                                         onChange={(e) => setPrimerApellido(e.target.value)}
                                     />
@@ -153,7 +162,7 @@ const CrearAlumno = () => {
                                         type='text'
                                         id='segundoApellido'
                                         placeholder='Ingrese Apellido Materno'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black uppercase'
+                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black capitalize'
                                         value={segundoApellido}
                                         onChange={(e) => setSegundoApellido(e.target.value)}
                                     />
@@ -164,7 +173,7 @@ const CrearAlumno = () => {
                                         type='text'
                                         id='primerNombre'
                                         placeholder='Ingrese Primer Nombre'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black uppercase'
+                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black capitalize'
                                         value={primerNombre}
                                         onChange={(e) => setPrimerNombre(e.target.value)}
                                     />
@@ -175,7 +184,7 @@ const CrearAlumno = () => {
                                         type='text'
                                         id='segundoNombre'
                                         placeholder='Ingrese Segundo Nombre'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black uppercase'
+                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black capitalize'
                                         value={segundoNombre}
                                         onChange={(e) => setSegundoNombre(e.target.value)}
                                     />
@@ -187,6 +196,8 @@ const CrearAlumno = () => {
                                         id='fechaNacimiento'
                                         className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
                                         value={fechaNacimiento}
+                                        min="1940-01-01"
+                                        max={formatearFecha(fechaActual)}
                                         onChange={(e) => setFechaNacimiento(e.target.value)}
                                     />
                                 </div>
@@ -196,7 +207,7 @@ const CrearAlumno = () => {
                                         type='text'
                                         id='direccion'
                                         placeholder='Ingrese Dirección'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black uppercase'
+                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black capitalize'
                                         value={direccion}
                                         onChange={(e) => setDireccion(e.target.value)}
                                     />
@@ -206,7 +217,9 @@ const CrearAlumno = () => {
                                     <input
                                         type='date'
                                         id='fechaIngreso'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
+                                        className='w-full mt-3 p-3 bordr rounded-xl bg-gray-50 text-black'
+                                        min="1940-01-01"
+                                        max={formatearFecha(fechaActual)}
                                         value={fechaIngreso}
                                         onChange={(e) => setFechaIngreso(e.target.value)}
                                     />

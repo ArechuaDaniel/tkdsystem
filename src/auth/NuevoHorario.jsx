@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../components/Header'
 import Barra from '../components/Barra'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { startNewHorario } from '../store/alumno/thunk'
 
 const NuevoHorario = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const {horarios} = useSelector(state => state.alumno);
 
+    const [hoarioInicio, setInicio] = useState('')
+    const [hoarioFin, setFin] = useState('')
+    const [idHorario, setIdHorario] = useState('')
 
     const regresarHorario = (e) => {
         e.preventDefault()
@@ -33,6 +40,32 @@ const NuevoHorario = () => {
           });
         
     }
+    const handleSubmit = async(e) => {
+        e.preventDefault()
+        try {
+        if ([hoarioInicio,hoarioFin].includes('')) {
+            Swal.fire({
+                title: "Todos los campos son obligatorios",
+                //text: "That thing is still around?",
+                icon: "warning"
+              });
+              return;
+        }
+        
+            dispatch(startNewHorario({idHorario,hoarioInicio,hoarioFin}))
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "El horario se ha registrado con exito",
+                showConfirmButton: false,
+                timer: 1500
+              });
+            navigate('/tkdsystem/api/horarios')  
+        } catch (error) {
+            console.log(error);
+        }
+        
+    }
     return (
         <>
             <Header />
@@ -49,12 +82,17 @@ const NuevoHorario = () => {
 
 
                         {/* FORMULARIO */}
-                        <form className='md:my-10 m-5  shadow-2xl rounded-lg p-10   '>
+                        <form 
+                            className='md:my-10 m-5  shadow-2xl rounded-lg p-10'
+                            onSubmit={handleSubmit}
+                        >
                                 <div className='my-5'>
                                     <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='horarioInicio'>INICIO DEL HORARIO</label>
                                     <input
                                         type='time'
                                         id='horarioInicio'
+                                        value={hoarioInicio}
+                                        onChange={e => setInicio(e.target.value)}
                                         className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
                                     />
                                 </div>
@@ -63,6 +101,8 @@ const NuevoHorario = () => {
                                     <input
                                         type='time'
                                         id='horarioFin'
+                                        value={hoarioFin}
+                                        onChange={e => setFin(e.target.value)}
                                         className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
                                     />
                                 </div>

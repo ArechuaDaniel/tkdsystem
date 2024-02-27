@@ -2,9 +2,51 @@ import Header from '../components/Header'
 import Barra from '../components/Barra'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+
+import { formatearFecha } from "../helpers/formatearFecha";
+import { startNewAsistencia } from '../store/alumno/thunk'
+import { useDispatch, useSelector } from 'react-redux'
 
 const RegistrarAsistencia = () => {
+    
+    const { alumnos,horarios } = useSelector(state => state.alumno);
+    const dispatch = useDispatch();
+    
+
+    const [fechaRegistro, setFechaRegistro] = useState('')
+    const [cedulaAlumno, setCedulaAlumno] = useState('')
+    const [idHorario, setIdHorario] = useState('')
+    const [search, setSearch] = useState("")
+    
     const navigate = useNavigate();
+    
+
+    const fecha = new Date()
+
+    useEffect(() => {
+      
+        setFechaRegistro(formatearFecha(fecha))
+        
+    
+    }, [])
+
+    
+    
+
+    const searcher = (e) => {
+        setSearch(e.target.value)
+    }
+
+    let results = []
+    if (!search) {
+        results = alumnos
+        //console.log(results); 
+    }
+    else {
+        results = alumnos.filter((dato) => dato.primerNombre.toLowerCase().includes(search.toLocaleLowerCase()) || dato.primerApellido.toLowerCase().includes(search.toLocaleLowerCase()) || dato.cedulaAlumno.toLowerCase().includes(search.toLocaleLowerCase()))
+    }
+    
 
 
     const regresar = (e) => {
@@ -26,11 +68,37 @@ const RegistrarAsistencia = () => {
                     icon: "success"
                 });
 
-                navigate('/tkdsystem/api/asistencia')
+                navigate('/tkdsystem/api/asistencias')
 
             }
         });
 
+    }
+    const handleSubmit = async(e) => {
+        e.preventDefault()
+        try {
+        if ([cedulaAlumno, fechaRegistro,idHorario].includes('')) {
+            Swal.fire({
+                title: "Todos los campos son obligatorios",
+                //text: "That thing is still around?",
+                icon: "warning"
+              });
+              return;
+        }
+        
+            dispatch(startNewAsistencia({cedulaAlumno, fechaRegistro, idHorario}))
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "La asistencia se ha registrado con exito",
+                showConfirmButton: false,
+                timer: 1500
+              });
+            navigate('/tkdsystem/api/asistencias')  
+        } catch (error) {
+            console.log(error);
+        }
+        
     }
     return (
         <>
@@ -38,22 +106,59 @@ const RegistrarAsistencia = () => {
             <div className="flex">
 
                 <Barra />
-                <div className='shadow-2xl mx-auto'>
+                <div className=' mx-auto md:overflow-y'>
                     <div className="flex justify-around items-center">
 
                         <h1 className='md:text-3xl text-2xl mt-10  uppercase'>Registro de asistencia</h1>
 
                     </div>
+                    
+                    {/* BUSCAR ALUMNOS */}
+                    <div className="flex flex-col shadow-md p-3">
+                        
+                        <div className="bg-gray-200 rounded-xl p-3  w-full flex ">
+                            <input className=" bg-gray-200  uppercase w-full "
+                                value={search}
+                                onChange={searcher}
+                                type="text"
+                                id="search"
+                                placeholder="Buscar"
+                            />    
+                            <span className="material-symbols-outlined align-middle">search</span>
+                        </div>
+                        <div className="p-3 ">
+                        <div className="bg-gray-100 rounded-lg shadow-2xl p-3 capitalize">
+                                <h3 className="font-bold">Alumno :
+                            {
+                                search ? 
+                                
+                                results.map( alumno => (
+                                    <div key={alumno.cedulaAlumno} className="bg-gray-200 rounded-xl  p-3 hover:bg-gray-400 font-normal ">
+                                        <span>{alumno.cedulaAlumno + ' ' + ' ' + alumno.primerApellido + ' ' + alumno.primerNombre }</span>
+                                    </div>
+                                ))
+                            
+                            : ' '
+                            }
+                            </h3>
+                            </div> 
+                        </div>
+                    </div>
                     <div className='flex justify-center '>
 
 
+
                         {/* FORMULARIO */}
-                        <form className='md:my-10 m-5  shadow-2xl rounded-lg p-10   '>
+                        <form className='md:my-10 m-5  shadow-2xl rounded-lg p-10'
+                            onSubmit={handleSubmit}
+                        >
                             <div className='my-5'>
                                 <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='cedulaAlumno'>cedula alumno</label>
                                 <input
                                     type='text'
                                     id='cedulaAlumno'
+                                    value={cedulaAlumno}
+                                    onChange={e => setCedulaAlumno(e.target.value)}
                                     className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
                                 />
                             </div>
@@ -63,16 +168,27 @@ const RegistrarAsistencia = () => {
                                     type='date'
                                     id='fechaRegistro'
                                     className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
+                                    value={formatearFecha(fechaRegistro)}
+                                    onChange={e => setFechaRegistro(e.target.value)}
                                 />
                             </div>
                             <div className='my-5'>
                                 <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='idHorario'>horario</label>
                                 <select 
                                 className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
-                                name="select">
-                                    <option value="value1">11:00 / 12:00</option>
-                                    <option value="value2" >12:00 / 13:00</option>
-                                    <option value="value3">13:00 / 14:00</option>
+                                name="idHorario"
+                                id='idHorario'
+                                
+                                onChange={e => setIdHorario(e.target.value)}
+                                >
+                                    <option value="id">--Seleccione--</option>
+                                    {
+                                   horarios.map( horario => (
+                                        <option value={horario.idHorario}>{horario.hoarioInicio +' / '+ horario.hoarioFin}</option>
+                                    ))
+                                    }
+                                
+                                    
                                 </select>
                             </div>
 

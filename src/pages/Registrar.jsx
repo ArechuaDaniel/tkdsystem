@@ -74,7 +74,7 @@ const Registrar = () => {
     return (
         <>
 
-            <div className='rounded-xl bg-white shadow-2xl'>
+            <div className='rounded-xl bg-white '>
                 <h1 className='text-sky-600 font-black text-3xl uppercase px-10 mt-10'>Registrate al sistema </h1>
 
                 {msg && <Alerta alerta={alerta} />}

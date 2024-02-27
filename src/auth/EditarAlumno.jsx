@@ -4,13 +4,15 @@ import Barra from "../components/Barra";
 
 import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from "react-redux";
-import { startNewAlumno, startUpdateAlumno } from "../store/alumno/thunk";
+import { startUpdateAlumno } from "../store/alumno/thunk";
 import { useState } from "react";
-import { addAlumno } from "../store/alumno/alumnoSlice";
 import axios from "axios";
 import { useEffect } from "react";
+import { formatearFecha } from "../helpers/formatearFecha";
+import { actualizarAlumno } from "../store/alumno/alumnoSlice";
 
 const EditarAlumno = () => {
+    const { editAlumno, alumnos} = useSelector(state => state.alumno);
 
     const [cedulaAlumno, setCedulaAlumno] = useState('')
     const [primerApellido, setPrimerApellido] = useState('')
@@ -24,27 +26,53 @@ const EditarAlumno = () => {
     const [ocupacion, setOcupacion] = useState('')
     const [estado, setEstado] = useState('')
 
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    
-    const {alumnos} = useSelector(state => state.alumno);
+
     const params = useParams()
-    console.log(params.cedulaAlumno);
 
-    console.log(alumnos.primerApellido);
+
+    const cedula = (params.cedulaAlumno)
+    const fechaActual = Date.now()
+
     
-    //console.log(alumnos[0].cedulaAlumno);
-
-    //console.log(params);
-
-    dispatch(startUpdateAlumno(params.cedulaAlumno))
-
+        
     useEffect(() => {
-      if (params.cedulaAlumno) {
-        setPrimerApellido(primerApellido)
-      }
-    }, [params ])
+            
+        dispatch(startUpdateAlumno({ cedula }))
+      
+    }, [])
+
     
+    
+    useEffect(() => {
+        // const updateAlumno = () => {
+        //     if (params.cedulaAlumno) {
+                //dispatch(startUpdateAlumno({ cedula }))
+                //console.log('Params',editAlumno.primerApellido)
+                //dispatch(startUpdateAlumno({ cedula }))
+                setCedulaAlumno(editAlumno.cedulaAlumno)
+                setPrimerApellido(editAlumno.primerApellido)
+                
+                setSegundoApellido(editAlumno.segundoApellido)
+                setPrimerNombre(editAlumno.primerNombre)
+                setSegundoNombre(editAlumno.segundoNombre)
+                setFechaNacimiento(formatearFecha(editAlumno.fechaNacimiento))
+                setDireccion(editAlumno.direccion)
+                setFechaIngreso(formatearFecha(editAlumno.fechaIngreso))
+                setTelefono(editAlumno.telefono)
+                setOcupacion(editAlumno.ocupacion)
+                setEstado(editAlumno.estado)
+            //}
+        
+        //  }
+        // updateAlumno()
+
+    }, [editAlumno])
+   
+    
+
 
     const regresarAlumno = (e) => {
         e.preventDefault()
@@ -81,7 +109,9 @@ const EditarAlumno = () => {
                 icon: "warning"
             });
         }
-        dispatch(addAlumno({ id: cedulaAlumno, cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion, estado }))
+        //dispatch(actualizarAlumno({ ...alumnos, id: params.cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion, estado }));
+        dispatch(actualizarAlumno({ ...alumnos, id: params.cedulaAlumno }));
+        //dispatch(addAlumno({ id: cedulaAlumno, cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion, estado }))
         const token = localStorage.getItem('token')
         if (!token) {
             return
@@ -95,8 +125,9 @@ const EditarAlumno = () => {
         try {
 
 
-            const { data } = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos/${alumnos}`, { cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion }, config)
-            dispatch(startNewAlumno())
+            const { data } = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos/${cedula}`, { cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion,estado }, config)
+            //console.log(data);
+            //dispatch(startNewAlumno())
             Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -118,7 +149,6 @@ const EditarAlumno = () => {
                 <Barra />
                 <div className=' md:overflow-y-auto h-screen  md:w-4/5'>
                     <div className="flex justify-around items-center">
-
                         <h1 className='md:text-3xl text-2xl mt-10  uppercase'>Editar Alumno</h1>
                     </div>
 
@@ -126,7 +156,8 @@ const EditarAlumno = () => {
                     <div className='flex justify-center '>
                         <form
                             onSubmit={handleSubmit}
-                            className='md:my-5 m-5  shadow-2xl rounded-lg p-10   '>
+                            className='md:my-5 m-5  shadow-2xl rounded-lg p-10'
+                        >
                             <div className="md:grid  md:grid-cols-3 md:gap-x-8">
                                 <div className='my-5'>
                                     <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='cedulaAlumno'>Cedula</label>
@@ -145,7 +176,7 @@ const EditarAlumno = () => {
                                         type='text'
                                         id='primerApellido'
                                         placeholder='Ingrese Apellido Paterno'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
+                                        className='w-full mt-3 p-3 capitalize border rounded-xl bg-gray-50 text-black'
                                         value={primerApellido}
                                         onChange={(e) => setPrimerApellido(e.target.value)}
                                     />
@@ -156,7 +187,7 @@ const EditarAlumno = () => {
                                         type='text'
                                         id='segundoApellido'
                                         placeholder='Ingrese Apellido Materno'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
+                                        className='w-full mt-3 p-3 capitalize border rounded-xl bg-gray-50 text-black'
                                         value={segundoApellido}
                                         onChange={(e) => setSegundoApellido(e.target.value)}
                                     />
@@ -167,7 +198,7 @@ const EditarAlumno = () => {
                                         type='text'
                                         id='primerNombre'
                                         placeholder='Ingrese Primer Nombre'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
+                                        className='w-full mt-3 p-3 capitalize border rounded-xl bg-gray-50 text-black'
                                         value={primerNombre}
                                         onChange={(e) => setPrimerNombre(e.target.value)}
                                     />
@@ -178,7 +209,7 @@ const EditarAlumno = () => {
                                         type='text'
                                         id='segundoNombre'
                                         placeholder='Ingrese Segundo Nombre'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
+                                        className='w-full mt-3 p-3 capitalize border rounded-xl bg-gray-50 text-black'
                                         value={segundoNombre}
                                         onChange={(e) => setSegundoNombre(e.target.value)}
                                     />
@@ -188,6 +219,8 @@ const EditarAlumno = () => {
                                     <input
                                         type='date'
                                         id='fechaNacimiento'
+                                        min="1940-01-01"
+                                        max={formatearFecha(fechaActual)}
                                         className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
                                         value={fechaNacimiento}
                                         onChange={(e) => setFechaNacimiento(e.target.value)}
@@ -199,23 +232,25 @@ const EditarAlumno = () => {
                                         type='text'
                                         id='direccion'
                                         placeholder='Ingrese Dirección'
-                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
+                                        className='w-full  mt-3 p-3 capitalize border rounded-xl bg-gray-50 text-black'
                                         value={direccion}
                                         onChange={(e) => setDireccion(e.target.value)}
                                     />
                                 </div>
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='fechaIngreso'>Fecha De Ingreso</label>
+                                    <label className=' text-gray-600  text-xl font-bold' htmlFor='fechaIngreso'>Fecha De Ingreso</label>
                                     <input
                                         type='date'
                                         id='fechaIngreso'
                                         className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
+                                        min="1940-01-01"
+                                        max={formatearFecha(fechaActual)}
                                         value={fechaIngreso}
                                         onChange={(e) => setFechaIngreso(e.target.value)}
                                     />
                                 </div>
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='telefono'>Celular</label>
+                                    <label className=' text-gray-600  text-xl font-bold' htmlFor='telefono'>Celular</label>
                                     <input
                                         type='text'
                                         id='telefono'
@@ -227,7 +262,7 @@ const EditarAlumno = () => {
                                 </div>
                                 <div className='my-5'>
                                     <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='ocupacion'>Ocupación</label>
-                                    <select id="ocupacion" className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black '
+                                    <select id="ocupacion" className='w-full mt-3 p-3 capitalize border rounded-xl bg-gray-50 text-black '
                                         value={ocupacion}
                                         onChange={(e) => setOcupacion(e.target.value)}
                                     >
@@ -241,11 +276,11 @@ const EditarAlumno = () => {
                                 </div>
                                 <div className='my-5'>
                                     <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='estado'>Estado</label>
-                                    <select id="estado" className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black '
+                                    <select id="estado" className='w-full  mt-3 p-3 capitalize border rounded-xl bg-gray-50 text-black '
                                         value={estado}
                                         onChange={(e) => setEstado(e.target.value)}
                                     >
-                                    
+
                                         <option value="est" >--Seleccione--</option>
                                         <option value="Activo">Activo</option>
                                         <option value="Inactivo">Inactivo</option>

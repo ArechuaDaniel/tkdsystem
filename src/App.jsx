@@ -14,6 +14,11 @@ import Asistencia from "./auth/Asistencia"
 import NuevoHorario from "./auth/NuevoHorario"
 import RegistrarAsistencia from "./auth/RegistrarAsistencia"
 import EditarAlumno from "./auth/EditarAlumno"
+import Asenso from "./auth/Asenso"
+import RegistrarAsenso from "./auth/RegistrarAsenso"
+import EditarHorario from "./auth/EditarHorario"
+import EditarAsistencia from "./auth/EditarAsistencia"
+import EditarAsenso from "./auth/EditarAsenso"
 
 // console.log(import.meta.env.VITE_BACKEND_URL);
 function App() {
@@ -39,8 +44,13 @@ function App() {
             <Route path='editar-alumno/:cedulaAlumno' element={<EditarAlumno />} />
             <Route path='horarios' element={<Horario />} />
             <Route path='nuevo-horario' element={<NuevoHorario />} />
-            <Route path='asistencia' element={<Asistencia />} />
+            <Route path='editar-horario/:id' element={<EditarHorario />} />
+            <Route path='asistencias' element={<Asistencia />} />
             <Route path='registrar-asistencia' element={<RegistrarAsistencia />} />
+            <Route path='editar-asistencia/:id' element={<EditarAsistencia />} />
+            <Route path='asenso' element={<Asenso />} />
+            <Route path='registrar-asenso' element={<RegistrarAsenso />} />
+            <Route path='editar-asenso/:id' element={<EditarAsenso />} />
           </Route>
         </Routes>
       </BrowserRouter>
