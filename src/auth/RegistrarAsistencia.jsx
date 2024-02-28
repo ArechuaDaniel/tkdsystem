@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 import { formatearFecha } from "../helpers/formatearFecha";
-import { startNewAsistencia } from '../store/alumno/thunk'
+import { startLoadingHorarios, startNewAsenso, startNewAsistencia } from '../store/alumno/thunk'
 import { useDispatch, useSelector } from 'react-redux'
 
 const RegistrarAsistencia = () => {
@@ -25,7 +25,7 @@ const RegistrarAsistencia = () => {
     const fecha = new Date()
 
     useEffect(() => {
-      
+        dispatch(startLoadingHorarios())
         setFechaRegistro(formatearFecha(fecha))
         
     

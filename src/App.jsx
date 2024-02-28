@@ -48,7 +48,7 @@ function App() {
             <Route path='asistencias' element={<Asistencia />} />
             <Route path='registrar-asistencia' element={<RegistrarAsistencia />} />
             <Route path='editar-asistencia/:id' element={<EditarAsistencia />} />
-            <Route path='asenso' element={<Asenso />} />
+            <Route path='asensos' element={<Asenso />} />
             <Route path='registrar-asenso' element={<RegistrarAsenso />} />
             <Route path='editar-asenso/:id' element={<EditarAsenso />} />
           </Route>

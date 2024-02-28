@@ -1,5 +1,5 @@
 import axios from "axios";
-import { actualizarAlumno, actualizarAsistencia, actualizarHorario, addAlumno, addAsistencia, addHorario, eliminarHorario, setAlumno, setAlumnos, setAsensos, setAsistencia, setHorario, setHorarios, setasistencias} from "./alumnoSlice";
+import { actualizarAlumno, actualizarAsistencia, actualizarHorario, addAlumno, addAsenso, addAsistencia, addHorario, eliminarHorario, setAlumno, setAlumnos, setAsenso, setAsensos, setAsistencia, setCinturones, setHorario, setHorarios, setasistencias} from "./alumnoSlice";
 import Swal from "sweetalert2";
 
 
@@ -480,6 +480,144 @@ export const startLoadingAsensos= () => {
 
             })
             dispatch(setAsensos(asensos))
+           
+
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+export const startNewAsenso= ({cedulaAlumno,fechaAsenso, idCinturon}) => {
+    return async (dispatch, getState) => {
+        
+ 
+        const token = localStorage.getItem('token')
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        
+        try {
+
+            
+            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/asensos`, {fechaAsenso,cedulaAlumno, idCinturon}, config)
+            
+            const idAsenso= data.id;
+            //console.log(data.id);
+            dispatch(addAsenso({id:data.id,cedulaAlumno, fechaAsenso, idCinturon}))
+            
+            //console.log(data);
+            
+            
+              
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+}
+export const startUpdateAsenso = ({idAsenso}) => {
+
+    return async (dispatch, getState) => {
+
+        
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+
+        try {
+
+
+            //const { cedulaAlumno } = getState().alumno;
+            //console.log(cedula);
+            const { data } = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/asensos/${idAsenso}`, config)
+            //console.log(data);
+            
+            const editAsenso = data;
+        
+            
+            dispatch(setAsenso(editAsenso))
+            //console.log(alumnos);
+            //return alumnos;
+
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+export const updateAsenso = ({idAsenso,fechaAsenso, idCinturon}) => {
+    return async (dispatch, getState) => {
+
+        const token = localStorage.getItem('token')
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        
+        try {
+            
+            const { data } = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/asensos/${idAsenso}`, {fechaAsenso, idCinturon}, config)
+            
+            console.log(data);
+            
+            
+            //dispatch(actualizarAsistencia({fechaRegistro, idHorario}))
+            
+            
+            //console.log(data);
+    } catch (error) {
+        console.log(error);
+    }
+}
+}
+
+export const startLoadingCinturones= () => {
+
+    return async (dispatch, getState) => {
+
+
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+
+        try {
+            const { data } = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/cinturones`, config)
+            //console.log(data);
+            // const { cedulaAlumno } = getState().auth;
+            const cinturones = [];
+            data.forEach(dato => {
+                cinturones.push({ id: dato.idCinturon, ...dato });
+
+            })
+            dispatch(setCinturones(cinturones))
            
 
 

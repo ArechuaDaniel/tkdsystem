@@ -49,9 +49,9 @@ const Asenso = () => {
                             to={'/tkdsystem/api/registrar-asenso'}>
     
                                 <button className='bg-sky-600 p-3 text-white rounded-xl font-bold flex justify-center items-center capitalize '>
-                                    <span className='text-3xl font-bold mr-2'>
-                                        <ion-icon name="add-circle-outline"></ion-icon>
-                                    </span>
+                                <span className="material-symbols-outlined mr-2">
+                                    add_circle
+                                </span>
                                     Registrar Asenso
                                 </button>
                             </NavLink>
@@ -104,7 +104,7 @@ const Asenso = () => {
                                             <td className=' text-left p-3 '>{asenso.cedulaAlumno} </td>
                                             <td className=' text-left p-3 capitalize'>{asenso.primerApellido + ' ' + asenso.primerNombre}</td>
                                             <td className='  text-left p-3 '>{formatearFecha(asenso.fechaAsenso)}</td>
-                                            <td className='  text-left p-3 capitalize'>{asenso.cinturon}</td>
+                                            <td className='  text-left p-3 capitalize'>{asenso.color}</td>
                                             <td className='  text-center p-3'><Link to={`/tkdsystem/api/editar-asenso/${asenso.idAsenso}`}
                                                 className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-center"><span className="material-symbols-outlined text-center align-middle ">
                                                     edit_square

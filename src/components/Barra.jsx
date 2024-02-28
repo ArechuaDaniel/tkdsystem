@@ -13,7 +13,7 @@ const Barra = () => {
         { name: "Categorías", link: "/tkdsystem/api/alumnos" },
         
         { name: "Campeonatos", link: "/tkdsystem/api/alumnos" },
-        { name: "Asensos", link: "/tkdsystem/api/asenso" },
+        { name: "Asensos", link: "/tkdsystem/api/asensos" },
 
        
 

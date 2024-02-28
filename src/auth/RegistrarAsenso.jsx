@@ -8,19 +8,25 @@ import { useEffect, useState } from 'react'
 
 import { formatearFecha } from "../helpers/formatearFecha";
 import { useDispatch, useSelector } from 'react-redux'
-import { startLoadingAlumnos } from '../store/alumno/thunk'
+import { startLoadingAlumnos, startLoadingCinturones, startNewAsenso } from '../store/alumno/thunk'
 
 const RegistrarAsenso = () => {
     
 
-    const { alumnos,asensos} = useSelector(state => state.alumno);
+    const { alumnos,cinturones} = useSelector(state => state.alumno);
     const dispatch = useDispatch();
 
       const navigate = useNavigate();
-      const [fechaRegistro, setFechaRegistro] = useState('')
+      const [fechaAsenso, setFechaAsenso] = useState('')
+      const [cedulaAlumno, setCedulaAlumno] = useState('')
+      const [idCinturon, setIdCinturon] = useState('')
       const [search, setSearch] = useState("")
   
-  
+    
+    console.log(cedulaAlumno);
+    console.log(fechaAsenso);
+    console.log(idCinturon);
+
       const fecha = new Date()
       const searcher = (e) => {
         setSearch(e.target.value)
@@ -37,11 +43,12 @@ const RegistrarAsenso = () => {
   
       useEffect(() => {
             dispatch(startLoadingAlumnos())
-          setFechaRegistro(formatearFecha(fecha))
+          setFechaAsenso(formatearFecha(fecha))
+          dispatch(startLoadingCinturones())
       
       }, [])
       
-  
+      console.log(cedulaAlumno);
   
       const regresar = (e) => {
           e.preventDefault()
@@ -62,12 +69,38 @@ const RegistrarAsenso = () => {
                       icon: "success"
                   });
   
-                  navigate('/tkdsystem/api/asenso')
+                  navigate('/tkdsystem/api/asensos')
   
               }
           });
   
       }
+      const handleSubmit = async(e) => {
+        e.preventDefault()
+        try {
+        if ([cedulaAlumno,fechaAsenso, idCinturon].includes('')) {
+            Swal.fire({
+                title: "Todos los campos son obligatorios",
+                //text: "That thing is still around?",
+                icon: "warning"
+              });
+              return;
+        }
+        
+            dispatch(startNewAsenso({cedulaAlumno,fechaAsenso, idCinturon}))
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "El asenso se ha registrado con exito",
+                showConfirmButton: false,
+                timer: 1500
+              });
+            navigate('/tkdsystem/api/asensos')  
+        } catch (error) {
+            console.log(error);
+        }
+        
+    }
       return (
           <>
               <Header />
@@ -116,41 +149,43 @@ const RegistrarAsenso = () => {
   
   
                           {/* FORMULARIO */}
-                          <form className='md:my-10 m-5  shadow-2xl rounded-lg p-10   '>
+                          <form className='md:my-10 m-5  shadow-2xl rounded-lg p-10'
+                            onSubmit={handleSubmit}
+                          >
                               <div className='my-5'>
                                   <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='cedulaAlumno'>cedula alumno</label>
                                   <input
                                       type='text'
                                       id='cedulaAlumno'
+                                      value={cedulaAlumno}
+                                      onChange={e => setCedulaAlumno(e.target.value)}
                                       className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
                                   />
                               </div>
                               <div className='my-5'>
-                                  <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='fechaRegistro'>Fecha de asenso</label>
+                                  <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='fechaAsenso'>Fecha de asenso</label>
                                   <input
                                       type='date'
-                                      id='fechaRegistro'
+                                      id='fechaAsenso'
                                       className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
-                                      value={fechaRegistro}
-                                      onChange={e => setFechaRegistro(e.target.value)}
+                                      value={fechaAsenso}
+                                      onChange={e => setFechaAsenso(e.target.value)}
                                   />
                               </div>
                               <div className='my-5'>
-                                  <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='cinturon'>Cinturón</label>
+                                  <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='idCinturon'>Cinturón</label>
                                   <select 
                                   className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
-                                  name="cinturon">
-                                      <option value="cinturon">--Seleccione--</option>
-                                      <option value="Blanco">Blanco</option>
-                                      <option value="Blanco-Amarillo">--Blanco-Amarillo--</option>
-                                      <option value="cinturon">--Seleccione--</option>
-                                      <option value="cinturon">--Seleccione--</option>
-                                      <option value="cinturon">--Seleccione--</option>
-                                      <option value="cinturon">--Seleccione--</option>
-                                      <option value="cinturon">--Seleccione--</option>
-                                      <option value="cinturon">--Seleccione--</option>
-                                      <option value="cinturon">--Seleccione--</option>
-                                      <option value="cinturon">--Seleccione--</option>
+                                  name="idCinturon"
+                                  onChange={e => setIdCinturon(e.target.value)}
+                                  
+                                  >
+                                      <option value="idCinturon">--Seleccione--</option>
+                                      {
+                                        cinturones.map(cinturon => (
+                                            <option value={cinturon.idCinturon}>{cinturon.color}</option>
+                                        ))
+                                      }
 
                                   </select>
                               </div>

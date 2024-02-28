@@ -122,10 +122,10 @@ const EditarAsistencia = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='cedulaAlumno'>Alumno</label>
+                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='alumno'>Alumno</label>
                                     <input
                                         type='text'
-                                        id='cedulaAlumno'
+                                        id='alumno'
                                         value={editAsistencia.primerApellido +' '+editAsistencia.primerNombre}
                                         className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black capitalize'
                                     />

@@ -13,6 +13,8 @@ export const alumnoSlice = createSlice({
             asistencias: [],
             editAsistencia: '',
 
+            cinturones: [],
+
             asensos: [],
             editAsenso: '',
             // cedulaAlumno : null,
@@ -158,9 +160,19 @@ export const alumnoSlice = createSlice({
             
             state.asensos = payload
         },
+        addAsenso: (state, {payload}) => {
+            state.asistencias.push(payload)
+        },
+        setAsenso : (state, {payload}) => {
+            state.editAsenso = payload
+        },
+        setCinturones: (state, {payload}) => {
+            
+            state.cinturones = payload
+        },
 
     }
 });
 // Action creators are generated for each case reducer function
 export const { setAlumnos, addAlumno,setHorarios,setAlumno,actualizarAlumno, setHorario, addHorario, actualizarHorario,eliminarHorario, setasistencias,
-setAsistencia, addAsistencia, actualizarAsistencia,setAsensos} = alumnoSlice.actions;
+setAsistencia, addAsistencia, actualizarAsistencia,setAsensos, addAsenso, setAsenso, setCinturones} = alumnoSlice.actions;
