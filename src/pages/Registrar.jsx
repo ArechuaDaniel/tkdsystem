@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Alerta from '../components/Alerta';
 import clienteAxios from '../config/clienteAxios';
 import { Link, Navigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 const Registrar = () => {
@@ -25,13 +26,15 @@ const Registrar = () => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        if ([cedulaInstructor,correo, primerApellido, primerNombre, direccion, fechaRegistro, telefono,idClub, password].includes('')) {
+        
 
-            setAlerta({
-                msg: 'todos los campos son obligatorios',
-                error: true
-            })
-            return
+        if ([cedulaInstructor,correo, primerApellido, primerNombre, direccion, fechaRegistro, telefono,idClub, password].includes('')) {
+            Swal.fire({
+                title: "Todos los campos son obligatorios",
+                //text: "That thing is still around?",
+                icon: "warning"
+              });
+              return;
         }
         if (password != repetirPassword) {
             setAlerta({
@@ -75,7 +78,7 @@ const Registrar = () => {
         <>
 
             <div className='rounded-xl bg-white '>
-                <h1 className='text-sky-600 font-black text-3xl uppercase px-10 mt-10'>Registrate al sistema </h1>
+                <h1 className='text-sky-600 font-black text-3xl capitalize px-10 mt-10'>Registrate al sistema </h1>
 
                 {msg && <Alerta alerta={alerta} />}
                 <form
@@ -83,7 +86,7 @@ const Registrar = () => {
                     className=' shadow rounded-lg md:p-2 p-10 '>
                     <div className='md:grid md:grid-cols-3 md:gap-x-7'>
                     <div className='my-5'>
-                        <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='cedulaInstructor'>Cédula*</label>
+                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='cedulaInstructor'>Cédula*</label>
                         <input
                             type='text'
                             id='cedulaInstructor'
@@ -94,94 +97,94 @@ const Registrar = () => {
                         />
                     </div>
                     <div className='my-5'>
-                        <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='primerApellido'>Apellido Paterno*</label>
+                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='primerApellido'>Apellido Paterno*</label>
                         <input
                             type='text'
                             id='primerApellido'
                             placeholder='Ingresa tu Apellido Paterno'
-                            className='uppercase w-full mt-3 p-3 border rounded-xl bg-gray-50'
+                            className='capitalize w-full mt-3 p-3 border rounded-xl bg-gray-50'
                             value={primerApellido}
                             onChange={e => setPrimerApellido(e.target.value)}
                         />
                     </div>
                     <div className='my-5'>
-                        <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='segundoApellido'>Apellido Materno</label>
+                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='segundoApellido'>Apellido Materno</label>
                         <input
                             type='text'
                             id='segundoApellido'
                             placeholder='Ingresa tu Apellido Materno'
-                            className='uppercase w-full mt-3 p-3 border rounded-xl bg-gray-50'
+                            className='capitalize w-full mt-3 p-3 border rounded-xl bg-gray-50'
                             value={segundoApellido}
                             onChange={e => setSegundoApellido(e.target.value)}
                         />
                     </div>
                     <div className='my-5'>
-                        <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='primerNombre'>Primer Nombre*</label>
+                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='primerNombre'>Primer Nombre*</label>
                         <input
                             type='text'
                             id='primerNombre'
                             placeholder='Ingresa tu Primer Nombre'
-                            className='uppercase w-full mt-3 p-3 border rounded-xl bg-gray-50'
+                            className='capitalize w-full mt-3 p-3 border rounded-xl bg-gray-50'
                             value={primerNombre}
                             onChange={e => setPrimerNombre(e.target.value)}
                         />
                     </div>
                     <div className='my-5'>
-                        <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='segundoNombre'>Segundo Nombre</label>
+                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='segundoNombre'>Segundo Nombre</label>
                         <input
                             type='text'
                             id='segundoNombre'
                             placeholder='Ingresa tu Segundo Nombre'
-                            className='uppercase w-full mt-3 p-3 border rounded-xl bg-gray-50'
+                            className='capitalize w-full mt-3 p-3 border rounded-xl bg-gray-50'
                             value={segundoNombre}
                             onChange={e => setSegundoNombre(e.target.value)}
                         />
                     </div>
                     <div className='my-5'>
-                        <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='direccion'>Dirección*</label>
+                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='direccion'>Dirección*</label>
                         <input
                             type='text'
                             id='direccion'
                             placeholder='Ingresa tu Dirección'
-                            className='uppercase w-full mt-3 p-3 border rounded-xl bg-gray-50'
+                            className='capitalize w-full mt-3 p-3 border rounded-xl bg-gray-50'
                             value={direccion}
                             onChange={e => setDireccion(e.target.value)}
                         />
                     </div>
                     <div className='my-5'>
-                        <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='fechaRegistro'>Fecha de Registro*</label>
+                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='fechaRegistro'>Fecha de Registro*</label>
                         <input
                             type='date'
                             id='fechaRegistro'
-                            className='uppercase w-full mt-3 p-3 border rounded-xl bg-gray-50'
+                            className=' w-full mt-3 p-3 border rounded-xl bg-gray-50'
                             value={fechaRegistro}
                             onChange={e => setFechaRegistro(e.target.value)}
                         />
                     </div>
                     <div className='my-5'>
-                        <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='telefono'>Celular*</label>
+                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='telefono'>Celular*</label>
                         <input
                             type='number'
                             id='telefono'
                             placeholder='Ingresa tu Celular'
-                            className='uppercase w-full mt-3 p-3 border rounded-xl bg-gray-50'
+                            className='capitalize w-full mt-3 p-3 border rounded-xl bg-gray-50'
                             value={telefono}
                             onChange={e => setTelefono(e.target.value)}
                         />
                     </div>
                     <div className='my-5'>
-                        <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='idClub'>Club*</label>
+                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='idClub'>Club*</label>
                         <input
                             type='number'
                             id='idClub'
                             placeholder='Ingresa tu Club'
-                            className='uppercase w-full mt-3 p-3 border rounded-xl bg-gray-50'
+                            className='capitalize w-full mt-3 p-3 border rounded-xl bg-gray-50'
                             value={idClub}
                             onChange={e => setIdClub(e.target.value)}
                         />
                     </div>
                     <div className='my-5'>
-                        <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='correo'>Email</label>
+                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='correo'>Email</label>
                         <input
                             type='email'
                             id='correo'
@@ -192,7 +195,7 @@ const Registrar = () => {
                         />
                     </div>
                     <div className='my-5'>
-                        <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='password'>Contraseña</label>
+                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='password'>Contraseña</label>
                         <input
                             type='password'
                             id='password'
@@ -203,7 +206,7 @@ const Registrar = () => {
                         />
                     </div>
                     <div className='my-5'>
-                        <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='password2'>Repetir Contraseña</label>
+                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='password2'>Repetir Contraseña</label>
                         <input
                             type='password'
                             id='password2'
@@ -218,13 +221,13 @@ const Registrar = () => {
                     <input
                         type='submit'
                         value='Crear Cuenta'
-                        className='bg-sky-700 w-full  p-3 text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-800 grid col-span-1 col-end-4'
+                        className='bg-sky-700 w-full  p-3 text-white  capitalize font-bold rounded-xl hover:cursor-pointer hover:bg-sky-800 grid col-span-1 col-end-4'
                         />
                         </div>
                 </form>
                 <nav className='mb-5'>
                         <Link
-                            className='block text-center text-sky-700 uppercase text-sm'
+                            className='block text-center text-sky-700 capitalize text-sm'
                             to='/tkdsystem/'
                         >
                             Ya tengo cuenta

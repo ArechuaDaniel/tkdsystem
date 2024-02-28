@@ -11,14 +11,16 @@ const Header = () => {
         <NavLink
           to={'/tkdsystem/api'}
         >
-          <h1 className='text-white md:text-5xl text-xl md:font-normal font-bold uppercase'>Sistema tkd</h1>
+          <h1 className='text-white md:text-5xl text-xl md:font-normal font-bold capitalize'>Sistema tkd</h1>
         </NavLink>
-        <p className='uppercase font-bold'>
-          <span className="material-symbols-outlined align-middle mr-2">
+        <div className='flex'>
+        <span className="material-symbols-outlined align-middle mr-2">
             account_circle
           </span>
-          {auth.primerNombre}{' '}{auth.primerApellido}</p>
-
+        <p className='capitalize font-bold'>
+          {auth.primerNombre}{' '}{auth.primerApellido}
+        </p>
+        </div>
       </div>
 
     </>

@@ -36,14 +36,18 @@ const Asenso = () => {
     }
       return (
         <>
-                <Header />
-                <div className="flex">
+                
+                <div className="flex md:flex-row flex-col">
     
                     <Barra />
                     <div className=' overflow-y-auto h-screen shadow-2xl md:w-4/5'>
                         <div className="flex justify-around items-center mt-10">
     
-                            <h1 className='md:text-3xl  text-2xl capitalize'>Asensos</h1>
+                            <h1 className='md:text-3xl  text-2xl capitalize'>
+                            <span className="material-symbols-outlined align-middle text-3xl mr-2">
+                            license 
+                            </span>
+                            Asensos</h1>
                             <NavLink
                             className=''
                             to={'/tkdsystem/api/registrar-asenso'}>
@@ -92,7 +96,7 @@ const Asenso = () => {
                                         <th className=' w-48 text-left p-3 capitalize '>Nº Identificación</th>
                                         <th className=' w-48 text-left p-3 capitalize '>Alumno</th>
                                         <th className=' w-32 text-left p-3 capitalize' >Fecha</th>
-                                        <th className=' w-32 text-left p-3 capitalize'>Cinturón</th>
+                                        <th className=' w-48 text-left p-3 capitalize'>Cinturón</th>
                                         <th className=' w-28 text-left p-3 capitalize'>Acción</th>
                                     </tr>
                                 </thead>
@@ -104,12 +108,15 @@ const Asenso = () => {
                                             <td className=' text-left p-3 '>{asenso.cedulaAlumno} </td>
                                             <td className=' text-left p-3 capitalize'>{asenso.primerApellido + ' ' + asenso.primerNombre}</td>
                                             <td className='  text-left p-3 '>{formatearFecha(asenso.fechaAsenso)}</td>
-                                            <td className='  text-left p-3 capitalize'>{asenso.color}</td>
-                                            <td className='  text-center p-3'><Link to={`/tkdsystem/api/editar-asenso/${asenso.idAsenso}`}
+                                            <td className='  text-left p-3 capitalize'>{asenso.color}
+                                                <span className={`bg-blue-600`}>
+                                                    jjjjkkk
+                                                </span></td>
+                                            <td className='  text-left p-3'><Link to={`/tkdsystem/api/editar-asenso/${asenso.idAsenso}`}
                                                 className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-center"><span className="material-symbols-outlined text-center align-middle ">
                                                     edit_square
                                                 </span></Link></td>
-                                        </tr>
+                                        </tr> 
                                     ))
                                 }
                                

@@ -82,7 +82,7 @@ const EditarAlumno = () => {
             icon: "question",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
-            confirmButtonText: "Regresar",
+            confirmButtonText: "Ok",
             cancelButtonColor: "#d33",
             cancelButtonText: "Cancelar!",
         }).then((result) => {
@@ -143,8 +143,8 @@ const EditarAlumno = () => {
     }
     return (
         <>
-            <Header />
-            <div className="flex">
+            
+            <div className="flex md:flex-row flex-col">
 
                 <Barra />
                 <div className=' md:overflow-y-auto h-screen  md:w-4/5'>

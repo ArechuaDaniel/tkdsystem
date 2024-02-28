@@ -43,7 +43,7 @@ const EditarHorario = () => {
             icon: "question",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
-            confirmButtonText: "Regresar",
+            confirmButtonText: "Ok",
             cancelButtonColor: "#d33",
             cancelButtonText: "Cancelar!",
         }).then((result) => {
@@ -95,8 +95,8 @@ const EditarHorario = () => {
     }
     return (
         <>
-            <Header />
-            <div className="flex">
+            
+            <div className="flex md:flex-row flex-col">
 
                 <Barra />
                 <div className='shadow-2xl mx-auto h-full'>

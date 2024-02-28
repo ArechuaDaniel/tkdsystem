@@ -57,7 +57,7 @@ const RegistrarAsistencia = () => {
             icon: "question",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
-            confirmButtonText: "Regresar",
+            confirmButtonText: "Ok",
             cancelButtonColor: "#d33",
             cancelButtonText: "Cancelar!",
         }).then((result) => {
@@ -102,11 +102,11 @@ const RegistrarAsistencia = () => {
     }
     return (
         <>
-            <Header />
-            <div className="flex">
+            
+            <div className="flex md:flex-row flex-col">
 
                 <Barra />
-                <div className=' mx-auto md:overflow-y'>
+                <div className=' mx-auto md:overflow-y-auto'>
                     <div className="flex justify-around items-center">
 
                         <h1 className='md:text-3xl text-2xl mt-10  uppercase'>Registro de asistencia</h1>

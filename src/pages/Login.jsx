@@ -27,13 +27,16 @@ const Login = () => {
     const handleSubmit = async e => {
         e.preventDefault();
 
+
         if ([correo, password].includes('')) {
-            setAlerta({
-                msg: 'Todos los campos son obligatorios',
-                error: true
-            })
-            return
+            Swal.fire({
+                title: "Todos los campos son obligatorios",
+                //text: "That thing is still around?",
+                icon: "warning"
+            });
+            return;
         }
+
         try {
 
             const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios/login`, { correo, password })
@@ -56,8 +59,13 @@ const Login = () => {
             });
             navigate('/tkdsystem/api/')
             //console.log(auth.status);
-           
+
         } catch (error) {
+            Swal.fire({
+                title: msg,
+                //text: "That thing is still around?",
+                icon: "warning"
+            });
             setAlerta({
                 msg: error.response.data.msg,
                 error: true
@@ -81,13 +89,17 @@ const Login = () => {
                 <div
                     style={{ height: '575px' }}
                     className='rounded-xl bg-white'>
-                    <h1 className='text-sky-600 font-black text-3xl uppercase px-5 mt-5'>Ingreso al sistema </h1>
-                    {msg && <Alerta alerta={alerta} />}
+                    <h1 className='text-sky-600 font-black text-3xl capitalize px-5 mt-5'>Ingreso al sistema </h1>
+                    {/* {msg && <Alerta alerta={alerta} />} */}
                     <form
                         onSubmit={handleSubmit}
                         className='my-2 bg-white shadow rounded-lg p-10'>
                         <div className='my-2'>
-                            <label className='uppercase text-gray-600 block text-xl font-bold' htmlFor='correo'>Email</label>
+                            <label className='capitalize text-gray-600 block text-xl font-bold' htmlFor='correo'>
+                                <span className="material-symbols-outlined align-middle mr-2">
+                                    mail
+                                </span>
+                                Email</label>
                             <input
                                 type='email'
                                 id='correo'
@@ -98,7 +110,11 @@ const Login = () => {
                             />
                         </div>
                         <div className='my-5'>
-                            <label className='uppercase text-gray-600 block text-xl font-bold' htmlFor='password'>Contraseña</label>
+                            <label className='capitalize text-gray-600 block text-xl font-bold' htmlFor='password'>
+                                <span className="material-symbols-outlined align-middle">
+                                    lock
+                                </span>
+                                Contraseña</label>
                             <div className='flex items-center '>
                                 <input
 
@@ -121,18 +137,18 @@ const Login = () => {
                             // disabled={isAuthenticated}
                             type='submit'
                             value='Iniciar Sesión'
-                            className='bg-sky-700 w-full p-3 text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-800 transition-colors'
+                            className='bg-sky-700 w-full p-3 text-white  capitalize font-bold rounded-xl hover:cursor-pointer hover:bg-sky-800 transition-colors'
                         />
                     </form>
                     <nav>
                         <Link
-                            className='block text-center text-slate-500 uppercase text-sm mb-2'
+                            className='block text-center text-slate-500 capitalize text-sm mb-2'
                             to='olvide-password'
                         >
-                            Olvide Mi Constraseña
+                            Olvide constraseña
                         </Link>
                         <Link
-                            className='block text-center text-slate-500 uppercase text-sm'
+                            className='block text-center text-slate-500  capitalize text-sm'
                             to='registrar'
                         >
                             Crear Cuenta

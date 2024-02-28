@@ -44,21 +44,26 @@ const Asistencia = () => {
     
   return (
     <>
-            <Header />
-            <div className="flex">
+            
+            <div className="flex md:flex-row flex-col">
 
                 <Barra />
                 <div className=' overflow-y-auto h-screen shadow-2xl md:w-4/5'>
                     <div className="flex justify-around items-center mt-10">
 
-                        <h1 className='md:text-3xl  text-2xl capitalize'>Asistencias</h1>
+                        <h1 className='md:text-3xl  text-2xl capitalize'>
+                        <span className="material-symbols-outlined align-middle text-3xl mr-2">
+                            
+                            fact_check
+                            </span>
+                            Asistencias</h1>
                         <NavLink
                         className=''
                         to={'/tkdsystem/api/registrar-asistencia'}>
 
                             <button className='bg-sky-600 p-3 text-white rounded-xl font-bold flex justify-center items-center capitalize '>
-                                <span className='text-3xl font-bold mr-2'>
-                                    <ion-icon name="add-circle-outline"></ion-icon>
+                            <span className="material-symbols-outlined align-middle mr-2">
+                                    add_circle
                                 </span>
                                 Registrar Asistencia
                             </button>

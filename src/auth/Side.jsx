@@ -13,11 +13,12 @@ const Side = () => {
     return (
         <>
             
-            <Header />
-            <div className="flex">
+            
+            <div className="flex md:flex-row flex-col">
 
                 <Barra />
-                </div>
+            
+            </div>
                 
         </>
     )

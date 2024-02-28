@@ -95,8 +95,8 @@ const EditarAsenso = () => {
       }
         return (
             <>
-                <Header />
-                <div className="flex">
+                
+                <div className="flex md:flex-row flex-col">
     
                     <Barra />
                     <div className=' mx-auto'>

@@ -52,14 +52,18 @@ const Horario = () => {
 
     return (
         <>
-            <Header />
-            <div className="flex">
+            
+            <div className="flex md:flex-row flex-col">
 
                 <Barra />
                 <div className=' overflow-y-auto h-screen shadow-2xl md:w-4/5 w-full'>
                     <div className="flex justify-around items-center mt-10">
 
-                        <h1 className='md:text-3xl  text-2xl capitalize'>Horarios</h1>
+                        <h1 className='md:text-3xl  text-2xl capitalize'>
+                        <span className="material-symbols-outlined align-middle text-3xl mr-2">
+                        schedule
+                            </span>
+                            Horarios</h1>
                         <NavLink
                             className=''
                             to={'/tkdsystem/api/nuevo-horario'}>

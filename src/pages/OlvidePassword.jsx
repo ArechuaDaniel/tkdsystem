@@ -1,29 +1,44 @@
 import { useState } from 'react'
 import Alerta from '../components/Alerta';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import clienteAxios from '../config/clienteAxios';
+import Swal from 'sweetalert2';
 
 
 const OlvidePassword = () => {
 
     const [correo, setCorreo] = useState('');
     const [alerta, setAlerta] = useState({})
+    const navigate = useNavigate();
 
     const handleSubmit = async e => {
         e.preventDefault();
-        if (correo === '' || correo.length < 6) {
-            setAlerta({
-                msg: 'El email es obligatorio',
-                error: true
-            })
-            return
+        // if (correo === '' || correo.length < 6) {
+        //     setAlerta({
+        //         msg: 'El email es obligatorio',
+        //         error: true
+        //     })
+        //     return
+        // }
+        if ([correo].includes('')) {
+            Swal.fire({
+                title: "El Email es obligatorio",
+                //text: "That thing is still around?",
+                icon: "warning"
+              });
+              return;
         }
         try {
             const {data} = await clienteAxios.post(`/usuarios/olvide-password`,{correo})
-            setAlerta({
-                msg: data.msg,
-                error: false
-              })
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Hemos enviado un Email con las instrucciones revisa tu correo!",
+                showConfirmButton: false,
+                timer: 3500
+            });
+            navigate('/tkdsystem')
+            
         } catch (error) {
             
             setAlerta({
@@ -42,14 +57,17 @@ const OlvidePassword = () => {
                 <div
 
                     className='rounded-xl bg-white shadow-2xl'>
-                    <h1 className='text-sky-600 font-black text-3xl uppercase px-10 mt-10'>Recupera tu acceso al sistema </h1>
+                    <h1 className='text-sky-600 font-black text-3xl capitalize px-10 mt-10'>Recupera tu acceso al sistema </h1>
                     {msg && <Alerta alerta={alerta} />}
 
                     <form
                         onSubmit={handleSubmit}
                         className='my-10 bg-white shadow rounded-lg p-10'>
                         <div className='my-5'>
-                            <label className='uppercase text-gray-600 block text-xl font-bold' htmlFor='correo'>Email</label>
+                            <label className=' text-gray-600 block text-xl font-bold' htmlFor='correo'>
+                            <span className="material-symbols-outlined align-middle mr-2">
+                                    mail
+                                </span>Email</label>
                             <input
                                 type='email'
                                 id='correo'
@@ -63,13 +81,13 @@ const OlvidePassword = () => {
                         <input
                             type='submit'
                             value='Enviar Instrucciones'
-                            className='bg-sky-700 w-full py-3 text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-800 transition-colors'
+                            className='bg-sky-700 w-full p-3 text-white  capitalize font-bold rounded-xl hover:cursor-pointer hover:bg-sky-800 transition-colors'
                         />
 
                     </form>
                     <nav className='mb-5'>
                         <Link
-                            className='block text-center text-slate-500 uppercase text-sm'
+                            className='block text-center text-slate-500 capitalize text-sm'
                             to='/tkdsystem/'
                         >
                             Ya tengo cuenta
