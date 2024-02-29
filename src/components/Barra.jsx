@@ -6,10 +6,12 @@ import { logout } from '../store/auth/authSlice';
 import Swal from 'sweetalert2'
 const Barra = () => {
     const Links = [
+        { name: "Home", link: "/tkdsystem/api/home", value: "dashboard" },
         { name: "Alumnos", link: "/tkdsystem/api/alumnos", value: "groups" },
         //{ name: "Registrar Alumnos", link: "/tkdsystem/api/crear-alumno" },
         { name: "Horarios", link: "/tkdsystem/api/horarios", value: "schedule" },
         { name: "Asistencia", link: "/tkdsystem/api/asistencias", value: "fact_check" },
+        { name: "Pagos", link: "/tkdsystem/api/pagos", value: "payments" },
         { name: "Categorías", link: "/tkdsystem/api/alumnos", value: "category" },
 
         { name: "Campeonatos", link: "/tkdsystem/api/alumnos", value: "rewarded_ads" },
@@ -66,7 +68,7 @@ const Barra = () => {
             <div className={`  md:bg-gray-200 md:overflow-y-auto  shadow-2xl md:w-1/5`}>
 
 
-                <div className='text-white  flex  flex-col md:justify-between  p-6 bg-sky-900 md:w-full '>
+                <div className='text-white  flex  flex-col md:justify-between  p-6 bg-sky-800 md:w-full '>
                     <NavLink
                         to={'/tkdsystem/api'}
                     >

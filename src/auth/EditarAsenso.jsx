@@ -141,6 +141,8 @@ const EditarAsenso = () => {
                                     <input
                                         type='date'
                                         id='fechaAsenso'
+                                        min='1950-01-01'
+                                        max={formatearFecha(fecha)}
                                         className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
                                         value={fechaAsenso}
                                         onChange={e => setFechaAsenso(e.target.value)}
