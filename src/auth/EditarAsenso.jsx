@@ -102,7 +102,11 @@ const EditarAsenso = () => {
                     <div className=' mx-auto'>
                         <div className="flex justify-around items-center">
     
-                            <h1 className='md:text-3xl text-2xl mt-10  uppercase'>Actualizar asenso</h1>
+                            <h1 className='md:text-3xl text-2xl mt-10  capitalize'>
+                            <span className="material-symbols-outlined align-middle text-3xl mr-2">
+                            license 
+                            </span>
+                                Actualizar asenso</h1>
     
                         </div>
                        
@@ -114,7 +118,7 @@ const EditarAsenso = () => {
                               onSubmit={handleSubmit}
                             >
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='cedulaAlumno'>cedula alumno</label>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='cedulaAlumno'>cedula alumno</label>
                                     <input
                                         type='text'
                                         id='cedulaAlumno'
@@ -124,7 +128,7 @@ const EditarAsenso = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='alumno'>Alumno</label>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='alumno'>Alumno</label>
                                     <input
                                         type='text'
                                         id='alumno'
@@ -133,7 +137,7 @@ const EditarAsenso = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='fechaAsenso'>Fecha de asenso</label>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='fechaAsenso'>Fecha de asenso</label>
                                     <input
                                         type='date'
                                         id='fechaAsenso'
@@ -143,7 +147,7 @@ const EditarAsenso = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
-                                  <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='idCinturon'>Cinturón</label>
+                                  <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='idCinturon'>Cinturón</label>
                                   <select 
                                   className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
                                   name="idCinturon"
@@ -153,7 +157,7 @@ const EditarAsenso = () => {
                                       <option value="id">--Seleccione--</option>
                                       {
                                         cinturones.map(cinturon => (
-                                            <option value={cinturon.idCinturon}>{cinturon.color}</option>
+                                            <option value={cinturon.idCinturon}>{cinturon.asensoColor}</option>
                                         ))
                                       }
 
@@ -163,7 +167,7 @@ const EditarAsenso = () => {
                                 <div className="flex md:flex-row-reverse flex-col  justify-evenly">
                                     
                                     <button
-                                        className='bg-sky-600  text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-700 transition-colors p-3 '
+                                        className='bg-sky-600  text-white  capitalize font-bold rounded-xl hover:cursor-pointer hover:bg-sky-700 transition-colors p-3 '
                                     >
                                         <span className="material-symbols-outlined align-middle mr-2">
                                             save
@@ -172,7 +176,7 @@ const EditarAsenso = () => {
     
                                     </button>
                                     <button
-                                        className='bg-red-400   text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-red-500 transition-colors p-3  md:mt-0 mt-6'
+                                        className='bg-red-400   text-white  capitalize font-bold rounded-xl hover:cursor-pointer hover:bg-red-500 transition-colors p-3  md:mt-0 mt-6'
                                         onClick={regresar}
                                     >
                                         <span className="material-symbols-outlined align-middle mr-2">

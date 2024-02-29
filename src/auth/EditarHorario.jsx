@@ -102,7 +102,11 @@ const EditarHorario = () => {
                 <div className='shadow-2xl mx-auto h-full'>
                     <div className="flex justify-around items-center">
 
-                        <h1 className='md:text-3xl text-2xl mt-10  uppercase'>Actualizar Horario</h1>
+                        <h1 className='md:text-3xl text-2xl mt-10  capitalize'>
+                        <span className="material-symbols-outlined text-3xl mr-2">
+                        schedule
+                            </span>
+                            Actualizar Horario</h1>
 
                     </div>
                     <div className='flex justify-center '>
@@ -114,7 +118,7 @@ const EditarHorario = () => {
                             onSubmit={handleSubmit}
                         >
                             <div className='my-5'>
-                                <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='horarioInicio'>INICIO DEL HORARIO</label>
+                                <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='horarioInicio'>Inicio horario</label>
                                 <input
                                     type='time'
                                     id='horarioInicio'
@@ -124,7 +128,7 @@ const EditarHorario = () => {
                                 />
                             </div>
                             <div className='my-5'>
-                                <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='horarioFin'>FIN DEL HORARIO</label>
+                                <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='horarioFin'>Fin Horario</label>
                                 <input
                                     type='time'
                                     id='horarioFin'
@@ -137,7 +141,7 @@ const EditarHorario = () => {
                             <div className="flex md:flex-row-reverse flex-col  justify-evenly">
 
                                 <button
-                                    className='bg-sky-600  text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-700 transition-colors p-3'
+                                    className='bg-sky-600  text-white  capitalize font-bold rounded-xl hover:cursor-pointer hover:bg-sky-700 transition-colors p-3'
                                 >
                                     <span className="material-symbols-outlined align-middle mr-2">
                                         save
@@ -146,7 +150,7 @@ const EditarHorario = () => {
 
                                 </button>
                                 <button
-                                    className='bg-red-400   text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-red-500 transition-colors p-3 md:mr-10 md:mt-0 mt-6'
+                                    className='bg-red-400   text-white  capitalize font-bold rounded-xl hover:cursor-pointer hover:bg-red-500 transition-colors p-3 md:mr-10 md:mt-0 mt-6'
                                     onClick={regresarHorario}
                                 >
                                     <span className="material-symbols-outlined align-middle mr-2">

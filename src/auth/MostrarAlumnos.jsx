@@ -1,14 +1,13 @@
-import Header from "../components/Header";
 import Barra from "../components/Barra";
 import { useDispatch, useSelector } from "react-redux";
-import { startLoadingAlumnos, startUpdateAlumno } from "../store/alumno/thunk";
-import { Link, NavLink, useParams } from "react-router-dom";
+import { startLoadingAlumnos } from "../store/alumno/thunk";
+import { Link, NavLink} from "react-router-dom";
 import { useEffect, useState } from "react";
+import { edadFecha } from "../helpers/formatearFecha";
 
 
 const MostrarAlumnos = () => {
 
-    const params = useParams();
 
     const dispatch = useDispatch();
     const { alumnos } = useSelector(state => state.alumno);
@@ -19,7 +18,7 @@ const MostrarAlumnos = () => {
     const searcher = (e) => {
         setSearch(e.target.value)
     }
-
+    
     let results = []
     if (!search) {
         results = alumnos
@@ -94,6 +93,7 @@ const MostrarAlumnos = () => {
                                     <th className=' w-16 text-center p-3'>#</th>
                                     <th className=' w-48 text-left p-3'>Nº Identificación</th>
                                     <th className=' w-48 text-left p-3' >Alumno</th>
+                                    <th className=' w-32 text-left p-3' >Edad</th>
                                     <th className=' w-32 text-left p-3'>Estado</th>
                                     <th className=' w-32 text-left p-3'>Aacción</th>
 
@@ -106,8 +106,9 @@ const MostrarAlumnos = () => {
                                             <td className=' text-center p-3 '> {numero = numero + 1}</td>
                                             <td className=' text-left p-3 '>{alm.cedulaAlumno} </td>
                                             <td className=' text-left p-3 capitalize'>{alm.primerApellido + ' ' + alm.primerNombre}</td>
+                                            <td className='  text-left p-3'>{edadFecha(alm.fechaNacimiento)+' '}años</td>
                                             <td className='  text-left p-3 capitalize'>{alm.estado}</td>
-                                            <td className='  text-center p-3'><Link to={`/tkdsystem/api/editar-alumno/${alm.cedulaAlumno}`}
+                                            <td className='  text-left p-3'><Link to={`/tkdsystem/api/editar-alumno/${alm.cedulaAlumno}`}
                                                 className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-center"><span className="material-symbols-outlined text-center align-middle ">
                                                     edit_square
                                                 </span></Link></td>

@@ -107,10 +107,14 @@ const RegistrarAsenso = () => {
               <div className="flex md:flex-row flex-col">
   
                   <Barra />
-                  <div className=' mx-auto'>
+                  <div className=' mx-auto overflow-y-auto h-screen'>
                       <div className="flex justify-around items-center">
   
-                          <h1 className='md:text-3xl text-2xl mt-10  uppercase'>Registro de asenso</h1>
+                          <h1 className='md:text-3xl text-2xl mt-10  capitalize'>
+                          <span className="material-symbols-outlined align-middle text-3xl mr-2">
+                            license 
+                            </span>
+                            Registro de asenso</h1>
   
                       </div>
 
@@ -118,7 +122,7 @@ const RegistrarAsenso = () => {
                     <div className="flex flex-col shadow-md p-3">
                         
                         <div className="bg-gray-200 rounded-xl p-3  w-full flex ">
-                            <input className=" bg-gray-200  uppercase w-full "
+                            <input className=" bg-gray-200  capitalize w-full "
                                 value={search}
                                 onChange={searcher}
                                 type="text"
@@ -153,7 +157,7 @@ const RegistrarAsenso = () => {
                             onSubmit={handleSubmit}
                           >
                               <div className='my-5'>
-                                  <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='cedulaAlumno'>cedula alumno</label>
+                                  <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='cedulaAlumno'>cedula alumno</label>
                                   <input
                                       type='text'
                                       id='cedulaAlumno'
@@ -163,7 +167,7 @@ const RegistrarAsenso = () => {
                                   />
                               </div>
                               <div className='my-5'>
-                                  <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='fechaAsenso'>Fecha de asenso</label>
+                                  <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='fechaAsenso'>Fecha de asenso</label>
                                   <input
                                       type='date'
                                       id='fechaAsenso'
@@ -173,7 +177,7 @@ const RegistrarAsenso = () => {
                                   />
                               </div>
                               <div className='my-5'>
-                                  <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='idCinturon'>Cinturón</label>
+                                  <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='idCinturon'>Cinturón</label>
                                   <select 
                                   className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
                                   name="idCinturon"
@@ -183,7 +187,7 @@ const RegistrarAsenso = () => {
                                       <option value="idCinturon">--Seleccione--</option>
                                       {
                                         cinturones.map(cinturon => (
-                                            <option value={cinturon.idCinturon}>{cinturon.color}</option>
+                                            <option value={cinturon.idCinturon}>{cinturon.asensoColor}</option>
                                         ))
                                       }
 
@@ -193,7 +197,7 @@ const RegistrarAsenso = () => {
                               <div className="flex md:flex-row-reverse flex-col  justify-evenly">
                                   
                                   <button
-                                      className='bg-sky-600  text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-700 transition-colors p-3 '
+                                      className='bg-sky-600  text-white  capitalize font-bold rounded-xl hover:cursor-pointer hover:bg-sky-700 transition-colors p-3 '
                                   >
                                       <span className="material-symbols-outlined align-middle mr-2">
                                           save
@@ -202,7 +206,7 @@ const RegistrarAsenso = () => {
   
                                   </button>
                                   <button
-                                      className='bg-red-400   text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-red-500 transition-colors p-3  md:mt-0 mt-6'
+                                      className='bg-red-400   text-white  capitalize font-bold rounded-xl hover:cursor-pointer hover:bg-red-500 transition-colors p-3  md:mt-0 mt-6'
                                       onClick={regresar}
                                   >
                                       <span className="material-symbols-outlined align-middle mr-2">

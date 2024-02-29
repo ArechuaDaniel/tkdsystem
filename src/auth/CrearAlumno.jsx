@@ -125,17 +125,22 @@ const CrearAlumno = () => {
                 <div className=' md:overflow-y-auto h-screen  md:w-4/5 w-full'>
                     <div className="flex justify-around items-center">
 
-                        <h1 className='md:text-3xl text-2xl mt-10  uppercase'>Registrar un alumno nuevo</h1>
+                        <h1 className='md:text-3xl text-2xl mt-10  capitalize'
+                        >
+                            <span className="material-symbols-outlined align-middle text-3xl mr-2">
+                        person 
+                        </span>
+                        Registrar alumno</h1>
                     </div>
 
                     {/* FORMULARIO */}
                     <div className='flex justify-center '>
                         <form 
                         onSubmit={handleSubmit}
-                        className='md:my-5 m-5  shadow-2xl rounded-lg p-10  uppercase '>
+                        className='md:my-5 m-5  shadow-2xl rounded-lg p-10  capitalize '>
                             <div className="md:grid  md:grid-cols-3 md:gap-x-8">
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='cedulaAlumno'>Cedula</label>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='cedulaAlumno'>Cedula</label>
                                     <input
                                         type='text'
                                         id='cedulaAlumno'
@@ -146,7 +151,7 @@ const CrearAlumno = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='primerApellido'>Apellido Paterno</label>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='primerApellido'>Apellido Paterno</label>
                                     <input
                                         type='text'
                                         id='primerApellido'
@@ -157,7 +162,7 @@ const CrearAlumno = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600 text-xl font-bold' htmlFor='segundoApellido'>Apellido Materno</label>
+                                    <label className='capitalize text-gray-600 text-xl font-bold' htmlFor='segundoApellido'>Apellido Materno</label>
                                     <input
                                         type='text'
                                         id='segundoApellido'
@@ -168,7 +173,7 @@ const CrearAlumno = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='primerNombre'>Primer Nombre</label>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='primerNombre'>Primer Nombre</label>
                                     <input
                                         type='text'
                                         id='primerNombre'
@@ -179,7 +184,7 @@ const CrearAlumno = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='segundoNombre'>Segundo Nombre</label>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='segundoNombre'>Segundo Nombre</label>
                                     <input
                                         type='text'
                                         id='segundoNombre'
@@ -190,7 +195,7 @@ const CrearAlumno = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='fechaNacimiento'>Fecha De Nacimiento</label>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='fechaNacimiento'>Fecha De Nacimiento</label>
                                     <input
                                         type='date'
                                         id='fechaNacimiento'
@@ -202,7 +207,7 @@ const CrearAlumno = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='direccion'>Dirección</label>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='direccion'>Dirección</label>
                                     <input
                                         type='text'
                                         id='direccion'
@@ -213,7 +218,7 @@ const CrearAlumno = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='fechaIngreso'>Fecha De Ingreso</label>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='fechaIngreso'>Fecha De Ingreso</label>
                                     <input
                                         type='date'
                                         id='fechaIngreso'
@@ -225,7 +230,7 @@ const CrearAlumno = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='telefono'>Celular</label>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='telefono'>Celular</label>
                                     <input
                                         type='text'
                                         id='telefono'
@@ -236,7 +241,7 @@ const CrearAlumno = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='ocupacion'>Ocupación</label>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='ocupacion'>Ocupación</label>
                                     <select id="ocupacion" className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black '
                                         value={ocupacion}
                                         onChange={(e) => setOcupacion(e.target.value)}
@@ -250,7 +255,7 @@ const CrearAlumno = () => {
                                     </select>
                                 </div>
                                 <div className='my-5'>
-                                    <label className='uppercase text-gray-600  text-xl font-bold' htmlFor='estado'>Estado</label>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='estado'>Estado</label>
                                     <select id="estado" className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black '
                                         value={estado}
                                         onChange={(e) => setEstado(e.target.value)}
@@ -269,7 +274,7 @@ const CrearAlumno = () => {
                             
                                 <button
                                     onClick={handleSubmit}
-                                    className='bg-sky-600 md:w-1/4  text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-sky-700 transition-colors p-3'
+                                    className='bg-sky-600 md:w-1/4  text-white  capitalize font-bold rounded-xl hover:cursor-pointer hover:bg-sky-700 transition-colors p-3'
                                 >
                                     <span className="material-symbols-outlined align-middle mr-2">
                                         save
@@ -278,7 +283,7 @@ const CrearAlumno = () => {
 
                                 </button>
                                 <button
-                                    className='bg-red-400 md:w-1/4  text-white  uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-red-500 transition-colors p-3 md:mr-10 md:mt-0 mt-6'
+                                    className='bg-red-400 md:w-1/4  text-white  capitalize font-bold rounded-xl hover:cursor-pointer hover:bg-red-500 transition-colors p-3 md:mr-10 md:mt-0 mt-6'
                                     onClick={regresarAlumno}
                                 >
                                     <span className="material-symbols-outlined align-middle mr-2">

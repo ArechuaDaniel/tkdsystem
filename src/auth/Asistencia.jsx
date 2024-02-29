@@ -1,28 +1,32 @@
 import React, { useState } from 'react'
-import Header from '../components/Header'
 import Barra from '../components/Barra'
 import { Link, NavLink } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { startLoadingAlumnos, startLoadingAsistencias } from '../store/alumno/thunk'
+import { startLoadingAlumnos, startLoadingAsistencias, startLoadingHorarios } from '../store/alumno/thunk'
 import { formatearFecha } from '../helpers/formatearFecha'
 
 const Asistencia = () => {
 
     const [fechaRegistro, setFechaRegistro] = useState('')
+    //const [hoarioInicio, setHorarioInicio  ]= useState('')
+    const [idHorario, setIdHorario] = useState('')
     const dispatch = useDispatch();
-    const fecha = new Date()
+    
     //console.log(formatearFecha(fecha));
+
+    
     useEffect(() => {
       
         dispatch(startLoadingAsistencias())
+        dispatch(startLoadingHorarios())
         dispatch(startLoadingAlumnos())
         //setFechaRegistro(formatearFecha(fecha))
     
     }, [])
     
 
-    const {asistencias} = useSelector(state => state.alumno)
+    const {asistencias, horarios} = useSelector(state => state.alumno)
     let numero = 0;
     const [search, setSearch] = useState("")
     
@@ -38,7 +42,7 @@ const Asistencia = () => {
         //console.log(results); 
     }
     else {
-        results = asistencias.filter((dato) => dato.primerNombre.toLowerCase().includes(search.toLocaleLowerCase()) || dato.primerApellido.toLowerCase().includes(search.toLocaleLowerCase()) || dato.cedulaAlumno.toLowerCase().includes(search.toLocaleLowerCase())|| dato.fechaRegistro.toLowerCase().includes(search.toLocaleLowerCase()))
+        results = asistencias.filter((dato) => dato.primerNombre.toLowerCase().includes(search.toLocaleLowerCase()) || dato.primerApellido.toLowerCase().includes(search.toLocaleLowerCase()) || dato.cedulaAlumno.toLowerCase().includes(search.toLocaleLowerCase())|| dato.fechaRegistro.toLowerCase().includes(search.toLocaleLowerCase()) || dato.hoarioInicio.toLowerCase().includes(search.toLocaleLowerCase()))
     }
     //console.log(asistencias);
     
@@ -82,8 +86,29 @@ const Asistencia = () => {
                             />    
                             <span className="material-symbols-outlined align-middle">search</span>
                         </div>
+                        
                         <div className="flex md:justify-end justify-center p-3">
                             <div className="bg-gray-100 rounded-lg shadow-2xl w-48 ml-10 p-3 uppercase">
+                                <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='idHorario'>horario</label>
+                                 <select 
+                                    className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
+                                    name="idHorario"
+                                    id='idHorario'
+                                    
+                                    onChange={searcher}
+                                 >
+                                    <option value="id">--Seleccione--</option>
+                                    {
+                                   horarios.map( horario => (
+                                        <option key={horario.idHorario} value={horario.hoarioInicio}>{horario.hoarioInicio +' / '+ horario.hoarioFin}</option>
+                                    ))
+                                    }
+                                
+                                    
+                                </select>
+                            </div>
+                            <div className="bg-gray-100 rounded-lg shadow-2xl w-48 ml-10 p-3 uppercase">
+                            <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='fechaRegistro'>Fecha</label>
                             <input
                                     type='date'
                                     id='fechaRegistro'

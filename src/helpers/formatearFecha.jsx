@@ -1,62 +1,3 @@
-// export function formatearFecha(fecha) {
-//     //const nuevaFecha = new Date(fecha?.split('T')[0].split('-'))
-//     //.toISOString().slice(0, 10)
-
-//     // const opciones = {
-//     //     //weekday: 'long',
-//     //     day: 'numeric',
-//     //     month: 'numeric',
-//     //     year: 'numeric',
-//     // }
-
-//     const year = fecha?.getFullYear();
-//     const month = String(fecha?.getMonth() + 1).padStart(2, '0');
-//     const day = String(fecha?.getDate()).padStart(2, '0');
-
-
-
-//     return `${year}-${month}-${day}`;
-
-// }
-
-
-
-// export const formatearFecha = fecha => {
-//     const nuevaFecha = new Date(fecha)?.toISOString().slice(0, 10)
-//     //const nuevaFecha = new Date()
-// //fecha.split('T')[0].split('-')
-
-
-//     return nuevaFecha
-// }
-
-
-
-// export const formatearFecha = fecha => {
-//     const nuevaFecha = new Date()
-//     //fecha?.split('T')[0].split('-')
-//     return nuevaFecha.toISOString(fecha)
-// }
-
-// export const formatearFecha = (date) => {
-//     const year = date.getFullYear();
-//     const month = String(date.getMonth() + 1).padStart(2, '0');
-//     const day = String(date                                                                                                                                                                                                                                                                                                                                                                                                                                              |.getDate()).padStart(2, '0');
-//     const nuevaFecha = `${year}-${month}-${day}`;
-//     return nuevaFecha;
-// }
-
-
-
-// export const formatearFecha = fecha => {
-//     const nuevaFecha = new Date()
-//     //fecha?.split('T')[0].split('-')
-//     return nuevaFecha.toISOString()
-// }
-
-
-
-
 export const formatearFecha = fecha => {
     // Creamos un objeto Date con la fecha actual
     var fecha = new Date(fecha);
@@ -76,4 +17,12 @@ export const formatearFecha = fecha => {
     // Concatenamos los componentes de la fecha en el formato deseado
     var fechaFormateada = año + '-' + mes + '-' + dia;
     return fechaFormateada
+}
+export const edadFecha = fecha => {
+    const fechaActual = new Date()
+    const fechaNacimientoObj = new Date(fecha);
+
+    const diferenciaTiempo = fechaActual - fechaNacimientoObj;
+    const edad = Math.floor(diferenciaTiempo / (1000 * 60 * 60 * 24 * 365.25));
+    return edad
 }

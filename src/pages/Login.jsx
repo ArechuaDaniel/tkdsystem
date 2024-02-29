@@ -89,7 +89,7 @@ const Login = () => {
                 <div
                     style={{ height: '575px' }}
                     className='rounded-xl bg-white'>
-                    <h1 className='text-sky-600 font-black text-3xl capitalize px-5 mt-5'>Ingreso al sistema </h1>
+                    <h1 className='text-sky-600 font-black text-3xl  px-5 mt-5'>Ingreso al Sistema </h1>
                     {/* {msg && <Alerta alerta={alerta} />} */}
                     <form
                         onSubmit={handleSubmit}

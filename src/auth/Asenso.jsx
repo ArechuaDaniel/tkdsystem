@@ -96,7 +96,7 @@ const Asenso = () => {
                                         <th className=' w-48 text-left p-3 capitalize '>Nº Identificación</th>
                                         <th className=' w-48 text-left p-3 capitalize '>Alumno</th>
                                         <th className=' w-32 text-left p-3 capitalize' >Fecha</th>
-                                        <th className=' w-48 text-left p-3 capitalize'>Cinturón</th>
+                                        <th className=' w-56 text-left p-3 capitalize'>Cinturón</th>
                                         <th className=' w-28 text-left p-3 capitalize'>Acción</th>
                                     </tr>
                                 </thead>
@@ -108,9 +108,9 @@ const Asenso = () => {
                                             <td className=' text-left p-3 '>{asenso.cedulaAlumno} </td>
                                             <td className=' text-left p-3 capitalize'>{asenso.primerApellido + ' ' + asenso.primerNombre}</td>
                                             <td className='  text-left p-3 '>{formatearFecha(asenso.fechaAsenso)}</td>
-                                            <td className='  text-left p-3 capitalize'>{asenso.color}
-                                                <span className={`bg-blue-600`}>
-                                                    jjjjkkk
+                                            <td className='  text-left p-3 capitalize'>{asenso.asensoColor}
+                                                <span className={`bg-${asenso.color}-500  rounded-md ml-2 px-5`}>
+                                                    
                                                 </span></td>
                                             <td className='  text-left p-3'><Link to={`/tkdsystem/api/editar-asenso/${asenso.idAsenso}`}
                                                 className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-center"><span className="material-symbols-outlined text-center align-middle ">
