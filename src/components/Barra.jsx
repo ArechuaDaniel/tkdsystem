@@ -10,7 +10,7 @@ const Barra = () => {
         { name: "Alumnos", link: "/tkdsystem/api/alumnos", value: "groups" },
         //{ name: "Registrar Alumnos", link: "/tkdsystem/api/crear-alumno" },
         { name: "Horarios", link: "/tkdsystem/api/horarios", value: "schedule" },
-        { name: "Asistencia", link: "/tkdsystem/api/asistencias", value: "fact_check" },
+        { name: "Asistencias", link: "/tkdsystem/api/asistencias", value: "fact_check" },
         { name: "Pagos", link: "/tkdsystem/api/pagos", value: "payments" },
         { name: "Categorías", link: "/tkdsystem/api/alumnos", value: "category" },
 
@@ -47,25 +47,14 @@ const Barra = () => {
                 dispatch(logout(auth.status))
                 navigate('/tkdsystem/')
                 localStorage.clear();
-                //localStorage.setItem('token', '')
             }
         });
-        // if (status === 'not-authenticated') {
-        //     navigate('/tkdsystem/')
-        // }
-        // //navigate('/tkdsystem/')
-        //console.log(auth);
 
 
     }
     return (
         <>
-
-
-
-
-
-            <div className={`  md:bg-gray-200 md:overflow-y-auto  shadow-2xl md:w-1/5`}>
+            <div className={`  md:bg-gray-200 md:overflow-x-auto  md:h-screen shadow-2xl md:w-1/5 rounded-r-3xl`}>
 
 
                 <div className='text-white  flex  flex-col md:justify-between  p-6 bg-sky-800 md:w-full '>
@@ -84,28 +73,22 @@ const Barra = () => {
                     </div>
                 </div>
 
-
-
-
-
-
-
-
                 <div className=" text-4xl text-white absolute top-6 right-10 cursor-pointer md:hidden"
                     onClick={() => setOpen(!open)}
                 >
                     <ion-icon name={open ? "close" : "menu"}></ion-icon>
 
                 </div>
-
-
-                <ul className={`md:w-96 bg-gray-200 transition-all duration-150 ease-in absolute md:static  ${open ? "top-300" : "top-[-9090px]"}`}>
+                <ul className={`md:w-96 bg-sky-800 text-white transition-all duration-150 ease-in absolute md:static  ${open ? "top-300" : "top-[-9090px]"}`}>
                     {
                         Links.map((Link) => (
                             <NavLink key={Link.name}
-                                className={({ isActive }) => (isActive ? 'text-sky-800 font-bold  ' : '')}
-                                to={Link.link}>
-                                <p className="p-6 hover:bg-sky-800 hover:text-white text-2xl capitalize md:w-full w-screen  ">
+                                // style={isActive => isActive ? { backgroundColor: 'white' } : {}}
+                                //className={({ isActive }) => (isActive ? 'text-sky-800 font-bold' : '')}
+                                className={({ isActive }) => (isActive ? 'text-white font-bold rounded-full bg-white' : '')}
+                                to={Link.link}
+                            >
+                                <p className="p-6 hover:bg-white hover:text-sky-800 hover:font-bold text-2xl capitalize md:w-full w-screen hover:rounded-l-full ml-5">
                                         <span className="material-symbols-outlined align-middle text-3xl mr-2">
                                             {Link.value}
                                         </span>
@@ -121,8 +104,8 @@ const Barra = () => {
                         //to={'/tkdsystem/'}
                         onClick={cerrarSesion}
                     >
-                        <p className="hover:bg-sky-800 text-black  p-6 hover:text-white text-2xl capitalize ">
-                            <span className="material-symbols-outlined text-3xl mr-2 ">
+                        <p className="hover:bg-white hover:text-sky-800 hover:font-bold p-6 text-white text-2xl capitalize hover:rounded-l-full ml-5 ">
+                            <span className="material-symbols-outlined text-3xl mr-2 align-middle">
                                 logout
                             </span>Cerrar Sesión
                         </p>

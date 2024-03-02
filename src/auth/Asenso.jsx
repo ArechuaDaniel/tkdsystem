@@ -4,8 +4,9 @@ import { Link, NavLink, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { startLoadingAsensos } from '../store/alumno/thunk'
+import { deleteAsenso, startLoadingAsensos } from '../store/alumno/thunk'
 import { formatearFecha } from '../helpers/formatearFecha'
+import Swal from 'sweetalert2'
 
 const Asenso = () => {
     const params = useParams();
@@ -24,6 +25,7 @@ const Asenso = () => {
     const [search, setSearch] = useState("")
     const searcher = (e) => {
         setSearch(e.target.value)
+        setFechaAsenso(e.target.value)
     }
     let results = []
     let numero = 0;
@@ -33,6 +35,33 @@ const Asenso = () => {
     }
     else {
         results = asensos.filter((dato) => dato.primerNombre.toLowerCase().includes(search.toLocaleLowerCase()) || dato.primerApellido.toLowerCase().includes(search.toLocaleLowerCase()) || dato.cedulaAlumno.toLowerCase().includes(search.toLocaleLowerCase()) || dato.fechaAsenso.toLowerCase().includes(search.toLocaleLowerCase()))
+    }
+    const eliminar = (idAsenso) => {
+        //console.log(idHorario);
+        Swal.fire({
+            title: "¿Estas seguro de eliminar la Asenso?",
+            //text: "You won't be able to revert this!",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Eliminar",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "Cancelar!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Ha eliminado el Asenso!",
+                    //text: "Your file has been deleted.",
+                    icon: "success"
+                    
+                });
+
+                dispatch(deleteAsenso({idAsenso}))
+                //navigate('/tkdsystem/api/horarios')
+
+            }
+        });
+        
     }
     return (
         <>
@@ -113,35 +142,45 @@ const Asenso = () => {
 
                                             </td>
                                             <td >
-                                                    
 
-                                                    
+
+
                                                 {
-                                                    asenso.color2  ?
+                                                    asenso.color2 ?
                                                         <div className=' w-full'>
                                                             <span style={{ backgroundColor: asenso.color }} className={`px-5`}>
-                                                                
+
                                                             </span>
                                                             <span style={{ backgroundColor: asenso.color2 }} className={`px-5`}>
-                                                                
+
                                                             </span>
                                                         </div>
                                                         :
-                                                        
+
                                                         <div className='w-full'>
                                                             <span style={{ backgroundColor: asenso.color }} className={`px-10`}>
-                                                                
+
                                                             </span>
 
                                                         </div>
                                                 }
-                                                
+
                                             </td>
 
                                             <td className='  text-left p-3'><Link to={`/tkdsystem/api/editar-asenso/${asenso.idAsenso}`}
-                                                className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-center"><span className="material-symbols-outlined text-center align-middle ">
+                                                className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-center mr-2"><span className="material-symbols-outlined text-center align-middle ">
                                                     edit_square
-                                                </span></Link></td>
+                                                </span></Link>
+                                                <Link 
+                                                
+                                                className='bg-red-500 p-2 rounded-xl text-white uppercase font-bold hover:bg-red-600 text-center'
+                                                onClick={() => eliminar(asenso.idAsenso)}
+                                                >
+                                                <span className="material-symbols-outlined align-middle">
+                                                    delete
+                                                </span>
+                                                </Link>
+                                            </td>
                                         </tr>
                                     ))
                                 }

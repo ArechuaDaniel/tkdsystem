@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { formatearFecha } from "../helpers/formatearFecha";
 import { startLoadingHorarios, startNewAsenso, startNewAsistencia } from '../store/alumno/thunk'
 import { useDispatch, useSelector } from 'react-redux'
+import { extraerHora, formatearHora } from '../helpers/formatearHora'
 
 const RegistrarAsistencia = () => {
     
@@ -17,18 +18,34 @@ const RegistrarAsistencia = () => {
     const [fechaRegistro, setFechaRegistro] = useState('')
     const [cedulaAlumno, setCedulaAlumno] = useState('')
     const [idHorario, setIdHorario] = useState('')
+    const [hoarioInicio, sethoarioInicio] = useState('')
     const [search, setSearch] = useState("")
     
     const navigate = useNavigate();
     
 
     const fecha = new Date()
+   //console.log(formatearHora());
+
+
+   
+
+   //console.log(extraerHora(horarios[4].hoarioInicio))
+   //console.log(formatearHora());
+
+   
+   
+   
+
+
+
 
     useEffect(() => {
         dispatch(startLoadingHorarios())
         setFechaRegistro(formatearFecha(fecha))
+        //sethoarioInicio('23:00:00')
         
-    
+        
     }, [])
 
     
@@ -174,7 +191,7 @@ const RegistrarAsistencia = () => {
                                     type='date'
                                     id='fechaRegistro'
                                     className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
-                                    value={formatearFecha(fechaRegistro)}
+                                    value={(fechaRegistro)}
                                     onChange={e => setFechaRegistro(e.target.value)}
                                 />
                             </div>
@@ -184,13 +201,13 @@ const RegistrarAsistencia = () => {
                                 className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
                                 name="idHorario"
                                 id='idHorario'
-                                
+                                //value={hoarioInicio}
                                 onChange={e => setIdHorario(e.target.value)}
                                 >
                                     <option value="id">--Seleccione--</option>
                                     {
                                    horarios.map( horario => (
-                                        <option value={horario.idHorario}>{horario.hoarioInicio +' / '+ horario.hoarioFin}</option>
+                                        <option key={horario.idHorario} value={horario.idHorario}>{ horario.hoarioInicio +' / '+ horario.hoarioFin}</option>
                                     ))
                                     }
                                 

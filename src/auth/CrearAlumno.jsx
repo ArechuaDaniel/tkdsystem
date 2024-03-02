@@ -128,9 +128,10 @@ const CrearAlumno = () => {
                         <h1 className='md:text-3xl text-2xl mt-10  capitalize'
                         >
                             <span className="material-symbols-outlined align-middle text-3xl mr-2">
-                        person 
-                        </span>
-                        Registrar alumno</h1>
+                            person 
+                            </span>
+                            Registrar alumno
+                        </h1>
                     </div>
 
                     {/* FORMULARIO */}

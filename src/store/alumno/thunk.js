@@ -1,6 +1,7 @@
 import axios from "axios";
-import { actualizarAlumno, actualizarAsistencia, actualizarHorario, addAlumno, addAsenso, addAsistencia, addHorario, eliminarHorario, setAlumno, setAlumnos, setAsenso, setAsensos, setAsistencia, setCinturones, setHorario, setHorarios, setasistencias} from "./alumnoSlice";
+import { actualizarAlumno, actualizarAsistencia, actualizarHorario, addAlumno, addAsenso, addAsistencia, addHorario, addPago, eliminaPago, eliminarAsenso, eliminarAsistencia, eliminarHorario, setAlumno, setAlumnos, setAsenso, setAsensos, setAsistencia, setCinturones, setHorario, setHorarios, setPago, setPagos, setasistencias} from "./alumnoSlice";
 import Swal from "sweetalert2";
+import { Navigate } from "react-router-dom";
 
 
 
@@ -46,7 +47,12 @@ export const startNewAlumno = () => {
 
 
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
         }
     }
 
@@ -84,7 +90,12 @@ export const startLoadingAlumnos = () => {
 
 
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
         }
     }
 }
@@ -128,7 +139,12 @@ export const startUpdateAlumno = ({cedula}) => {
 
 
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
         }
     }
 }
@@ -164,7 +180,12 @@ export const startLoadingHorarios= () => {
 
 
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
         }
     }
 }
@@ -203,7 +224,12 @@ export const startUpdateHorario = ({idHorario}) => {
 
 
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
         }
     }
 }
@@ -243,7 +269,12 @@ export const startNewHorario= ({idHorario,hoarioInicio,hoarioFin}) => {
               
 
     } catch (error) {
-        console.log(error);
+        Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
     }
 }
 }
@@ -271,7 +302,12 @@ export const updateHorario = ({idHorario,hoarioInicio,hoarioFin}) => {
             
             //console.log(data);
     } catch (error) {
-        console.log(error);
+        Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
     }
 }
 }
@@ -310,7 +346,12 @@ export const deleteHorario = ({idHorario}) => {
               
 
     } catch (error) {
-        console.log(error);
+        Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
     }
 }
 }
@@ -345,7 +386,12 @@ export const startLoadingAsistencias= () => {
 
 
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: error.response.data.message,
+                //text: "That thing is still around?",
+                icon: "warning"
+                
+            });
         }
     }
 }
@@ -380,7 +426,12 @@ export const startNewAsistencia= ({cedulaAlumno, fechaRegistro, idHorario}) => {
               
 
     } catch (error) {
-        console.log(error);
+        Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
     }
 }
 }
@@ -418,7 +469,12 @@ export const startUpdateAsistencia = ({idAsistencia}) => {
 
 
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: error.response.data.message,
+                //text: "That thing is still around?",
+                icon: "warning"
+                
+            });
         }
     }
 }
@@ -448,11 +504,47 @@ export const updateAsistencia = ({idAsistencia, fechaRegistro, idHorario}) => {
             
             //console.log(data);
     } catch (error) {
-        console.log(error);
+        Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
     }
 }
 }
+export const deleteAsistencia = ({idAsistencia}) => {
+    return async (dispatch, getState) => {
+        
+        const token = localStorage.getItem('token')
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        try {
+            const { data } = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/asistencias/${idAsistencia}`, config)
+            
+            console.log(data);
 
+            dispatch(eliminarAsistencia({idAsistencia}))
+                  
+
+    } catch (error) {
+        console.log(error);
+        Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
+    }
+}
+}
 export const startLoadingAsensos= () => {
 
     return async (dispatch, getState) => {
@@ -484,7 +576,12 @@ export const startLoadingAsensos= () => {
 
 
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: error.response.data.message,
+                //text: "That thing is still around?",
+                icon: "warning"
+                
+            });
         }
     }
 }
@@ -518,7 +615,12 @@ export const startNewAsenso= ({cedulaAlumno,fechaAsenso, idCinturon}) => {
               
 
     } catch (error) {
-        console.log(error);
+        Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
     }
 }
 }
@@ -556,7 +658,12 @@ export const startUpdateAsenso = ({idAsenso}) => {
 
 
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: error.response.data.message,
+                //text: "That thing is still around?",
+                icon: "warning"
+                
+            });
         }
     }
 }
@@ -586,10 +693,49 @@ export const updateAsenso = ({idAsenso,fechaAsenso, idCinturon}) => {
             
             //console.log(data);
     } catch (error) {
-        console.log(error);
+        Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
     }
 }
 }
+export const deleteAsenso = ({idAsenso}) => {
+    return async (dispatch, getState) => {
+        
+        const token = localStorage.getItem('token')
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        try {
+            const { data } = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/asensos/${idAsenso}`, config)
+            
+            console.log(data);
+
+            dispatch(eliminarAsenso({idAsenso}))
+                  
+
+    } catch (error) {
+        console.log(error);
+        Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
+    }
+}
+}
+
+
 
 export const startLoadingCinturones= () => {
 
@@ -622,7 +768,209 @@ export const startLoadingCinturones= () => {
 
 
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: error.response.data.message,
+                //text: "That thing is still around?",
+                icon: "warning"
+                
+            });
         }
     }
+}
+
+
+export const startLoadingPagos= () => {
+
+    return async (dispatch, getState) => {
+
+
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+
+        try {
+            const { data } = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/pagos`, config)
+            //console.log(data);
+            // const { cedulaAlumno } = getState().auth;
+            const pagos = [];
+            data.forEach(dato => {
+                pagos.push({ id: dato.cedulaAlumno, ...dato });
+
+            })
+            dispatch(setPagos(pagos))
+           
+
+
+        } catch (error) {
+            Swal.fire({
+                title: error.response.data.message,
+                //text: "That thing is still around?",
+                icon: "warning"
+                
+            });
+        }
+    }
+}
+export const startNewPago= ({cedulaAlumno, fechaPago,  mesPago,formaPago,comprobante}) => {
+    return async (dispatch, getState) => {
+        
+ 
+        const token = localStorage.getItem('token')
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        
+        try {
+
+            
+            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/pagos`, {cedulaAlumno, fechaPago, mesPago:mesPago+'-05',formaPago,comprobante}, config)
+            
+            const idPago= data.id;
+
+            console.log(data.id);
+            dispatch(addPago({id:data.id,cedulaAlumno, fechaPago, mesPago,formaPago,comprobante}))
+            
+            
+    } catch (error) {
+        // console.log(error);
+        Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
+        
+        
+    }
+}
+}
+export const startUpdatePago = ({idPago}) => {
+
+    return async (dispatch, getState) => {
+
+        
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+
+        try {
+
+
+            //const { cedulaAlumno } = getState().alumno;
+            //console.log(cedula);
+            const { data } = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/pagos/${idPago}`, config)
+            //console.log(data);
+            
+            const editPago = data;
+        
+            
+            dispatch(setPago(editPago))
+            //console.log(alumnos);
+            //return alumnos;
+
+
+        } catch (error) {
+            
+            Swal.fire({
+                title: error.response.data.message,
+                //text: "That thing is still around?",
+                icon: "warning"
+                
+            });
+        }
+    }
+}
+export const updatepago = ({fechaPago, mesPago,formaPago,comprobante, idPago}) => {
+    return async (dispatch, getState) => {
+
+        const token = localStorage.getItem('token')
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        
+        try {
+            
+            const { data } = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/pagos/${idPago}`, {fechaPago, mesPago:mesPago+'-05',formaPago,comprobante}, config)
+            
+            
+            console.log(data);
+            
+            
+            //dispatch(actualizarAsistencia({fechaRegistro, idHorario}))
+            
+            
+            //console.log(data);
+    } catch (error) {
+        console.log(error);
+        Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
+    }
+}
+}
+export const deletePago = ({idPago}) => {
+    return async (dispatch, getState) => {
+        
+        const token = localStorage.getItem('token')
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        
+        try {
+
+            
+            const { data } = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/pagos/${idPago}`, config)
+            
+            //console.log(data);
+
+            dispatch(eliminaPago({idPago}))
+                    
+
+    } catch (error) {
+        
+        Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
+    }
+}
 }

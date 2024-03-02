@@ -3,18 +3,16 @@ import Barra from '../components/Barra'
 import { Link, NavLink } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { startLoadingAlumnos, startLoadingAsistencias, startLoadingHorarios } from '../store/alumno/thunk'
+import { deleteAsistencia, startLoadingAlumnos, startLoadingAsistencias, startLoadingHorarios } from '../store/alumno/thunk'
 import { formatearFecha } from '../helpers/formatearFecha'
+import Swal from 'sweetalert2'
 
 const Asistencia = () => {
 
     const [fechaRegistro, setFechaRegistro] = useState('')
     //const [hoarioInicio, setHorarioInicio  ]= useState('')
-    const [idHorario, setIdHorario] = useState('')
-    const dispatch = useDispatch();
     
-    //console.log(formatearFecha(fecha));
-
+    const dispatch = useDispatch();
     
     useEffect(() => {
       
@@ -45,7 +43,33 @@ const Asistencia = () => {
         results = asistencias.filter((dato) => dato.primerNombre.toLowerCase().includes(search.toLocaleLowerCase()) || dato.primerApellido.toLowerCase().includes(search.toLocaleLowerCase()) || dato.cedulaAlumno.toLowerCase().includes(search.toLocaleLowerCase())|| dato.fechaRegistro.toLowerCase().includes(search.toLocaleLowerCase()) || dato.hoarioInicio.toLowerCase().includes(search.toLocaleLowerCase()))
     }
     //console.log(asistencias);
-    
+    const eliminar = (idAsistencia) => {
+        //console.log(idHorario);
+        Swal.fire({
+            title: "¿Estas seguro de eliminar la Asistencia?",
+            //text: "You won't be able to revert this!",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Eliminar",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "Cancelar!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Ha eliminado la Asistencia!",
+                    //text: "Your file has been deleted.",
+                    icon: "success"
+                    
+                });
+
+                dispatch(deleteAsistencia({idAsistencia}))
+                //navigate('/tkdsystem/api/horarios')
+
+            }
+        });
+        
+    }
   return (
     <>
             
@@ -97,7 +121,7 @@ const Asistencia = () => {
                                     
                                     onChange={searcher}
                                  >
-                                    <option value="id">--Seleccione--</option>
+                                    <option value="">--Seleccione--</option>
                                     {
                                    horarios.map( horario => (
                                         <option key={horario.idHorario} value={horario.hoarioInicio}>{horario.hoarioInicio +' / '+ horario.hoarioFin}</option>
@@ -147,15 +171,15 @@ const Asistencia = () => {
                                                 className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-left mr-2"><span className="material-symbols-outlined text-center align-middle ">
                                                     edit_square
                                                 </span></Link>
-                                                {/* <Link 
+                                                <Link 
                                                 
                                                 className='bg-red-500 p-2 rounded-xl text-white uppercase font-bold hover:bg-red-600 text-center'
-                                                // onClick={() => eliminar(horario.idHorario)}
+                                                onClick={() => eliminar(asistencia.idAsistencia)}
                                                 >
                                                 <span className="material-symbols-outlined align-middle">
                                                     delete
                                                 </span>
-                                                </Link> */}
+                                                </Link>
                                             </td>
                                     </tr>  
                                 ))

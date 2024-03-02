@@ -186,7 +186,7 @@ const RegistrarAsenso = () => {
                                   onChange={e => setIdCinturon(e.target.value)}
                                   
                                   >
-                                      <option value="idCinturon">--Seleccione--</option>
+                                      <option value="">--Seleccione--</option>
                                       {
                                         cinturones.map(cinturon => (
                                             <option value={cinturon.idCinturon}>{cinturon.asensoColor}</option>

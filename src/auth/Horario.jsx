@@ -3,7 +3,7 @@ import Header from '../components/Header'
 import Barra from '../components/Barra'
 import { Link, NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteHorario, startLoadingHorarios } from '../store/alumno/thunk'
+import { deleteHorario, deletePago, startLoadingHorarios } from '../store/alumno/thunk'
 import Swal from 'sweetalert2'
 import { useEffect } from 'react'
 

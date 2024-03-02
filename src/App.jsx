@@ -20,6 +20,8 @@ import EditarHorario from "./auth/EditarHorario"
 import EditarAsistencia from "./auth/EditarAsistencia"
 import EditarAsenso from "./auth/EditarAsenso"
 import Pagos from "./auth/Pagos"
+import RegistrarPago from "./auth/RegistrarPago"
+import EditarPago from "./auth/EditarPago"
 
 // console.log(import.meta.env.VITE_BACKEND_URL);
 function App() {
@@ -55,6 +57,8 @@ function App() {
             <Route path='editar-asenso/:id' element={<EditarAsenso />} />
 
             <Route path='pagos' element={<Pagos />} />
+            <Route path='registrar-pago' element={<RegistrarPago />} />
+            <Route path='editar-pago/:id' element={<EditarPago />} />
           </Route>
         </Routes>
       </BrowserRouter>

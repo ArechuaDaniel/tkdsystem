@@ -42,16 +42,16 @@ const MostrarAlumnos = () => {
 
                 <div className=' overflow-y-auto h-screen shadow-2xl md:w-4/5'>
                     <div className="flex justify-around items-center m-10 ">
-                        <h1 className='md:text-3xl text-2xl capitalize'>
+                        <h1 className='md:text-3xl text-2xl'>
                         <span className="material-symbols-outlined align-middle text-3xl mr-2">
                             groups 
                             </span>
-                            Datos generales de los alumnos </h1>
+                            Datos generales de los Alumnos </h1>
                         <NavLink
                             className=''
                             to={'/tkdsystem/api/crear-alumno'}>
 
-                            <button className='bg-sky-600 p-3 text-white rounded-xl font-bold flex justify-center items-center capitalize'>
+                            <button className='bg-sky-600 hover:bg-sky-700 p-3 text-white rounded-xl font-bold flex justify-center items-center capitalize'>
                                 <span className="material-symbols-outlined align-middle mr-2">
                                     add_circle
                                 </span>
@@ -95,7 +95,7 @@ const MostrarAlumnos = () => {
                                     <th className=' w-48 text-left p-3' >Alumno</th>
                                     <th className=' w-32 text-left p-3' >Edad</th>
                                     <th className=' w-32 text-left p-3'>Estado</th>
-                                    <th className=' w-32 text-left p-3'>Aacción</th>
+                                    <th className=' w-32 text-left p-3'>Acción</th>
 
                                 </tr>
                             </thead>

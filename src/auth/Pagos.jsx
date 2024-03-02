@@ -5,15 +5,17 @@ import Barra from '../components/Barra'
 import { Link, NavLink } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { startLoadingAlumnos, startLoadingAsistencias, startLoadingHorarios } from '../store/alumno/thunk'
-import { formatearFecha } from '../helpers/formatearFecha'
+import { deleteHorario, deletePago, startLoadingAlumnos, startLoadingAsistencias, startLoadingHorarios, startLoadingPagos } from '../store/alumno/thunk'
+import { formatearFecha, formatearMes, formatearMesNombre } from '../helpers/formatearFecha'
+import Swal from 'sweetalert2'
 
 
 const Pagos = () => {
     
-        const [fechaRegistro, setFechaRegistro] = useState('')
+        const [fechaPago, setFechaPago] = useState('')
+        const [mesPago, setMesPago] = useState('')
         //const [hoarioInicio, setHorarioInicio  ]= useState('')
-        const [idHorario, setIdHorario] = useState('')
+        const [idPago, setIdPago] = useState('')
         const dispatch = useDispatch();
         
         //console.log(formatearFecha(fecha));
@@ -21,34 +23,62 @@ const Pagos = () => {
         
         useEffect(() => {
           
-            dispatch(startLoadingAsistencias())
-            dispatch(startLoadingHorarios())
+            //dispatch(startLoadingAsistencias())
+            //dispatch(startLoadingHorarios())
             dispatch(startLoadingAlumnos())
+            dispatch(startLoadingPagos())
             //setFechaRegistro(formatearFecha(fecha))
         
         }, [])
         
     
-        const {asistencias, horarios} = useSelector(state => state.alumno)
+        const {asistencias, horarios, pagos} = useSelector(state => state.alumno)
         let numero = 0;
         const [search, setSearch] = useState("")
         
     
         const searcher = (e) => {
             setSearch(e.target.value)
-            setFechaRegistro(e.target.value)
+            setMesPago(e.target.value)
+            setFechaPago(e.target.value)
         }
     
         let results = []
         if (!search) {
-            results = asistencias
+            results = pagos
             //console.log(results); 
         }
         else {
-            results = asistencias.filter((dato) => dato.primerNombre.toLowerCase().includes(search.toLocaleLowerCase()) || dato.primerApellido.toLowerCase().includes(search.toLocaleLowerCase()) || dato.cedulaAlumno.toLowerCase().includes(search.toLocaleLowerCase())|| dato.fechaRegistro.toLowerCase().includes(search.toLocaleLowerCase()) || dato.hoarioInicio.toLowerCase().includes(search.toLocaleLowerCase()))
+            results = pagos.filter((dato) => dato.primerNombre.toLowerCase().includes(search.toLocaleLowerCase()) || dato.primerApellido.toLowerCase().includes(search.toLocaleLowerCase()) || dato.cedulaAlumno.toLowerCase().includes(search.toLocaleLowerCase())|| dato.fechaPago.toLowerCase().includes(search.toLocaleLowerCase()) || dato.mesPago.toLowerCase().includes(search.toLocaleLowerCase()))
         }
         //console.log(asistencias);
         
+        const eliminar = (idPago) => {
+            //console.log(idHorario);
+            Swal.fire({
+                title: "¿Estas seguro de eliminar Pago?",
+                //text: "You won't be able to revert this!",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Eliminar",
+                cancelButtonColor: "#d33",
+                cancelButtonText: "Cancelar!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Ha eliminado el Pago!",
+                        //text: "Your file has been deleted.",
+                        icon: "success"
+                        
+                    });
+    
+                    dispatch(deletePago({idPago}))
+    
+                }
+            });
+            
+        }
       return (
         <>
                 
@@ -66,7 +96,7 @@ const Pagos = () => {
                                 Pagos</h1>
                             <NavLink
                             className=''
-                            to={'/tkdsystem/api/registrar-asistencia'}>
+                            to={'/tkdsystem/api/registrar-pago'}>
     
                                 <button className='bg-sky-600 p-3 text-white rounded-xl font-bold flex justify-center items-center capitalize '>
                                 <span className="material-symbols-outlined align-middle mr-2">
@@ -92,18 +122,18 @@ const Pagos = () => {
                             
                             <div className="flex md:justify-end justify-center p-3">
                                 <div className="bg-gray-100 rounded-lg shadow-2xl w-48 ml-10 p-3 uppercase">
-                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='idHorario'>Estado</label>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='idPago'>Estado</label>
                                      <select 
                                         className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
-                                        name="idHorario"
-                                        id='idHorario'
+                                        name="idPago"
+                                        id='idPago'
                                         
                                         onChange={searcher}
                                      >
-                                        <option value="id">--Seleccione--</option>
+                                        <option value="">--Seleccione--</option>
                                         {
-                                       horarios.map( horario => (
-                                            <option key={horario.idHorario} value={horario.hoarioInicio}>{horario.hoarioInicio +' / '+ horario.hoarioFin}</option>
+                                       pagos.map( pago => (
+                                            <option key={pago.idPago} value={pago.idPago}>{pago.idPago}</option>
                                         ))
                                         }
                                     
@@ -111,12 +141,12 @@ const Pagos = () => {
                                     </select>
                                 </div>
                                 <div className="bg-gray-100 rounded-lg shadow-2xl w-48 ml-10 p-3 uppercase">
-                                <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='fechaRegistro'>Fecha</label>
+                                <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='mesPago'>Fecha</label>
                                 <input
-                                        type='date'
-                                        id='fechaRegistro'
+                                        type='month'
+                                        id='mesPago'
                                         className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
-                                        value={(fechaRegistro)}
+                                        value={(mesPago)}
                                         onChange={searcher}
                                     />
                                 </div>
@@ -130,35 +160,39 @@ const Pagos = () => {
                                     <tr className='bg-sky-600 text-white rounded-2xl'>
                                         <th className=' w-16 text-center p-3 '>#</th>
                                         <th className=' w-28 text-left p-3 capitalize' >Fecha</th>
+                                        <th className=' w-40 text-left p-3 capitalize' >Mes</th>
                                         <th className=' w-40 text-left p-3 capitalize'>Nº Identificación</th>
-                                        <th className=' w-48 text-left p-3 capitalize'>Alumno</th>
-                                        <th className=' w-48 text-left p-3 capitalize'>Estado</th>
+                                        <th className=' w-40 text-left p-3 capitalize'>Alumno</th>
+                                        <th className=' w-28 text-left p-3 capitalize'>Estado</th>
+                                        <th className=' w-48 text-left p-3 capitalize'>Forma de Pago</th>
                                         <th className=' w-40 text-left p-3 capitalize'>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 {
-                                    results.map(asistencia => (
-                                        <tr key={asistencia.idAsistencia} className="bg-gray-200 rounded-xl text-black p-2 m-2 hover:bg-gray-400">
+                                    results.map(pago => (
+                                        <tr key={pago.idpago} className="bg-gray-200 rounded-xl text-black p-2 m-2 hover:bg-gray-400">
                                             <td className=' text-center p-3 '> {numero = numero + 1}</td>
-                                            <td className='  text-left p-3'>{ formatearFecha(asistencia.fechaRegistro)}</td>
-                                            <td className=' text-left p-3 '>{asistencia.cedulaAlumno} </td>
-                                            <td className=' text-left p-3 capitalize'>{asistencia.primerApellido + ' ' + asistencia.primerNombre}</td>
+                                            <td className='  text-left p-3'>{ formatearFecha(pago.fechaPago)}</td>
+                                            <td className='  text-left p-3'>{ formatearMesNombre(pago.mesPago)}</td>
+                                            <td className=' text-left p-3 '>{pago.cedulaAlumno} </td>
+                                            <td className=' text-left p-3 capitalize'>{pago.primerApellido + ' ' + pago.primerNombre}</td>
                                             <td className='  text-left p-3'>Pagado</td>
+                                            <td className='  text-left p-3'>{pago.formaPago}</td>
                                             <td className='  text-left p-3'>
-                                                    <Link to={`/tkdsystem/api/editar-asistencia/${asistencia.idAsistencia}`}
+                                                    <Link to={`/tkdsystem/api/editar-pago/${pago.idPago}`}
                                                     className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-left mr-2"><span className="material-symbols-outlined text-center align-middle ">
                                                         edit_square
                                                     </span></Link>
-                                                    {/* <Link 
+                                                    <Link 
                                                     
                                                     className='bg-red-500 p-2 rounded-xl text-white uppercase font-bold hover:bg-red-600 text-center'
-                                                    // onClick={() => eliminar(horario.idHorario)}
+                                                    onClick={() => eliminar(pago.idPago)}
                                                     >
                                                     <span className="material-symbols-outlined align-middle">
                                                         delete
                                                     </span>
-                                                    </Link> */}
+                                                    </Link>
                                                 </td>
                                         </tr>  
                                     ))
