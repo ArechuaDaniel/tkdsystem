@@ -1,9 +1,10 @@
 import Barra from "../components/Barra";
 import { useDispatch, useSelector } from "react-redux";
-import { startLoadingAlumnos } from "../store/alumno/thunk";
+import { deleteAlumno, startLoadingAlumnos } from "../store/alumno/thunk";
 import { Link, NavLink} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { edadFecha } from "../helpers/formatearFecha";
+import Swal from "sweetalert2";
 
 
 const MostrarAlumnos = () => {
@@ -32,7 +33,32 @@ const MostrarAlumnos = () => {
       
         dispatch(startLoadingAlumnos())
     }, [])
-    
+    const eliminar = (cedulaAlumno) => {
+        //console.log(idHorario);
+        Swal.fire({
+            title: "¿Estas seguro de eliminar el Alumno?",
+            //text: "You won't be able to revert this!",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Eliminar",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "Cancelar!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Ha eliminado el Alumno!",
+                    //text: "Your file has been deleted.",
+                    icon: "success"
+                    
+                });
+
+                dispatch(deleteAlumno({cedulaAlumno}))
+                
+            }
+        });
+        
+    }
 
     return (
         <>
@@ -109,9 +135,20 @@ const MostrarAlumnos = () => {
                                             <td className='  text-left p-3'>{edadFecha(alm.fechaNacimiento)+' '}años</td>
                                             <td className='  text-left p-3 capitalize'>{alm.estado}</td>
                                             <td className='  text-left p-3'><Link to={`/tkdsystem/api/editar-alumno/${alm.cedulaAlumno}`}
-                                                className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-center"><span className="material-symbols-outlined text-center align-middle ">
+                                                className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-center mr-2"><span className="material-symbols-outlined text-center align-middle ">
                                                     edit_square
-                                                </span></Link></td>
+                                                </span></Link>
+                                                
+                                                <Link 
+                                                    
+                                                    className='bg-red-500 p-2 rounded-xl text-white uppercase font-bold hover:bg-red-600 text-center'
+                                                    onClick={() => eliminar(alm.cedulaAlumno)}
+                                                    >
+                                                    <span className="material-symbols-outlined align-middle">
+                                                        delete
+                                                    </span>
+                                                    </Link>
+                                            </td>
                                         </tr> 
                                     ))
                                 }

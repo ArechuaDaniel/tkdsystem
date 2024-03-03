@@ -90,6 +90,22 @@ export const alumnoSlice = createSlice({
         setAlumno: (state, {payload}) => {
             state.editAlumno = payload
         },
+        eliminaAlumno: (state, {payload}) => {
+            
+            const alumnos = payload
+            const {cedulaAlumno} = alumnos
+            
+            //console.log(horarios);
+            const foundAlumno = state.alumnos.find(alumno => alumno.cedulaAlumno === alumnos.cedulaAlumno)
+            //console.log(foundAlumno);
+            //console.log(foundHorario);
+            //console.log(horarios.idHorario);
+            //console.log(idHorario);
+            if (foundAlumno) {
+                state.alumnos.splice(state.alumnos.indexOf(foundAlumno),1);
+                //console.log(foundHorario);
+            }
+        },
         setHorarios: (state, {payload}) => {
             
             state.horarios = payload
@@ -235,5 +251,5 @@ export const alumnoSlice = createSlice({
     }
 });
 // Action creators are generated for each case reducer function
-export const { setAlumnos, addAlumno,setHorarios,setAlumno,actualizarAlumno, setHorario, addHorario, actualizarHorario,eliminarHorario, setasistencias,
+export const { setAlumnos, addAlumno,setHorarios,setAlumno,eliminaAlumno,actualizarAlumno, setHorario, addHorario, actualizarHorario,eliminarHorario, setasistencias,
 setAsistencia, addAsistencia, actualizarAsistencia,setAsensos, addAsenso, setAsenso, setCinturones, setPagos, addPago, setPago, eliminaPago, eliminarAsistencia, eliminarAsenso} = alumnoSlice.actions;

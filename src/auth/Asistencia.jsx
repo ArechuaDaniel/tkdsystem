@@ -63,9 +63,9 @@ const Asistencia = () => {
                     
                 });
 
+                
                 dispatch(deleteAsistencia({idAsistencia}))
-                //navigate('/tkdsystem/api/horarios')
-
+                
             }
         });
         

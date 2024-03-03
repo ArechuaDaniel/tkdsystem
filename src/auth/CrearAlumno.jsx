@@ -20,6 +20,8 @@ const CrearAlumno = () => {
     const [fechaNacimiento, setFechaNacimiento] = useState('')
     const [direccion, setDireccion] = useState('')
     const [fechaIngreso, setFechaIngreso] = useState('')
+    const [genero, setGenero] = useState('')
+    const [tipoSangre, setTipoSangre] = useState('')
     const [telefono, setTelefono] = useState('')
     const [ocupacion, setOcupacion] = useState('')
     const [estado, setEstado] = useState('')
@@ -78,38 +80,17 @@ const CrearAlumno = () => {
 
     const handleSubmit =async (e) => {
         e.preventDefault();
-        if ([cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono, ocupacion,estado].includes('')){ 
-        // if ([crearAlumno.cedulaAlumno,crearAlumno.primerApellido,crearAlumno.segundoApellido,crearAlumno.primerNombre,crearAlumno.segundoNombre,crearAlumno.fechaNacimiento,crearAlumno.direccion,crearAlumno.fechaIngreso,crearAlumno.telefono, crearAlumno.ocupacion].includes('')) {
+        if ([cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono, ocupacion,estado, genero, tipoSangre].includes('')){ 
             Swal.fire({
                 title: "Todos los campos son obligatorios",
                 //text: "That thing is still around?",
                 icon: "warning"
               });
+              return
         }   
-        dispatch(addAlumno({id:cedulaAlumno,cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono,ocupacion,estado}))
-        const token = localStorage.getItem('token')
-        if (!token) {
-            return
-        }
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            }
-        }
         try {
-
-
-            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos`, {cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono,ocupacion,estado}, config)
-            dispatch(startNewAlumno())
-            console.log(data);
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "El alumno se ha registrado con exito",
-                showConfirmButton: false,
-                timer: 1500
-              });
+            
+            dispatch(startNewAlumno({cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono,ocupacion,estado, genero, tipoSangre}))
               navigate('/tkdsystem/api/alumnos')  
 
     } catch (error) {
@@ -231,6 +212,39 @@ const CrearAlumno = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='genero'>Genero</label>
+                                    <select id="genero" className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black '
+                                        value={genero}
+                                        onChange={(e) => setGenero(e.target.value)}
+                                    >
+                                    
+                                        <option value="" >--Seleccione--</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
+                                        <option value="Otros">Otros</option>
+
+                                    </select>
+                                </div>
+                                <div className='my-5'>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='tipoSangre'>Tipo de Sangre</label>
+                                    <select id="tipoSangre" className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black '
+                                        value={tipoSangre}
+                                        onChange={(e) => setTipoSangre(e.target.value)}
+                                    >
+                                    
+                                        <option value="" >--Seleccione--</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+
+                                    </select>
+                                </div>
+                                <div className='my-5'>
                                     <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='telefono'>Celular</label>
                                     <input
                                         type='text'
@@ -248,7 +262,7 @@ const CrearAlumno = () => {
                                         onChange={(e) => setOcupacion(e.target.value)}
                                     >
                                     
-                                        <option value="ocu" >--Seleccione--</option>
+                                        <option value="" >--Seleccione--</option>
                                         <option value="Estudiante">Estudiante</option>
                                         <option value="Trabaja">Trabaja</option>
                                         <option value="Otros">Otros</option>
@@ -262,7 +276,7 @@ const CrearAlumno = () => {
                                         onChange={(e) => setEstado(e.target.value)}
                                     >
                                     
-                                        <option value="est" >--Seleccione--</option>
+                                        <option value="" >--Seleccione--</option>
                                         <option value="Activo">Activo</option>
                                         <option value="Inactivo">Inactivo</option>
 

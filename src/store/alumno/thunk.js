@@ -1,28 +1,18 @@
 import axios from "axios";
-import { actualizarAlumno, actualizarAsistencia, actualizarHorario, addAlumno, addAsenso, addAsistencia, addHorario, addPago, eliminaPago, eliminarAsenso, eliminarAsistencia, eliminarHorario, setAlumno, setAlumnos, setAsenso, setAsensos, setAsistencia, setCinturones, setHorario, setHorarios, setPago, setPagos, setasistencias} from "./alumnoSlice";
+import { actualizarAlumno, actualizarAsistencia, actualizarHorario, addAlumno, addAsenso, addAsistencia, addHorario, addPago, eliminaAlumno, eliminaPago, eliminarAsenso, eliminarAsistencia, eliminarHorario, setAlumno, setAlumnos, setAsenso, setAsensos, setAsistencia, setCinturones, setHorario, setHorarios, setPago, setPagos, setasistencias} from "./alumnoSlice";
 import Swal from "sweetalert2";
-import { Navigate } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 
 
 
-export const startNewAlumno = () => {
+
+export const startNewAlumno = ({cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono,ocupacion,estado, genero, tipoSangre}) => {
     return async (dispatch, getState) => {
         //const {newAlumno} = useSelector(state => state.alumno.alumno)
         //console.log(newAlumno);
             
 
-        const newAlumno = {
-            cedulaAlumno,
-            primerApellido,
-            segundoApellido,
-            primerNombre,
-            segundoNombre,
-            fechaNacimiento,
-            direccion,
-            fechaIngreso,
-            telefono,
-            ocupacion,
-        }
+    
         //console.log(newAlumno);
         const token = localStorage.getItem('token')
         if (!token) {
@@ -36,17 +26,19 @@ export const startNewAlumno = () => {
         }
         try {
 
-
-            //const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos`, {cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono,ocupacion}, config)
-            // console.log(data);
+            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos`, {cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono,ocupacion,estado,genero,tipoSangre}, config)
             
-            //dispatch(addAlumno())
-            //console.log(data);
-            //console.log(alumnos);
-            //return alumnos;
-
+            dispatch(addAlumno({id:cedulaAlumno,cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono,ocupacion,estado,genero,tipoSangre}))
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "El alumno se ha registrado con exito",
+                showConfirmButton: false,
+                timer: 1500
+              });
 
         } catch (error) {
+            //console.log(error);
             Swal.fire({
             title: error.response.data.message,
             //text: "That thing is still around?",
@@ -121,22 +113,12 @@ export const startUpdateAlumno = ({cedula}) => {
         try {
 
 
-            //const { cedulaAlumno } = getState().alumno;
-            //console.log(cedula);
             const { data } = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos/${cedula}`, config)
-            //console.log(data);
-            //console.log(data.primerApellido);
-            //console.log(cedulaAlumno);
+            
             const editAlumno = data;
-            //console.log(editAlumno);
-            // data.forEach(dato => {
-            //     editAlumno.push({ id: dato.cedula, ...dato });
-
-            // })
+            
             dispatch(setAlumno(editAlumno))
-            //console.log(alumnos);
-            //return alumnos;
-
+            
 
         } catch (error) {
             Swal.fire({
@@ -148,6 +130,84 @@ export const startUpdateAlumno = ({cedula}) => {
         }
     }
 }
+export const updateAlumno = ({cedula,cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono,ocupacion,estado,genero,tipoSangre}) => {
+
+    return async (dispatch, getState) => {
+
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+
+        try {
+            const { data } = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos/${cedula}`, { cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion,estado,genero,tipoSangre }, config)
+            
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "El alumno se ha actualizado con exito",
+                showConfirmButton: false,
+                timer: 1500
+            });
+
+            
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
+        }
+    }
+}
+export const deleteAlumno = ({cedulaAlumno}) => {
+    return async (dispatch, getState) => {
+        
+        const token = localStorage.getItem('token')
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        
+        try {
+
+            
+            const { data } = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos/${cedulaAlumno}`, config)
+            
+            //console.log(data);
+
+            dispatch(eliminaAlumno({cedulaAlumno}))
+            
+                    
+
+    } catch (error) {
+        
+        Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
+    }
+}
+}
+
+
+
 export const startLoadingHorarios= () => {
 
     return async (dispatch, getState) => {
@@ -340,7 +400,7 @@ export const deleteHorario = ({idHorario}) => {
 
             dispatch(eliminarHorario({idHorario}))
             
-            //console.log(data);
+            
             
             
               
@@ -532,6 +592,7 @@ export const deleteAsistencia = ({idAsistencia}) => {
             console.log(data);
 
             dispatch(eliminarAsistencia({idAsistencia}))
+            
                   
 
     } catch (error) {
@@ -718,9 +779,10 @@ export const deleteAsenso = ({idAsenso}) => {
         try {
             const { data } = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/asensos/${idAsenso}`, config)
             
-            console.log(data);
+            
 
             dispatch(eliminarAsenso({idAsenso}))
+            
                   
 
     } catch (error) {
@@ -841,20 +903,28 @@ export const startNewPago= ({cedulaAlumno, fechaPago,  mesPago,formaPago,comprob
             
             const idPago= data.id;
 
-            console.log(data.id);
+            //console.log(data.id);
             dispatch(addPago({id:data.id,cedulaAlumno, fechaPago, mesPago,formaPago,comprobante}))
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Pago registrado con exito",
+                showConfirmButton: false,
+                timer: 1500
+              });
+           // navigate('/tkdsystem/api/pagos')  
+           
+
             
             
     } catch (error) {
-        // console.log(error);
+         //console.log(error);
         Swal.fire({
             title: error.response.data.message,
             //text: "That thing is still around?",
             icon: "warning"
             
         });
-        
-        
     }
 }
 }
@@ -961,9 +1031,11 @@ export const deletePago = ({idPago}) => {
             //console.log(data);
 
             dispatch(eliminaPago({idPago}))
+            
                     
 
     } catch (error) {
+        //console.log(error);
         
         Swal.fire({
             title: error.response.data.message,

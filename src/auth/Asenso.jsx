@@ -56,9 +56,9 @@ const Asenso = () => {
                     
                 });
 
-                dispatch(deleteAsenso({idAsenso}))
                 //navigate('/tkdsystem/api/horarios')
-
+                
+                dispatch(deleteAsenso({idAsenso}))
             }
         });
         
@@ -106,8 +106,8 @@ const Asenso = () => {
                         <div className="flex md:justify-end justify-center p-3">
                             <div className="bg-gray-100 rounded-lg shadow-2xl w-48 ml-10 p-3 uppercase">
                                 <input
-                                    type='date'
-                                    id='fechaRegistro'
+                                    type='month'
+                                    id='fechaAsenso'
                                     className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
                                     value={(fechaAsenso)}
                                     onChange={searcher}
@@ -133,7 +133,7 @@ const Asenso = () => {
                             <tbody>
                                 {
                                     results.map(asenso => (
-                                        <tr key={asenso.idAsenso} className="bg-gray-200 rounded-xl text-black p-2 m-2 hover:bg-gray-400">
+                                        <tr key={asenso.idAsenso} className="bg-gray-200 rounded-xl text-black p-2 m-2 hover:bg-gray-400 ">
                                             <td className=' text-center p-3 '> {numero = numero + 1}</td>
                                             <td className='  text-left p-3 '>{formatearFecha(asenso.fechaAsenso)}</td>
                                             <td className=' text-left p-3 '>{asenso.cedulaAlumno} </td>

@@ -24,6 +24,7 @@ const Horario = () => {
 
     const eliminar = (idHorario) => {
         //console.log(idHorario);
+        
         Swal.fire({
             title: "¿Estas seguro de eliminar horario?",
             //text: "You won't be able to revert this!",
@@ -42,12 +43,11 @@ const Horario = () => {
                     
                 });
 
-                dispatch(deleteHorario({idHorario}))
                 //navigate('/tkdsystem/api/horarios')
-
+                dispatch(deleteHorario({idHorario}))
+                
             }
         });
-        
     }
 
     return (

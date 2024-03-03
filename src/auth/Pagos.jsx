@@ -73,8 +73,8 @@ const Pagos = () => {
                         
                     });
     
+                    
                     dispatch(deletePago({idPago}))
-    
                 }
             });
             

@@ -43,7 +43,7 @@ const RegistrarPago = () => {
         }, [])
     
         
-        console.log({cedulaAlumno, fechaPago, mesPago:mesPago+'-05',formaPago,comprobante});
+        //console.log({cedulaAlumno, fechaPago, mesPago:mesPago+'-05',formaPago,comprobante});
     
         const searcher = (e) => {
             setSearch(e.target.value)
@@ -98,21 +98,17 @@ const RegistrarPago = () => {
             }
 
                 dispatch(startNewPago({cedulaAlumno, fechaPago, mesPago,formaPago,comprobante}))
-                
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Pago registrado con exito",
-                    showConfirmButton: false,
-                    timer: 1500
-                  });
-                  
-                  navigate('/tkdsystem/api/pagos')  
+                navigate('/tkdsystem/api/pagos')  
                   
             } catch (error) {
                 console.log(error);
                 
-            }
+            } 
+            //finally {
+            //      //navigate('/tkdsystem/api/pagos')  
+            // }
+              
+            
             
         }
         const { msg } = alerta;

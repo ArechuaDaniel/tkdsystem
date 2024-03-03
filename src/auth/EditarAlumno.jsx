@@ -4,7 +4,7 @@ import Barra from "../components/Barra";
 
 import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from "react-redux";
-import { startUpdateAlumno } from "../store/alumno/thunk";
+import { startUpdateAlumno, updateAlumno } from "../store/alumno/thunk";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
@@ -22,6 +22,8 @@ const EditarAlumno = () => {
     const [fechaNacimiento, setFechaNacimiento] = useState('')
     const [direccion, setDireccion] = useState('')
     const [fechaIngreso, setFechaIngreso] = useState('')
+    const [genero, setGenero] = useState('')
+    const [tipoSangre, setTipoSangre] = useState('')
     const [telefono, setTelefono] = useState('')
     const [ocupacion, setOcupacion] = useState('')
     const [estado, setEstado] = useState('')
@@ -40,17 +42,13 @@ const EditarAlumno = () => {
     useEffect(() => {
             
         dispatch(startUpdateAlumno({ cedula }))
+
       
     }, [])
 
     
     
     useEffect(() => {
-        // const updateAlumno = () => {
-        //     if (params.cedulaAlumno) {
-                //dispatch(startUpdateAlumno({ cedula }))
-                //console.log('Params',editAlumno.primerApellido)
-                //dispatch(startUpdateAlumno({ cedula }))
                 setCedulaAlumno(editAlumno.cedulaAlumno)
                 setPrimerApellido(editAlumno.primerApellido)
                 
@@ -60,14 +58,14 @@ const EditarAlumno = () => {
                 setFechaNacimiento(formatearFecha(editAlumno.fechaNacimiento))
                 setDireccion(editAlumno.direccion)
                 setFechaIngreso(formatearFecha(editAlumno.fechaIngreso))
+                setGenero(editAlumno.genero)
+                
+                setTipoSangre(editAlumno.tipoSangre)
                 setTelefono(editAlumno.telefono)
                 setOcupacion(editAlumno.ocupacion)
                 setEstado(editAlumno.estado)
-            //}
-        
-        //  }
-        // updateAlumno()
-
+                
+          
     }, [editAlumno])
    
 
@@ -94,48 +92,27 @@ const EditarAlumno = () => {
             }
         });
     }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if ([cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion, estado].includes('')) {
-            // if ([crearAlumno.cedulaAlumno,crearAlumno.primerApellido,crearAlumno.segundoApellido,crearAlumno.primerNombre,crearAlumno.segundoNombre,crearAlumno.fechaNacimiento,crearAlumno.direccion,crearAlumno.fechaIngreso,crearAlumno.telefono, crearAlumno.ocupacion].includes('')) {
+        if ([cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion, estado,genero,tipoSangre].includes('')) {
             Swal.fire({
                 title: "Todos los campos son obligatorios",
                 //text: "That thing is still around?",
                 icon: "warning"
             });
+            return;
         }
-        //dispatch(actualizarAlumno({ ...alumnos, id: params.cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion, estado }));
-        dispatch(actualizarAlumno({ ...alumnos, id: params.cedulaAlumno }));
-        //dispatch(addAlumno({ id: cedulaAlumno, cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion, estado }))
-        const token = localStorage.getItem('token')
-        if (!token) {
-            return
-        }
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            }
-        }
+        
         try {
 
 
-            const { data } = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/alumnos/${cedula}`, { cedulaAlumno, primerApellido, segundoApellido, primerNombre, segundoNombre, fechaNacimiento, direccion, fechaIngreso, telefono, ocupacion,estado }, config)
-            //console.log(data);
-            //dispatch(startNewAlumno())
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "El alumno se ha actualizado con exito",
-                showConfirmButton: false,
-                timer: 1500
-            });
+            dispatch(updateAlumno({cedula,cedulaAlumno,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaIngreso,telefono,ocupacion,estado,genero,tipoSangre}))
             navigate('/tkdsystem/api/alumnos')
 
         } catch (error) {
             console.log(error);
         }
+
     }
     return (
         <>
@@ -250,6 +227,39 @@ const EditarAlumno = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='genero'>Genero</label>
+                                    <select id="genero" className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black '
+                                        value={genero}
+                                        onChange={(e) => setGenero(e.target.value)}
+                                    >
+                                    
+                                        <option value="" >--Seleccione--</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
+                                        <option value="Otros">Otros</option>
+
+                                    </select>
+                                </div>
+                                <div className='my-5'>
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='tipoSangre'>Tipo de Sangre</label>
+                                    <select id="tipoSangre" className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black '
+                                        value={tipoSangre}
+                                        onChange={(e) => setTipoSangre(e.target.value)}
+                                    >
+                                    
+                                        <option value="" >--Seleccione--</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+
+                                    </select>
+                                </div>
+                                <div className='my-5'>
                                     <label className=' text-gray-600  text-xl font-bold' htmlFor='telefono'>Celular</label>
                                     <input
                                         type='text'
@@ -267,7 +277,7 @@ const EditarAlumno = () => {
                                         onChange={(e) => setOcupacion(e.target.value)}
                                     >
 
-                                        <option value="audi" >--Seleccione--</option>
+                                        <option value="" >--Seleccione--</option>
                                         <option value="Estudiante">Estudiante</option>
                                         <option value="Trabaja">Trabaja</option>
                                         <option value="Otros">Otros</option>
@@ -281,7 +291,7 @@ const EditarAlumno = () => {
                                         onChange={(e) => setEstado(e.target.value)}
                                     >
 
-                                        <option value="est" >--Seleccione--</option>
+                                        <option value="" >--Seleccione--</option>
                                         <option value="Activo">Activo</option>
                                         <option value="Inactivo">Inactivo</option>
 
@@ -290,7 +300,17 @@ const EditarAlumno = () => {
 
                             </div>
 
-                            <div className="flex md:flex-row flex-col-reverse  justify-end">
+                            <div className="flex md:flex-row-reverse flex-col  justify-start">
+                                
+                                <button
+                                    className='bg-sky-600 md:w-1/4  text-white  capitalize font-bold rounded-xl hover:cursor-pointer hover:bg-sky-700 transition-colors p-3'
+                                >
+                                    <span className="material-symbols-outlined align-middle mr-2">
+                                        save
+                                    </span>
+                                    Guardar Alumno
+
+                                </button>
                                 <button
                                     className='bg-red-400 md:w-1/4  text-white  capitalize font-bold rounded-xl hover:cursor-pointer hover:bg-red-500 transition-colors p-3 md:mr-10 md:mt-0 mt-6'
                                     onClick={regresarAlumno}
@@ -299,15 +319,6 @@ const EditarAlumno = () => {
                                         cancel
                                     </span>
                                     Regresar
-
-                                </button>
-                                <button
-                                    className='bg-sky-600 md:w-1/4  text-white  capitalize font-bold rounded-xl hover:cursor-pointer hover:bg-sky-700 transition-colors p-3'
-                                >
-                                    <span className="material-symbols-outlined align-middle mr-2">
-                                        save
-                                    </span>
-                                    Guardar Alumno
 
                                 </button>
                             </div>
