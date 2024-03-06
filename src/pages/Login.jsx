@@ -61,36 +61,36 @@ const Login = () => {
             //console.log(auth.status);
 
         } catch (error) {
+            
             Swal.fire({
-                title: msg,
+                title: error.response.data.msg,
                 //text: "That thing is still around?",
                 icon: "warning"
             });
-            setAlerta({
-                msg: error.response.data.msg,
-                error: true
-            })
+            
         }
     }
-    const { msg } = alerta;
+    
 
     return (
         <>
-            <div className='flex md:flex-row  justify-center items-center mx-auto  h-screen  '>
+            <div className='flex justify-center items-center h-screen '>
                 {/* IMAGE */}
-                <div className='md:m-0 -ml-96 '>
+                {/* <div className='md:m-0 -ml-96 '>
                     <img
                         className='rounded-xl md:opacity-100 opacity-0'
                         style={{ height: '575px' }}
                         src={login} alt="login" />
-                </div>
+                </div> */}
+                {/* <div className='bg-sky-600 md:w-2/3 p-4'>
 
+                </div> */}
                 {/* LOGIN  */}
                 <div
                     style={{ height: '575px' }}
-                    className='rounded-xl bg-white'>
-                    <h1 className='text-sky-600 font-black text-3xl  px-5 mt-5'>Ingreso al Sistema </h1>
-                    {/* {msg && <Alerta alerta={alerta} />} */}
+                    className='rounded-xl bg-white shadow-2xl md:w-1/3'>
+                    <h1 className='text-sky-600 font-bold text-3xl  p-5 m-5'>Ingreso al Sistema </h1>
+                    
                     <form
                         onSubmit={handleSubmit}
                         className='my-2 bg-white shadow rounded-lg p-10'>
@@ -142,17 +142,12 @@ const Login = () => {
                     </form>
                     <nav>
                         <Link
-                            className='block text-center text-slate-500 capitalize text-sm mb-2'
+                            className='text-slate-500 capitalize text-sm  hover:font-bold flex justify-center '
                             to='olvide-password'
                         >
                             Olvide constraseña
                         </Link>
-                        <Link
-                            className='block text-center text-slate-500  capitalize text-sm'
-                            to='registrar'
-                        >
-                            Crear Cuenta
-                        </Link>
+                        
                     </nav>
                 </div>
             </div>

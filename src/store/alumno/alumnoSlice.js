@@ -4,6 +4,9 @@ export const alumnoSlice = createSlice({
     name: 'alumno',
     initialState: {
             isSaving : false,
+
+            instructor: '',
+
             alumnos: [],
             editAlumno:'',
 
@@ -32,6 +35,9 @@ export const alumnoSlice = createSlice({
             // ocupacion: null,
     },
     reducers: {
+        setInstructor: (state, {payload}) => {
+            state.instructor = payload
+        },
         setAlumnos: (state, action) => {
             
             state.alumnos = action.payload
@@ -251,5 +257,5 @@ export const alumnoSlice = createSlice({
     }
 });
 // Action creators are generated for each case reducer function
-export const { setAlumnos, addAlumno,setHorarios,setAlumno,eliminaAlumno,actualizarAlumno, setHorario, addHorario, actualizarHorario,eliminarHorario, setasistencias,
+export const {setInstructor, setAlumnos, addAlumno,setHorarios,setAlumno,eliminaAlumno,actualizarAlumno, setHorario, addHorario, actualizarHorario,eliminarHorario, setasistencias,
 setAsistencia, addAsistencia, actualizarAsistencia,setAsensos, addAsenso, setAsenso, setCinturones, setPagos, addPago, setPago, eliminaPago, eliminarAsistencia, eliminarAsenso} = alumnoSlice.actions;

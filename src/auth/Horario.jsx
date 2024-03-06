@@ -11,20 +11,20 @@ import { useEffect } from 'react'
 const Horario = () => {
 
     const dispatch = useDispatch();
-    const { horarios} = useSelector(state => state.alumno)
-   
+    const { horarios } = useSelector(state => state.alumno)
+
 
     useEffect(() => {
-      
+
         dispatch(startLoadingHorarios())
     }, [])
-    
+
     let numero = 0;
-    
+
 
     const eliminar = (idHorario) => {
         //console.log(idHorario);
-        
+
         Swal.fire({
             title: "¿Estas seguro de eliminar horario?",
             //text: "You won't be able to revert this!",
@@ -40,28 +40,29 @@ const Horario = () => {
                     title: "Ha eliminado el Horario!",
                     //text: "Your file has been deleted.",
                     icon: "success"
-                    
+
                 });
 
                 //navigate('/tkdsystem/api/horarios')
-                dispatch(deleteHorario({idHorario}))
-                
+                dispatch(deleteHorario({ idHorario }))
+
             }
         });
     }
 
     return (
         <>
-            
+
             <div className="flex md:flex-row flex-col">
 
                 <Barra />
-                <div className=' overflow-y-auto h-screen shadow-2xl md:w-4/5 w-full'>
-                    <div className="flex justify-around items-center mt-10">
+                <div className=' overflow-auto h-screen shadow-2xl md:w-4/5 w-full'>
+                    <div className="flex justify-around items-center m-10">
 
-                        <h1 className='md:text-3xl  text-2xl capitalize'>
-                        <span className="material-symbols-outlined align-middle text-3xl mr-2">
-                        schedule
+                        <h1 className='text-sky-600 font-black md:text-3xl text-2xl'
+                        >
+                            <span className="material-symbols-outlined align-middle text-3xl mr-2">
+                                schedule
                             </span>
                             Horarios</h1>
                         <NavLink
@@ -83,7 +84,7 @@ const Horario = () => {
                         <table className="table-fixed shadow-2xl bg-gray-200 rounded-2xl  m-4">
                             <thead className='bg-sky-600 text-white rounded-2xl'>
                                 <tr >
-                                <th className='w-16 text-center p-3'>#</th>
+                                    <th className='w-16 text-center p-3'>#</th>
                                     {/* <th className='w-16 text-center p-3'>#</th> */}
                                     <th className='md:w-40 w-32 text-left p-3 capitalize' >Inicio de horario</th>
                                     <th className='md:w-40 w-32 text-left p-3 capitalize'>Fin de horario</th>
@@ -99,19 +100,19 @@ const Horario = () => {
                                             {/* <td className=' text-center p-3 '> {horario.idHorario}</td> */}
                                             <td className=' text-left p-3 '>{horario.hoarioInicio} </td>
                                             <td className=' text-left p-3 uppercase'>{horario.hoarioFin}</td>
-                                            <td className='  text-center p-3'>
+                                            <td className='  text-center p-3 flex'>
                                                 <Link to={`/tkdsystem/api/editar-horario/${horario.idHorario}`}
-                                                className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-center mr-2"><span className="material-symbols-outlined text-center align-middle ">
-                                                    edit_square
-                                                </span></Link>
-                                                <Link 
-                                                
-                                                className='bg-red-500 p-2 rounded-xl text-white uppercase font-bold hover:bg-red-600 text-center'
-                                                onClick={() => eliminar(horario.idHorario)}
+                                                    className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-center mr-2"><span className="material-symbols-outlined text-center align-middle ">
+                                                        edit_square
+                                                    </span></Link>
+                                                <Link
+
+                                                    className='bg-red-500 p-2 rounded-xl text-white uppercase font-bold hover:bg-red-600 text-center'
+                                                    onClick={() => eliminar(horario.idHorario)}
                                                 >
-                                                <span className="material-symbols-outlined align-middle">
-                                                    delete
-                                                </span>
+                                                    <span className="material-symbols-outlined align-middle">
+                                                        delete
+                                                    </span>
                                                 </Link>
                                             </td>
                                         </tr>

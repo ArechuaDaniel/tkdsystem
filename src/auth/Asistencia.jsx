@@ -77,9 +77,10 @@ const Asistencia = () => {
 
                 <Barra />
                 <div className=' overflow-y-auto h-screen shadow-2xl md:w-4/5'>
-                    <div className="flex justify-around items-center mt-10">
+                <div className="flex justify-around items-center m-10">
 
-                        <h1 className='md:text-3xl  text-2xl capitalize'>
+                <h1 className='text-sky-600 font-black md:text-3xl text-2xl'
+>
                         <span className="material-symbols-outlined align-middle text-3xl mr-2">
                             
                             fact_check
@@ -166,7 +167,7 @@ const Asistencia = () => {
                                         <td className=' text-left p-3 '>{asistencia.cedulaAlumno} </td>
                                         <td className=' text-left p-3 capitalize'>{asistencia.primerApellido + ' ' + asistencia.primerNombre}</td>
                                         <td className='  text-left p-3'>{asistencia.hoarioInicio +' / '+ asistencia.hoarioFin}</td>
-                                        <td className='  text-left p-3'>
+                                        <td className='  text-left p-3 flex'>
                                                 <Link to={`/tkdsystem/api/editar-asistencia/${asistencia.idAsistencia}`}
                                                 className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-left mr-2"><span className="material-symbols-outlined text-center align-middle ">
                                                     edit_square

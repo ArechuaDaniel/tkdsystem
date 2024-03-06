@@ -26,7 +26,7 @@ const MostrarAlumnos = () => {
         //console.log(results); 
     }
     else {
-        results = alumnos.filter((dato) => dato.primerNombre.toLowerCase().includes(search.toLocaleLowerCase()) || dato.primerApellido.toLowerCase().includes(search.toLocaleLowerCase()) || dato.cedulaAlumno.toLowerCase().includes(search.toLocaleLowerCase()))
+        results = alumnos.filter((dato) => dato.primerNombre.toLowerCase().includes(search.toLocaleLowerCase()) || dato.primerApellido.toLowerCase().includes(search.toLocaleLowerCase()) || dato.cedulaAlumno.toLowerCase().includes(search.toLocaleLowerCase()) || dato.genero.toLowerCase().includes(search.toLocaleLowerCase()))
     }
 
     useEffect(() => {
@@ -66,13 +66,13 @@ const MostrarAlumnos = () => {
             <div className="flex md:flex-row flex-col">
                 <Barra />
 
-                <div className=' overflow-y-auto h-screen shadow-2xl md:w-4/5'>
+                <div className=' overflow-auto h-screen w-screen shadow-2xl md:w-4/5 '>
                     <div className="flex justify-around items-center m-10 ">
-                        <h1 className='md:text-3xl text-2xl'>
+                        <h1 className='text-sky-600 font-black md:text-3xl text-2xl'>
                         <span className="material-symbols-outlined align-middle text-3xl mr-2">
                             groups 
                             </span>
-                            Datos generales de los Alumnos </h1>
+                            Datos  de los Alumnos </h1>
                         <NavLink
                             className=''
                             to={'/tkdsystem/api/crear-alumno'}>
@@ -102,6 +102,30 @@ const MostrarAlumnos = () => {
                             />    
                             <span className="material-symbols-outlined align-middle">search</span>
                         </div>
+
+                        <div className="flex md:justify-end justify-center p-3">
+                                <div className="bg-gray-100 rounded-lg shadow-2xl w-48 ml-10 p-3 uppercase">
+                                    <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='genero'>Género</label>
+                                     <select 
+                                        className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black'
+                                        name="genero"
+                                        id='genero'
+                                        
+                                        onChange={searcher}
+                                     >
+                                        <option value="">--Seleccione--</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
+                                        {/* {
+                                       alumnos.map( alumno => (
+                                            <option key={alumno.genero} value={alumno.genero}>{alumno.genero}</option>
+                                        ))
+                                        } */}
+                                    
+                                        
+                                    </select>
+                                </div>
+                                </div>
                         <div className="flex md:justify-end justify-center p-3">
                             <div className="bg-gray-100 rounded-lg shadow-2xl w-48 ml-10 p-3 capitalize">
                                 <h3>Total Alumnos : <span  className="font-bold">{alumnos.length}</span></h3>
@@ -120,6 +144,7 @@ const MostrarAlumnos = () => {
                                     <th className=' w-48 text-left p-3'>Nº Identificación</th>
                                     <th className=' w-48 text-left p-3' >Alumno</th>
                                     <th className=' w-32 text-left p-3' >Edad</th>
+                                    <th className=' w-32 text-left p-3' >Género</th>
                                     <th className=' w-32 text-left p-3'>Estado</th>
                                     <th className=' w-32 text-left p-3'>Acción</th>
 
@@ -133,9 +158,11 @@ const MostrarAlumnos = () => {
                                             <td className=' text-left p-3 '>{alm.cedulaAlumno} </td>
                                             <td className=' text-left p-3 capitalize'>{alm.primerApellido + ' ' + alm.primerNombre}</td>
                                             <td className='  text-left p-3'>{edadFecha(alm.fechaNacimiento)+' '}años</td>
+                                            <td className='  text-left p-3 capitalize'>{alm.genero}</td>
                                             <td className='  text-left p-3 capitalize'>{alm.estado}</td>
-                                            <td className='  text-left p-3'><Link to={`/tkdsystem/api/editar-alumno/${alm.cedulaAlumno}`}
-                                                className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-center mr-2"><span className="material-symbols-outlined text-center align-middle ">
+
+                                            <td className='  text-left p-3 flex'><Link to={`/tkdsystem/api/editar-alumno/${alm.cedulaAlumno}`}
+                                                className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-center mr-2 "><span className="material-symbols-outlined text-center align-middle ">
                                                     edit_square
                                                 </span></Link>
                                                 

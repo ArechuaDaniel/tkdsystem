@@ -22,6 +22,9 @@ import EditarAsenso from "./auth/EditarAsenso"
 import Pagos from "./auth/Pagos"
 import RegistrarPago from "./auth/RegistrarPago"
 import EditarPago from "./auth/EditarPago"
+import Perfil from "./auth/Perfil"
+import Instructor from "./auth/Instructor"
+import CambiarPassword from "./auth/CambiarPassword"
 
 // console.log(import.meta.env.VITE_BACKEND_URL);
 function App() {
@@ -43,6 +46,9 @@ function App() {
           <Route path="tkdsystem/api/" element={<RutaProtegida/>}>
             <Route index element={<Side />} />
             <Route path='home' element={<Side />} />
+            <Route path='instructor' element={<Instructor />} />
+            <Route path='perfil' element={<Perfil />} />
+            <Route path='cambiar-password' element={<CambiarPassword />} />
             <Route path='alumnos' element={<MostrarAlumnos />} />
             <Route path='crear-alumno' element={<CrearAlumno />} />
             <Route path='editar-alumno/:cedulaAlumno' element={<EditarAlumno />} />

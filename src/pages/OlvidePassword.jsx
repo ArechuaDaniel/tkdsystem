@@ -41,15 +41,16 @@ const OlvidePassword = () => {
             
         } catch (error) {
             
-            setAlerta({
-                msg: error.response.data.msg,
-                error: true
-              })
+            Swal.fire({
+                title: error.response.data.msg,
+                //text: "That thing is still around?",
+                icon: "warning"
+            });
         }
         
 
     }
-    const { msg } = alerta;
+    
     return (
         <>
             <div className='flex md:flex-row  justify-center items-center mx-auto  md:h-screen h-full'>
@@ -57,8 +58,8 @@ const OlvidePassword = () => {
                 <div
 
                     className='rounded-xl bg-white shadow-2xl'>
-                    <h1 className='text-sky-600 font-black text-3xl capitalize px-10 mt-10'>Recupera tu acceso al sistema </h1>
-                    {msg && <Alerta alerta={alerta} />}
+                    <h1 className='text-sky-600 font-black text-3xl  px-10 mt-10'>Recupera tu acceso al Sistema </h1>
+                    
 
                     <form
                         onSubmit={handleSubmit}

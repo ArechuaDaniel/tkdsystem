@@ -1,5 +1,5 @@
 import axios from "axios";
-import { actualizarAlumno, actualizarAsistencia, actualizarHorario, addAlumno, addAsenso, addAsistencia, addHorario, addPago, eliminaAlumno, eliminaPago, eliminarAsenso, eliminarAsistencia, eliminarHorario, setAlumno, setAlumnos, setAsenso, setAsensos, setAsistencia, setCinturones, setHorario, setHorarios, setPago, setPagos, setasistencias} from "./alumnoSlice";
+import { actualizarAlumno, actualizarAsistencia, actualizarHorario, addAlumno, addAsenso, addAsistencia, addHorario, addPago, eliminaAlumno, eliminaPago, eliminarAsenso, eliminarAsistencia, eliminarHorario, setAlumno, setAlumnos, setAsenso, setAsensos, setAsistencia, setCinturones, setHorario, setHorarios, setInstructor, setPago, setPagos, setasistencias} from "./alumnoSlice";
 import Swal from "sweetalert2";
 import { NavLink, Navigate } from "react-router-dom";
 
@@ -49,6 +49,127 @@ export const startNewAlumno = ({cedulaAlumno,primerApellido,segundoApellido,prim
     }
 
 }
+export const startLoadingInstructor = () => {
+
+    return async (dispatch, getState) => {
+
+
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+
+        try {
+            const { data } = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/instructor`, config)
+            //console.log(data);
+
+            const { cedulaAlumno } = getState().auth;
+            const instructor = data;
+            
+            dispatch(setInstructor(instructor))
+            //console.log(alumnos);
+            //return alumnos;
+
+
+        } catch (error) {
+            //console.log(error);
+            Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
+        }
+    }
+}
+export const updateInstructor = ({cedulaInstructor,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaRegistro,telefono,idClub,correo, genero }) => {
+
+    return async (dispatch, getState) => {
+
+        const token = localStorage.getItem('token')
+        // console.log(cedulaInstructor,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaRegistro,telefono,idClub,correo, genero);
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+
+        try {
+            const { data } = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/instructor/${cedulaInstructor}`, { primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaRegistro,telefono,idClub,correo, genero}, config)
+            
+        
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "El instructor se ha actualizado con exito",
+                showConfirmButton: false,
+                timer: 1500
+            });
+
+            
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
+        }
+    }
+}
+export const updatePassword = ({cedulaInstructor,password }) => {
+
+    return async (dispatch, getState) => {
+
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+
+        try {
+            const { data } = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/instructor/cambiar-password/${cedulaInstructor}`, { password }, config)
+            
+            //console.log(data);
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "La contraseña se ha actualizado con exito",
+                showConfirmButton: false,
+                timer: 1500
+            });
+
+            
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
+        }
+    }
+}
+
 
 export const startLoadingAlumnos = () => {
 

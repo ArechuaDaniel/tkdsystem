@@ -124,9 +124,8 @@ const RegistrarAsistencia = () => {
 
                 <Barra />
                 <div className=' mx-auto md:overflow-y-auto h-screen'>
-                    <div className="flex justify-around items-center">
-
-                        <h1 className='md:text-3xl text-2xl mt-10  capitalize'>
+                <div className="flex justify-around items-center m-10">
+                <h1 className='text-sky-600 font-black md:text-3xl text-2xl'>
                             
                         <span className="material-symbols-outlined align-middle text-3xl mr-2">
                             

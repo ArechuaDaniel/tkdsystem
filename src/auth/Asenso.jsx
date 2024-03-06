@@ -69,10 +69,8 @@ const Asenso = () => {
             <div className="flex md:flex-row flex-col">
 
                 <Barra />
-                <div className=' md:overflow-y-auto overflow-x-auto h-screen shadow-2xl md:w-4/5'>
-                    <div className="flex justify-around items-center mt-10">
-
-                        <h1 className='md:text-3xl  text-2xl capitalize'>
+                <div className=' md:overflow-y-auto overflow-x-auto h-screen shadow-2xl md:w-4/5'><div className="flex justify-around items-center m-10">
+                    <h1 className='text-sky-600 font-black md:text-3xl text-2xl'>
                             <span className="material-symbols-outlined align-middle text-3xl mr-2">
                                 license
                             </span>
@@ -167,7 +165,7 @@ const Asenso = () => {
 
                                             </td>
 
-                                            <td className='  text-left p-3'><Link to={`/tkdsystem/api/editar-asenso/${asenso.idAsenso}`}
+                                            <td className='  text-left p-3 flex'><Link to={`/tkdsystem/api/editar-asenso/${asenso.idAsenso}`}
                                                 className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-center mr-2"><span className="material-symbols-outlined text-center align-middle ">
                                                     edit_square
                                                 </span></Link>

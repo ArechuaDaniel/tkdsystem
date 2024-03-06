@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { logout } from '../store/auth/authSlice';
 
 import Swal from 'sweetalert2'
+import { isAction } from '@reduxjs/toolkit';
 const Barra = () => {
     const Links = [
         { name: "Home", link: "/tkdsystem/api/home", value: "dashboard" },
@@ -21,6 +22,7 @@ const Barra = () => {
         //{ name: "Cerrar Sesión", link: "/tkdsystem/" },
     ];
     const [open, setOpen] = useState(false);
+    
 
     const navigate = useNavigate();
     const auth = useSelector(state => state.auth);
@@ -54,23 +56,27 @@ const Barra = () => {
     }
     return (
         <>
-            <div className={`  md:bg-gray-200 md:overflow-x-auto  md:h-screen shadow-2xl md:w-1/5 rounded-r-3xl`}>
+            <div className={` md:overflow-x-auto  md:h-screen shadow-2xl md:w-1/5 `}>
 
 
-                <div className='text-white  flex  flex-col md:justify-between  p-6 bg-sky-800 md:w-full '>
+                <div className='text-white  flex  flex-col md:justify-between  p-6 bg-sky-800 md:w-full'>
                     <NavLink
                         to={'/tkdsystem/api'}
                     >
                         <h1 className='text-white md:text-3xl text-xl md:font-normal font-bold capitalize'>Sistema tkd</h1>
+
+
+
+                        <div className='flex mt-4 bg-sky-500 p-3 md:justify-center rounded-full'>
+                            <span className="material-symbols-outlined align-middle mr-2">
+                                account_circle
+                            </span>
+                            <p className='capitalize font-bold'>
+                                {auth.primerNombre}{' '}{auth.primerApellido}
+                            </p>
+                        </div>
                     </NavLink>
-                    <div className='flex'>
-                        <span className="material-symbols-outlined align-middle mr-2">
-                            account_circle
-                        </span>
-                        <p className='capitalize font-bold'>
-                            {auth.primerNombre}{' '}{auth.primerApellido}
-                        </p>
-                    </div>
+
                 </div>
 
                 <div className=" text-4xl text-white absolute top-6 right-10 cursor-pointer md:hidden"
@@ -79,19 +85,20 @@ const Barra = () => {
                     <ion-icon name={open ? "close" : "menu"}></ion-icon>
 
                 </div>
-                <ul className={`md:w-96 bg-sky-800 text-white transition-all duration-150 ease-in absolute md:static  ${open ? "top-300" : "top-[-9090px]"}`}>
+                <ul className={` bg-sky-800 text-white transition-all duration-150 ease-in absolute md:static  ${open ? "top-300" : "top-[-9090px]"}`}>
                     {
                         Links.map((Link) => (
                             <NavLink key={Link.name}
-                                // style={isActive => isActive ? { backgroundColor: 'white' } : {}}
-                                //className={({ isActive }) => (isActive ? 'text-sky-800 font-bold' : '')}
-                                className={({ isActive }) => (isActive ? 'text-white font-bold rounded-full bg-white' : '')}
+                                
+                                className={({ isActive }) => (isActive ? 'text-white font-black bg-white' : '')}
+                                //className={isActive => !isActive & (`text-black font-bold bg-white `) }
+                                
                                 to={Link.link}
                             >
                                 <p className="p-6 hover:bg-white hover:text-sky-800 hover:font-bold text-2xl capitalize md:w-full w-screen hover:rounded-l-full ml-5">
-                                        <span className="material-symbols-outlined align-middle text-3xl mr-2">
-                                            {Link.value}
-                                        </span>
+                                    <span className="material-symbols-outlined align-middle text-3xl mr-2">
+                                        {Link.value}
+                                    </span>
                                     {Link.name}
                                 </p>
                             </NavLink>
@@ -113,11 +120,6 @@ const Barra = () => {
                 </ul>
 
             </div>
-
-            {/* bg-sky-800 md:grid  md:grid-cols-3 md:gap-x-8 md:gap-y-4">  flex flex-col justify-center items-center md:h-screen h-full */}
-
-
-
         </>
     )
 }

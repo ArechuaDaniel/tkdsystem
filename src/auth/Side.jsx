@@ -45,14 +45,26 @@ const Side = () => {
 
                 <div className=' overflow-y-auto h-screen shadow-2xl md:w-4/5'>
                     
-                    <div className="m-10 ">
-                        <h1 className='md:text-3xl text-2xl capitalize'>
+                <div className="flex justify-around items-center m-10">
+                            
+                        <h1 className='text-sky-600 font-black md:text-3xl text-2xl'>
                             <span className="material-symbols-outlined align-middle text-3xl mr-2">
                                 dashboard
                             </span>
                             Dashboard </h1>
+                            <NavLink
+                            className=''
+                            to={'/tkdsystem/api/perfil'}>
+
+                            <button className='bg-sky-600 hover:bg-sky-700 p-3 text-white rounded-xl font-bold flex justify-center items-center capitalize'>
+                                <span className="material-symbols-outlined align-middle mr-2">
+                                    edit
+                                </span>
+                                Ver información
+                            </button>
+                        </NavLink>
                     </div>
-                    <div className="flex justify-between items-cente flex md:flex-row flex-col justify-center r">
+                    <div className="flex justify-between items-center md:flex-row flex-col md:justify-center">
 
                     <div className="ml-10 ">
                         <h1 className='md:text-3xl text-2xl capitalize'>
