@@ -4,7 +4,7 @@
 
 import Barra from "../components/Barra";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAlumno, startLoadingAlumnos, startLoadingInstructor, updateInstructor } from "../store/alumno/thunk";
+import { deleteAlumno, startLoadingAlumnos, startLoadingCantones, startLoadingInstructor, startLoadingPaises, startLoadingParroquias, startLoadingProvincias, updateInstructor } from "../store/alumno/thunk";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { edadFecha, formatearFecha } from "../helpers/formatearFecha";
@@ -26,13 +26,18 @@ const Instructor = () => {
         const [telefono, setTelefono] = useState('')
         const [genero, setGenero] = useState('')
         const [idClub, setIdClub] = useState('')
+        const [tipoSangre, setTipoSangre] = useState('')
+        const [idParroquia, setIdParroquia] = useState('');
+        const [idPais, setIdPais] = useState('');
+        const [idProvincia, setIdProvincia] = useState('')
+        const [idCanton, setIdCanton] = useState('');
         const [alerta, setAlerta] = useState({})
     
         const dispatch = useDispatch();
-        const {instructor} = useSelector(state => state.alumno)
+        const {instructor,paises,provincias,cantones,parroquias} = useSelector(state => state.alumno)
         const navigate = useNavigate();
         
-    
+
         const fechaActual = new Date();
         
         const cedulaInstructor = instructor.cedulaInstructor;
@@ -41,7 +46,22 @@ const Instructor = () => {
         useEffect(() => {
           
             dispatch(startLoadingInstructor())
+            dispatch(startLoadingPaises())
+            dispatch(startLoadingProvincias())
         }, [])
+        useEffect(() => {
+                
+            try {
+                dispatch(startLoadingCantones({idProvincia}))
+            } catch (error) {
+                console.log(error);
+            }
+        
+        }, [idProvincia])
+        useEffect(() => {
+            dispatch(startLoadingParroquias({idCanton}))
+        
+        }, [idCanton])
         
         useEffect(() => {
           
@@ -56,8 +76,13 @@ const Instructor = () => {
             setFechaRegistro(formatearFecha(instructor.fechaRegistro))
             setTelefono(instructor.telefono)
             setCorreo(instructor.correo)
-            setIdClub(instructor.idClub)
+            setIdPais(instructor.idPais)
+            setIdProvincia(instructor.idProvincia)
+            setIdCanton(instructor.idCanton)
+            setIdParroquia(instructor.idParroquia)
             setGenero(instructor.genero)
+            setTipoSangre(instructor.tipoSangre)
+            setIdClub(instructor.idClub)
             
     
         }, [instructor])
@@ -205,6 +230,74 @@ const Instructor = () => {
                                     />
                                 </div>
                                 <div className='my-5'>
+                                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='idPais'>País</label>
+                                        <select id="idPais" className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black '
+                                            value={idPais}
+                                            onChange={(e) => setIdPais(e.target.value)}
+                                        >
+                                            
+                                            
+                                            <option value="" >--Seleccione--</option>
+                                             {
+                                                paises.map( pais => (
+                                                <option key={pais.idPais} value={pais.idPais}>{pais.pais}</option>
+                                                ))
+                                            }
+                                            
+                                        </select>
+                                    </div>
+                                    <div className='my-5'>
+                                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='idProvincia'>Provincia</label>
+                                        <select id="idProvincia" className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black '
+                                            value={idProvincia}
+                                            onChange={(e) => setIdProvincia(e.target.value)}
+                                        >
+                                            
+                                            
+                                            <option value="" >--Seleccione--</option>
+                                             {
+                                                provincias.map( provincia => (
+                                                <option key={provincia.idProvincia} value={provincia.idProvincia}>{provincia.provincia}</option>
+                                                ))
+                                            }
+                                            
+                                        </select>
+                                    </div>
+                                    <div className='my-5'>
+                                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='idCanton'>Canton</label>
+                                        <select id="idCanton" className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black '
+                                            value={idCanton}
+                                            onChange={(e) => setIdCanton(e.target.value)}
+                                        >
+                                            
+                                            
+                                            <option value="" >--Seleccione--</option>
+                                             {
+                                                cantones.map( canton => (
+                                                <option key={canton.idCanton} value={canton.idCanton}>{canton.canton}</option>
+                                                ))
+                                            }
+                                            
+                                        </select>
+                                    </div>
+                                    <div className='my-5'>
+                                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='idParroquia'>Parroquia</label>
+                                        <select id="idParroquia" className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black '
+                                            value={idParroquia}
+                                            onChange={(e) => setIdParroquia(e.target.value)}
+                                        >
+                                            <option value="" >--Seleccione--</option>
+                                             
+                                            {
+                                                parroquias.map( parroquia => (
+                                                <option key={parroquia.idParroquia} value={parroquia.idParroquia}>{parroquia.parroquia}</option>
+                                                ))
+                                            }
+                                            
+    
+                                        </select>
+                                    </div>
+                                <div className='my-5'>
                                     <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='direccion'>Dirección*</label>
                                     <input
                                         type='text'
@@ -241,6 +334,25 @@ const Instructor = () => {
                                     </select>
                                 </div>
                                 <div className='my-5'>
+                                        <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='tipoSangre'>Tipo de Sangre</label>
+                                        <select id="tipoSangre" className='w-full mt-3 p-3 border rounded-xl bg-gray-50 text-black '
+                                            value={tipoSangre}
+                                            onChange={(e) => setTipoSangre(e.target.value)}
+                                        >
+                                        
+                                            <option value="" >--Seleccione--</option>
+                                            <option value="AB+">AB+</option>
+                                            <option value="AB-">AB-</option>
+                                            <option value="A+">A+</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B-">B-</option>
+                                            <option value="O+">O+</option>
+                                            <option value="O-">O-</option>
+    
+                                        </select>
+                                    </div>
+                                <div className='my-5'>
                                     <label className='capitalize text-gray-600  text-xl font-bold' htmlFor='telefono'>Celular*</label>
                                     <input
                                         type='number'
@@ -257,6 +369,7 @@ const Instructor = () => {
                                         type='number'
                                         id='idClub'
                                         placeholder='Ingresa tu Club'
+                                
                                         className='capitalize w-full mt-3 p-3 border rounded-xl bg-gray-50'
                                         value={instructor.idClub}
                                         //onChange={e => setIdClub(e.target.value)}

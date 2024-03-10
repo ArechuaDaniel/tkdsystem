@@ -104,14 +104,9 @@ const RegistrarAsistencia = () => {
         }
         
             dispatch(startNewAsistencia({cedulaAlumno, fechaRegistro, idHorario}))
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "La asistencia se ha registrado con exito",
-                showConfirmButton: false,
-                timer: 1500
-              });
-            navigate('/tkdsystem/api/asistencias')  
+            
+            //navigate('/tkdsystem/api/asistencias')  
+            setCedulaAlumno('')
         } catch (error) {
             console.log(error);
         }

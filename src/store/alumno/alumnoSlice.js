@@ -5,6 +5,11 @@ export const alumnoSlice = createSlice({
     initialState: {
             isSaving : false,
 
+            paises: [],
+            provincias: [],
+            cantones: [],
+            parroquias: [],
+
             instructor: '',
 
             alumnos: [],
@@ -42,19 +47,6 @@ export const alumnoSlice = createSlice({
             
             state.alumnos = action.payload
 
-            // state.cedulaAlumno= payload.cedulaAlumno;
-            // state.primerApellido= payload.primerApellido;
-            // state.primerNombre= payload.primerNombre;
-            // state.cedulaAlumno= payload.cedulaAlumno;
-            // state.primerApellido= payload.primerApellido;
-            // state.segundoApellido = payload.segundoApellido;
-            // state.primerNombre= payload.primerNombre;
-            // state.segundoNombre= payload.segundoNombre;
-            // state.fechaNacimiento= payload.fechaNacimiento;
-            // state.direccion= payload.direccion;
-            // state.fechaIngreso= payload.fechaIngreso;
-            // state.telefono= payload.telefono;
-            // state.ocupacion= payload.ocupacion;
         },
         addAlumno: (state, {payload}) => {
             state.alumnos.push(payload)
@@ -253,9 +245,29 @@ export const alumnoSlice = createSlice({
                 //console.log(foundHorario);
             }
         },
+        setPaises: (state, action) => {
+            
+            state.paises = action.payload
+
+        },
+        setProvincias: (state, action) => {
+            
+            state.provincias = action.payload
+
+        },
+        setCantones: (state, action) => {
+            
+            state.cantones = action.payload
+
+        },
+        setParroquias: (state, action) => {
+            
+            state.parroquias = action.payload
+
+        },
 
     }
 });
 // Action creators are generated for each case reducer function
 export const {setInstructor, setAlumnos, addAlumno,setHorarios,setAlumno,eliminaAlumno,actualizarAlumno, setHorario, addHorario, actualizarHorario,eliminarHorario, setasistencias,
-setAsistencia, addAsistencia, actualizarAsistencia,setAsensos, addAsenso, setAsenso, setCinturones, setPagos, addPago, setPago, eliminaPago, eliminarAsistencia, eliminarAsenso} = alumnoSlice.actions;
+setAsistencia, addAsistencia, actualizarAsistencia,setAsensos, addAsenso, setAsenso, setCinturones, setPagos, addPago, setPago, eliminaPago, eliminarAsistencia, eliminarAsenso, setPaises,setProvincias,setCantones,setParroquias} = alumnoSlice.actions;

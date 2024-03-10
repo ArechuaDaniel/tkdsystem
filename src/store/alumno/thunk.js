@@ -1,5 +1,5 @@
 import axios from "axios";
-import { actualizarAlumno, actualizarAsistencia, actualizarHorario, addAlumno, addAsenso, addAsistencia, addHorario, addPago, eliminaAlumno, eliminaPago, eliminarAsenso, eliminarAsistencia, eliminarHorario, setAlumno, setAlumnos, setAsenso, setAsensos, setAsistencia, setCinturones, setHorario, setHorarios, setInstructor, setPago, setPagos, setasistencias} from "./alumnoSlice";
+import { actualizarAlumno, actualizarAsistencia, actualizarHorario, addAlumno, addAsenso, addAsistencia, addHorario, addPago, eliminaAlumno, eliminaPago, eliminarAsenso, eliminarAsistencia, eliminarHorario, setAlumno, setAlumnos, setAsenso, setAsensos, setAsistencia, setCantones, setCinturones, setHorario, setHorarios, setInstructor, setPago, setPagos, setPaises, setParroquias, setProvincias, setasistencias} from "./alumnoSlice";
 import Swal from "sweetalert2";
 import { NavLink, Navigate } from "react-router-dom";
 
@@ -600,6 +600,13 @@ export const startNewAsistencia= ({cedulaAlumno, fechaRegistro, idHorario}) => {
             const idAsistencia = data.id;
             //console.log(data.id);
             dispatch(addAsistencia({id:data.id,cedulaAlumno, fechaRegistro, idHorario}))
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "La asistencia se ha registrado con exito",
+                showConfirmButton: false,
+                timer: 1500
+              });
             
             //console.log(data);
             
@@ -1166,4 +1173,168 @@ export const deletePago = ({idPago}) => {
         });
     }
 }
+}
+
+export const startLoadingPaises = () => {
+
+    return async (dispatch, getState) => {
+
+
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        
+        try {
+            const { data } = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/ubicacion`, config)
+            console.log(data);
+            const paises = [];
+            
+            data.forEach(dato => {
+                paises.push({ id: dato.idPais, ...dato });
+            })
+            
+            dispatch(setPaises(paises))
+            //console.log(alumnos);
+            //return alumnos;
+
+
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
+        }
+    }
+}
+
+export const startLoadingProvincias = () => {
+
+    return async (dispatch, getState) => {
+
+
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        
+        try {
+            const { data } = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/ubicacion/provincia`, config)
+            //console.log(data);
+            const provincias = [];
+            
+            data.forEach(dato => {
+                provincias.push({ id: dato.idProvincia, ...dato });
+            })
+            
+            dispatch(setProvincias(provincias))
+            //console.log(alumnos);
+            //return alumnos;
+
+
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+            title: error.response.data.message,
+            //text: "That thing is still around?",
+            icon: "warning"
+            
+        });
+        }
+    }
+}
+
+export const startLoadingCantones = ({idProvincia}) => {
+
+    return async (dispatch, getState) => {
+
+
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        
+        try {
+            const { data } = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/ubicacion/canton/${idProvincia}`, config)
+            
+            const cantones = [];
+            
+            data.forEach(dato => {
+                cantones.push({ id: dato.idCanton, ...dato });
+            })
+            
+            dispatch(setCantones(cantones))
+            //console.log(alumnos);
+            //return alumnos;
+
+
+        } catch (error) {
+            console.log(error);
+            
+        
+        }
+    }
+}
+
+export const startLoadingParroquias = ({idCanton}) => {
+
+    return async (dispatch, getState) => {
+
+
+        const token = localStorage.getItem('token')
+
+        if (!token) {
+            return
+        }
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        
+        try {
+            const { data } = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/ubicacion/parroquia/${idCanton}`, config)
+            
+            const parroquias = [];
+            
+            data.forEach(dato => {
+                parroquias.push({ id: dato.idParroquia, ...dato });
+            })
+            
+            dispatch(setParroquias(parroquias))
+            
+
+
+        } catch (error) {
+            console.log(error);
+            
+            
+        
+        }
+    }
 }

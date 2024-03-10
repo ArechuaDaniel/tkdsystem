@@ -184,7 +184,8 @@ const Perfil = () => {
                                     <span className="align-middle mr-2 material-symbols-outlined">
                                         pin_drop
                                     </span>
-                                    Ecuador, Pichincha, Quito
+                                    {`${instructor.pais}, ${instructor.provincia}, ${instructor.canton}`}
+                                    
                                 </p>
                                 <p className=''>
                                     <span className="align-middle mr-2 material-symbols-outlined">
@@ -243,6 +244,18 @@ const Perfil = () => {
                                         Género:
                                         <span className='font-normal'>
                                             {` ${instructor.genero} `}
+                                        </span>
+                                    </p>
+                                    <p className='font-bold'>
+                                        Tipo de Sangre:
+                                        <span className='font-normal'>
+                                            {` ${instructor.tipoSangre} `}
+                                        </span>
+                                    </p>
+                                    <p className='font-bold capitalize'>
+                                        Dirección:
+                                        <span className='font-normal'>
+                                            {` ${instructor.direccion} `}
                                         </span>
                                     </p>
                                     <p className='font-bold'>

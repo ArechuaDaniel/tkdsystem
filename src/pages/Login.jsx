@@ -48,7 +48,7 @@ const Login = () => {
             localStorage.setItem('email', data.correo)
             localStorage.setItem('sesion', password)
 
-            //navigate('/tkdsystem/api/')
+            
             dispatch(startLogin({ correo, password }))
             Swal.fire({
                 position: "top-end",
@@ -89,7 +89,7 @@ const Login = () => {
                 <div
                     style={{ height: '575px' }}
                     className='rounded-xl bg-white shadow-2xl md:w-1/3'>
-                    <h1 className='text-sky-600 font-bold text-3xl  p-5 m-5'>Ingreso al Sistema </h1>
+                    <h1 className='text-sky-600 font-bold text-3xl  p-5 m-5 text-center'>Ingreso al Sistema de Instructores </h1>
                     
                     <form
                         onSubmit={handleSubmit}
