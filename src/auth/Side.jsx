@@ -58,14 +58,17 @@ const Side = () => {
 
                             <button className='bg-sky-600 hover:bg-sky-700 p-3 text-white rounded-xl font-bold flex justify-center items-center capitalize'>
                                 <span className="material-symbols-outlined align-middle mr-2">
-                                    edit
+                                    person
                                 </span>
-                                Ver información
+                                Ver Perfil
                             </button>
                         </NavLink>
                     </div>
                     <div className="flex justify-between items-center md:flex-row flex-col md:justify-center">
 
+                    
+                    </div>
+                    <div className="mt-10 flex justify-around items-center">
                     <div className="ml-10 ">
                         <h1 className='md:text-3xl text-2xl capitalize'>
                             <span className="material-symbols-outlined align-middle text-3xl mr-2">
@@ -73,12 +76,14 @@ const Side = () => {
                             </span>
                             Bienvenido  {auth.primerNombre}{' '}{auth.primerApellido}</h1>
                     </div>
-                    <div className="p-3">
-                            <div className="bg-gray-100 rounded-lg shadow-2xl ml-10 p-3 capitalize">
-                                <h3 className="md:text-3xl">Total Alumnos : <span className="font-bold">{alumnos.length}</span></h3>
-                            </div>
-                        </div>
+                        <NavLink 
+                            to='/tkdsystem/api/alumnos'
+                            className="bg-yellow-500  hover:bg-yellow-600 hover:font-bold text-white cursor-default rounded-lg shadow-2xl ml-10 p-6 ">
+                            <h3 className="md:text-3xl text-2xl flex flex-col items-center">Alumnos  <span className="font-bold  text-4xl">{alumnos.length}</span></h3>
+                        </NavLink>
+
                     </div>
+                    
 
 
                     {/* BUSCAR ALUMNOS */}
@@ -86,7 +91,7 @@ const Side = () => {
                         <div className="bg-gray-200 rounded-xl p-3  md:w-1/3 w-full flex justify-between ">
 
                             <input className=" bg-gray-200  uppercase w-full "
-                                value={search}
+                                //value={search}
                                 onChange={searcher}
                                 type="text"
                                 id="search"
@@ -109,7 +114,7 @@ const Side = () => {
                                     <th className=' w-48 text-left p-3' >Alumno</th>
                                     <th className=' w-32 text-left p-3' >Edad</th>
                                     <th className=' w-32 text-left p-3'>Estado</th>
-                                    <th className=' w-32 text-left p-3'>Acción</th>
+                                    
 
                                 </tr>
                             </thead>
@@ -122,10 +127,7 @@ const Side = () => {
                                             <td className=' text-left p-3 capitalize'>{alm.primerApellido + ' ' + alm.primerNombre}</td>
                                             <td className='  text-left p-3'>{edadFecha(alm.fechaNacimiento) + ' '}años</td>
                                             <td className='  text-left p-3 capitalize'>{alm.estado}</td>
-                                            <td className='  text-left p-3'><Link to={`/tkdsystem/api/editar-alumno/${alm.cedulaAlumno}`}
-                                                className="bg-sky-600 p-2 rounded-xl text-white uppercase font-bold hover:bg-sky-700 text-center"><span className="material-symbols-outlined text-center align-middle ">
-                                                    edit_square
-                                                </span></Link></td>
+                                            
                                         </tr>
                                     ))
                                 }

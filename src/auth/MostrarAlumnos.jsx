@@ -94,7 +94,7 @@ const MostrarAlumnos = () => {
                         <div className="bg-gray-200 rounded-xl p-3  md:w-1/3 w-full flex justify-between ">
                             
                             <input className=" bg-gray-200  uppercase w-full "
-                                value={search}
+                                //value={search}
                                 onChange={searcher}
                                 type="text"
                                 id="search"

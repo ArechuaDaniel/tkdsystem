@@ -89,7 +89,7 @@ export const startLoadingInstructor = () => {
         }
     }
 }
-export const updateInstructor = ({cedulaInstructor,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaRegistro,telefono,idClub,correo, genero }) => {
+export const updateInstructor = ({cedulaInstructor,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaRegistro,telefono,idClub,correo, genero, tipoSangre }) => {
 
     return async (dispatch, getState) => {
 
@@ -106,7 +106,7 @@ export const updateInstructor = ({cedulaInstructor,primerApellido,segundoApellid
         }
 
         try {
-            const { data } = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/instructor/${cedulaInstructor}`, { primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaRegistro,telefono,idClub,correo, genero}, config)
+            const { data } = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/instructor/${cedulaInstructor}`, { primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaRegistro,telefono,idClub,correo, genero, tipoSangre}, config)
             
         
             Swal.fire({

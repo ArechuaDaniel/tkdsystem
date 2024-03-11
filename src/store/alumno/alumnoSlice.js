@@ -194,7 +194,7 @@ export const alumnoSlice = createSlice({
             state.asensos = payload
         },
         addAsenso: (state, {payload}) => {
-            state.asistencias.push(payload)
+            state.asensos.push(payload)
         },
         setAsenso : (state, {payload}) => {
             state.editAsenso = payload
@@ -206,7 +206,7 @@ export const alumnoSlice = createSlice({
             
             //console.log(horarios);
             const foundAsenso = state.asensos.find(asenso => asenso.idAsenso === asensos.idAsenso)
-            console.log(foundAsenso);
+            //console.log(foundAsenso);
             //console.log(foundHorario);
             //console.log(horarios.idHorario);
             //console.log(idHorario);

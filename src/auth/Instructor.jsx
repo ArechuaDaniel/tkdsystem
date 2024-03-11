@@ -117,7 +117,7 @@ const Instructor = () => {
             e.preventDefault();
     
     
-            if ([correo, primerApellido, primerNombre, direccion, fechaRegistro, telefono, idClub, fechaNacimiento, genero].includes('')) {
+            if ([correo, primerApellido, primerNombre, direccion, fechaRegistro, telefono, idClub, fechaNacimiento, genero,tipoSangre].includes('')) {
                 Swal.fire({
                     title: "Todos los campos son obligatorios",
                     //text: "That thing is still around?",
@@ -129,7 +129,7 @@ const Instructor = () => {
             
             try {
     
-               dispatch(updateInstructor({cedulaInstructor,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaRegistro,telefono,idClub,correo, genero}))
+               dispatch(updateInstructor({cedulaInstructor,primerApellido,segundoApellido,primerNombre,segundoNombre,fechaNacimiento,direccion,fechaRegistro,telefono,idClub,correo, genero, tipoSangre}))
                navigate('/tkdsystem/api/perfil') 
             } catch (error) {
     

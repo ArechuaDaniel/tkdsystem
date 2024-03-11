@@ -23,9 +23,7 @@ const RegistrarAsenso = () => {
       const [search, setSearch] = useState("")
   
     
-    console.log(cedulaAlumno);
-    console.log(fechaAsenso);
-    console.log(idCinturon);
+  
 
       const fecha = new Date()
       const searcher = (e) => {
